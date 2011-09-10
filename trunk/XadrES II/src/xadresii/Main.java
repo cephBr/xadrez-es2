@@ -89,7 +89,7 @@ public class Main {
             }
         }
         janela.exit();**/
-
+        //teste
      InterfaceGrafica i = new InterfaceGrafica();
     }
 
