@@ -14,7 +14,7 @@ public class Casa {
     private Peca peca;
     private Boolean ocupada;
     private int x0, x1, y0, y1;
-    private int posX, posY;
+    private int posLinha, posColuna;
 
     public Boolean getOcupada() {
         return ocupada;
@@ -32,20 +32,20 @@ public class Casa {
         this.peca = peca;
     }
 
-    public int getPosX() {
-        return posX;
+    public int getPosLinha() {
+        return posLinha;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public void getPosLinha(int linha) {
+        this.posLinha = linha;
     }
 
-    public int getPosY() {
-        return posY;
+    public int getPosColuna() {
+        return posColuna;
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
+    public void setPosColuna(int posColuna) {
+        this.posColuna = posColuna;
     }
 
     public int getX0() {
