@@ -17,14 +17,14 @@ public class Bispo extends Peca {
 
     private static final String caminhoSprite = "imagens/rainha.png";
 
-    public Bispo(int linha, int coluna) {
-        super(linha, coluna);
+    public Bispo(int linha, int coluna, int posLinha, int posColuna) {
+        super(linha, coluna, posLinha, posColuna);
     }
 
     public void setImagemSprite() {
         sprite = new Sprite(caminhoSprite, Constantes.NUMERO_FRAMES_PECAS);
         sprite.setInitialFrame(0);
         sprite.setFinalFrame(1);
-        sprite.setPosition(InterfaceGrafica.getPosicaoColunaPorCasa(getLinha(), getColuna()), InterfaceGrafica.getPosicaoLinhaPorCasa(getColuna()));
+        sprite.setPosition(super.getPosColuna(), super.getPosLinha());
     }
 }
