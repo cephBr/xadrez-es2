@@ -25,11 +25,11 @@ public class Tabuleiro {
     public GameImage fundo;
 
     public int getPosX(int x, int y) {
-        return tabuleiro[x][y].posX;
+        return tabuleiro[x][y].getPosY();
     }
 
     public int getPosY(int x, int y) {
-        return tabuleiro[x][y].posX;
+        return tabuleiro[x][y].getPosX();
     }
 
     public Tabuleiro(int dim_X, int dim_Y, String caminhoFundo) {
@@ -40,22 +40,22 @@ public class Tabuleiro {
     }
 
     public void setPeça(Peca p) {
-        this.tabuleiro[p.getLinha()][p.getColuna()].peca = p;
-        this.tabuleiro[p.getLinha()][p.getColuna()].ocupada = true;
+        this.tabuleiro[p.getLinha()][p.getColuna()].setPeca(p);
+        this.tabuleiro[p.getLinha()][p.getColuna()].setOcupada(Boolean.TRUE);
     }
 
     public Boolean estaOcupado(int dim_X, int dim_Y) {
-        return tabuleiro[dim_Y][dim_X].ocupada;
+        return tabuleiro[dim_Y][dim_X].getOcupada();
     }
 
     public void ocupar(int dim_X, int dim_Y, Peca peca) throws Exception {
         if (!estaOcupado(dim_X, dim_Y)) {
             desocupar(peca.getColuna(), peca.getLinha());
-            this.tabuleiro[dim_Y][dim_X].ocupada = true;
-            this.tabuleiro[dim_Y][dim_X].peca = peca;
-            this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX - 26, tabuleiro[dim_Y][dim_X].posY - 72);
-            this.tabuleiro[dim_Y][dim_X].peca.setColuna(dim_Y);
-            this.tabuleiro[dim_Y][dim_X].peca.setLinha(dim_X);
+            this.tabuleiro[dim_Y][dim_X].setOcupada(Boolean.TRUE);
+            this.tabuleiro[dim_Y][dim_X].setPeca(peca);
+            this.tabuleiro[dim_Y][dim_X].getPeca().sprite.setPosition(tabuleiro[dim_Y][dim_X].getPosX() - 26, tabuleiro[dim_Y][dim_X].getPosY() - 72);
+            this.tabuleiro[dim_Y][dim_X].getPeca().setColuna(dim_Y);
+            this.tabuleiro[dim_Y][dim_X].getPeca().setLinha(dim_X);
 //            this.setUltimaPeca(tabuleiro[dim_Y][dim_X].peca);
         } else {
             throw new Exception();
@@ -63,8 +63,8 @@ public class Tabuleiro {
     }
 
     public void desocupar(int dim_X, int dim_Y) {
-        this.tabuleiro[dim_X][dim_Y].ocupada = false;
-        this.tabuleiro[dim_X][dim_Y].peca = null;
+        this.tabuleiro[dim_X][dim_Y].setOcupada(Boolean.FALSE);
+        this.tabuleiro[dim_X][dim_Y].setPeca(null);
     }
 
     ;
@@ -77,12 +77,12 @@ public class Tabuleiro {
                 for (int j = 0; j <= 7; j++) {
                     for (int i = 0; i <= 7; i++) {
                         st = new StringTokenizer(entrada.readLine(), ",");
-                        this.tabuleiro[j][i].x0 = Integer.parseInt(st.nextToken());
-                        this.tabuleiro[j][i].x1 = Integer.parseInt(st.nextToken());
-                        this.tabuleiro[j][i].y0 = Integer.parseInt(st.nextToken());
-                        this.tabuleiro[j][i].y1 = Integer.parseInt(st.nextToken());
-                        this.tabuleiro[j][i].posX = Integer.parseInt(st.nextToken());
-                        this.tabuleiro[j][i].posY = Integer.parseInt(st.nextToken());
+                        this.tabuleiro[j][i].setX0(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].setX1(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].setY0(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].setY1(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].setPosX(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].setPosY(Integer.parseInt(st.nextToken()));
                     }
                 }
             }
@@ -96,16 +96,16 @@ public class Tabuleiro {
         for (int j = 0; j <= 7; j++) {
             for (int i = 0; i <= 7; i++) {
                 Casa casa = new Casa();
-                casa.ocupada = false;
-                casa.peca = null;
+                casa.setOcupada(Boolean.FALSE);
+                casa.setPeca(null);
                 this.tabuleiro[i][j] = casa;
             }
         }
     }
 
     public Boolean clicouNaCasa(int x, int y, int posMouseX, int posMouseY) {
-        if ((posMouseX <= this.tabuleiro[y][x].x1 && posMouseX >= this.tabuleiro[y][x].x0)
-                && (posMouseY <= this.tabuleiro[y][x].y1 && posMouseY >= this.tabuleiro[y][x].y0)) {
+        if ((posMouseX <= this.tabuleiro[y][x].getX1() && posMouseX >= this.tabuleiro[y][x].getX0())
+                && (posMouseY <= this.tabuleiro[y][x].getY1() && posMouseY >= this.tabuleiro[y][x].getY0())) {
             return true;
         } else {
             return false;
@@ -120,8 +120,8 @@ public class Tabuleiro {
         Boolean encontrou = false;
         while (!encontrou && j <= 7) {
             while (!encontrou && i <= 7) {
-                if ((posX >= this.tabuleiro[j][i].x0) && (posX <= this.tabuleiro[j][i].x1)) {
-                    if ((posY >= this.tabuleiro[j][i].y0) && (posY <= this.tabuleiro[j][i].y1)) {
+                if ((posX >= this.tabuleiro[j][i].getX0()) && (posX <= this.tabuleiro[j][i].getX1())) {
+                    if ((posY >= this.tabuleiro[j][i].getY0()) && (posY <= this.tabuleiro[j][i].getY1())) {
                         encontrou = true;
                         resp.add(i);
                         resp.add(j);
@@ -163,6 +163,6 @@ public class Tabuleiro {
     }
 
     public Peca getPecaPorPosicao(int y, int x) {
-        return tabuleiro[x][y].peca;
+        return tabuleiro[x][y].getPeca();
     }
 }
