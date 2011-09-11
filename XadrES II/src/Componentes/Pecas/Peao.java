@@ -14,18 +14,17 @@ import Parametros.Constantes;
  * @author Uenes
  */
 public class Peao extends Peca {
-    
+
     private static final String caminhoSprite = "imagens/rainha.png";
-    
-    public Peao (int linha, int coluna) {
-        super(linha,coluna);
+
+    public Peao(int linha, int coluna) {
+        super(linha, coluna);
     }
-    
+
     public void setImagemSprite() {
-        sprite = new Sprite(caminhoSprite,Constantes.NUMERO_FRAMES_PECAS);
+        sprite = new Sprite(caminhoSprite, Constantes.NUMERO_FRAMES_PECAS);
         sprite.setInitialFrame(0);
         sprite.setFinalFrame(1);
-        sprite.setPosition(InterfaceGrafica.getPosicaoColunaPorCasa(getLinha(), getColuna()) , InterfaceGrafica.getPosicaoLinhaPorCasa(getColuna()));
+        sprite.setPosition(InterfaceGrafica.getPosicaoColunaPorCasa(getLinha(), getColuna()), InterfaceGrafica.getPosicaoLinhaPorCasa(getColuna()));
     }
-    
 }
