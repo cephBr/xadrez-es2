@@ -11,8 +11,72 @@ import Componentes.Peca;
  * @author Uenes
  */
 public class Casa {
-    Peca peca;
-    Boolean ocupada;
-    int x0, x1, y0, y1;
-    int posX, posY;
+    private Peca peca;
+    private Boolean ocupada;
+    private int x0, x1, y0, y1;
+    private int posX, posY;
+
+    public Boolean getOcupada() {
+        return ocupada;
+    }
+
+    public void setOcupada(Boolean ocupada) {
+        this.ocupada = ocupada;
+    }
+
+    public Peca getPeca() {
+        return peca;
+    }
+
+    public void setPeca(Peca peca) {
+        this.peca = peca;
+    }
+
+    public int getPosX() {
+        return posX;
+    }
+
+    public void setPosX(int posX) {
+        this.posX = posX;
+    }
+
+    public int getPosY() {
+        return posY;
+    }
+
+    public void setPosY(int posY) {
+        this.posY = posY;
+    }
+
+    public int getX0() {
+        return x0;
+    }
+
+    public void setX0(int x0) {
+        this.x0 = x0;
+    }
+
+    public int getX1() {
+        return x1;
+    }
+
+    public void setX1(int x1) {
+        this.x1 = x1;
+    }
+
+    public int getY0() {
+        return y0;
+    }
+
+    public void setY0(int y0) {
+        this.y0 = y0;
+    }
+
+    public int getY1() {
+        return y1;
+    }
+
+    public void setY1(int y1) {
+        this.y1 = y1;
+    }
 };
