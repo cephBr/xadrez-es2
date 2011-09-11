@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Componentes.Pecas;
+package Componentes;
 
 import Componentes.InterfaceGrafica;
 import Componentes.Peca;
@@ -13,11 +13,11 @@ import Parametros.Constantes;
  *
  * @author Uenes
  */
-public class Cavalo extends Peca {
+public class Bispo extends Peca {
 
     private static final String caminhoSprite = "imagens/rainha.png";
 
-    public Cavalo(int linha, int coluna, int posLinha, int posColuna) {
+    public Bispo(int linha, int coluna, int posLinha, int posColuna) {
         super(linha, coluna, posLinha, posColuna);
     }
 

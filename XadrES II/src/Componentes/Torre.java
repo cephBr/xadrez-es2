@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Componentes.Pecas;
+package Componentes;
 
 import Componentes.InterfaceGrafica;
 import Componentes.Peca;
@@ -13,11 +13,11 @@ import Parametros.Constantes;
  *
  * @author Uenes
  */
-public class Peao extends Peca {
+public class Torre extends Peca {
 
     private static final String caminhoSprite = "imagens/rainha.png";
 
-    public Peao(int linha, int coluna, int posLinha, int posColuna) {
+    public Torre(int linha, int coluna, int posLinha, int posColuna) {
         super(linha, coluna, posLinha, posColuna);
     }
 
@@ -26,5 +26,6 @@ public class Peao extends Peca {
         sprite.setInitialFrame(0);
         sprite.setFinalFrame(1);
         sprite.setPosition(super.getPosColuna(), super.getPosLinha());
+
     }
 }
