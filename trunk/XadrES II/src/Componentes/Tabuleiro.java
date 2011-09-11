@@ -5,6 +5,8 @@
 
 package Componentes;
 
+import Componentes.Peca;
+import Componentes.Casa;
 import JPlay.GameImage;
 
 import java.io.BufferedReader;
@@ -21,19 +23,8 @@ import java.util.StringTokenizer;
 public class Tabuleiro {
     private Casa[][] tabuleiro;
     public GameImage fundo;
-    public int ultimaPeça= 32;
 
-    public int retornaIdUltimaPeça(){
-        return ultimaPeça;
-    }
-
-   public class Casa{
-        Peça peca;
-        Boolean ocupada;
-        int x0,x1,y0,y1;
-        int posX,posY;
-    };
-
+    
     public int getPosX(int x, int y){
         return tabuleiro[x][y].posX;
     }
@@ -50,9 +41,9 @@ public class Tabuleiro {
         this.montarCasas();
     }
 
-    public void setPeça(int x,int y,Peça p){
-        this.tabuleiro[x][y].peca=p;
-        this.tabuleiro[x][y].ocupada=true;
+    public void setPeça(Peca p){
+        this.tabuleiro[p.getLinha()][p.getColuna()].peca=p;
+        this.tabuleiro[p.getLinha()][p.getColuna()].ocupada=true;
     }
 
 
@@ -62,15 +53,15 @@ public class Tabuleiro {
         return tabuleiro[dim_Y][dim_X].ocupada;
     }
 
-    public void ocupar(int dim_X,int dim_Y,Peça peca) throws Exception{
+    public void ocupar(int dim_X,int dim_Y,Peca peca) throws Exception{
         if(!estaOcupado(dim_X, dim_Y)){
-            desocupar(peca.getPosX(), peca.getPosY());
+            desocupar(peca.getColuna(), peca.getLinha());
             this.tabuleiro[dim_Y][dim_X].ocupada=true;
             this.tabuleiro[dim_Y][dim_X].peca=peca;
             this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-26, tabuleiro[dim_Y][dim_X].posY-72);
-            this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
-            this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
-            this.ultimaPeça=tabuleiro[dim_Y][dim_X].peca.getId();
+            this.tabuleiro[dim_Y][dim_X].peca.setColuna(dim_Y);
+            this.tabuleiro[dim_Y][dim_X].peca.setLinha(dim_X);
+//            this.setUltimaPeca(tabuleiro[dim_Y][dim_X].peca);
         }else throw new Exception();
     }
 
@@ -171,6 +162,10 @@ public class Tabuleiro {
            resp = -1;
        return resp;
 
+    }
+
+    public Peca getPecaPorPosicao(int y, int x) {
+        return tabuleiro[x][y].peca;
     }
 
 
