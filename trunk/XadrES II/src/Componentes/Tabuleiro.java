@@ -24,12 +24,12 @@ public class Tabuleiro {
     private Casa[][] tabuleiro;
     public GameImage fundo;
 
-    public int getPosX(int x, int y) {
-        return tabuleiro[x][y].getPosY();
+    public int getPosLinha(int linha, int coluna) {
+        return tabuleiro[linha][coluna].getPosColuna();
     }
 
-    public int getPosY(int x, int y) {
-        return tabuleiro[x][y].getPosX();
+    public int getPosColuna(int linha, int coluna) {
+        return tabuleiro[linha][coluna].getPosLinha();
     }
 
     public Tabuleiro(int dim_X, int dim_Y, String caminhoFundo) {
@@ -53,7 +53,7 @@ public class Tabuleiro {
             desocupar(peca.getColuna(), peca.getLinha());
             this.tabuleiro[dim_Y][dim_X].setOcupada(Boolean.TRUE);
             this.tabuleiro[dim_Y][dim_X].setPeca(peca);
-            this.tabuleiro[dim_Y][dim_X].getPeca().sprite.setPosition(tabuleiro[dim_Y][dim_X].getPosX() - 26, tabuleiro[dim_Y][dim_X].getPosY() - 72);
+            this.tabuleiro[dim_Y][dim_X].getPeca().sprite.setPosition(tabuleiro[dim_Y][dim_X].getPosLinha() - 26, tabuleiro[dim_Y][dim_X].getPosColuna() - 72);
             this.tabuleiro[dim_Y][dim_X].getPeca().setColuna(dim_Y);
             this.tabuleiro[dim_Y][dim_X].getPeca().setLinha(dim_X);
 //            this.setUltimaPeca(tabuleiro[dim_Y][dim_X].peca);
@@ -81,8 +81,8 @@ public class Tabuleiro {
                         this.tabuleiro[j][i].setX1(Integer.parseInt(st.nextToken()));
                         this.tabuleiro[j][i].setY0(Integer.parseInt(st.nextToken()));
                         this.tabuleiro[j][i].setY1(Integer.parseInt(st.nextToken()));
-                        this.tabuleiro[j][i].setPosX(Integer.parseInt(st.nextToken()));
-                        this.tabuleiro[j][i].setPosY(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].getPosLinha(Integer.parseInt(st.nextToken()));
+                        this.tabuleiro[j][i].setPosColuna(Integer.parseInt(st.nextToken()));
                     }
                 }
             }
