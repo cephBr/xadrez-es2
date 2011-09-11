@@ -6,7 +6,7 @@
 package xadresii;
 
 import Componentes.InterfaceGrafica;
-import Componentes.Peça;
+import Componentes.Peca;
 import Componentes.Tabuleiro;
 import JPlay.Keyboard;
 import JPlay.Mouse;

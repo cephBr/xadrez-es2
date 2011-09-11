@@ -26,8 +26,9 @@ public class Constantes {
     public static final int RAINHA_LARGURA=52;
     public static final int RAINHA_ALTURA=92;
     public static final String ERRO_SOM = "imagens/erro.wav";
+    public static final int NUMERO_FRAMES_PECAS = 2;
 
-
+    
     
 
 }
