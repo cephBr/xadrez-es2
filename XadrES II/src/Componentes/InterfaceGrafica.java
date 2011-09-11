@@ -50,82 +50,82 @@ public class InterfaceGrafica {
         tabuleiro = new Tabuleiro(8, 8, Constantes.TABULEIRO);
 
         // Peças Brancas
-        Torre torre = new Torre(0, 0);
+        Torre torre = new Torre(0, 0, tabuleiro.getPosLinha(0, 0), tabuleiro.getPosColuna(0, 0));
         torre.setImagemSprite();
         pecasBrancas.add(torre);
         tabuleiro.setPeça(torre);
 
-        Cavalo cavalo = new Cavalo(1, 0);
+        Cavalo cavalo = new Cavalo(1, 0, tabuleiro.getPosLinha(1, 0), tabuleiro.getPosColuna(1, 0));
         cavalo.setImagemSprite();
         pecasBrancas.add(cavalo);
         tabuleiro.setPeça(cavalo);
 
-        Bispo bispo = new Bispo(2, 0);
+        Bispo bispo = new Bispo(2, 0, tabuleiro.getPosLinha(2, 0), tabuleiro.getPosColuna(2, 0));
         bispo.setImagemSprite();
         pecasBrancas.add(bispo);
         tabuleiro.setPeça(bispo);
 
-        Rainha rainha = new Rainha(3, 0);
+        Rainha rainha = new Rainha(3, 0, tabuleiro.getPosLinha(3, 0), tabuleiro.getPosColuna(3, 0));
         rainha.setImagemSprite();
         pecasBrancas.add(rainha);
         tabuleiro.setPeça(rainha);
 
-        Rei rei = new Rei(4, 0);
+        Rei rei = new Rei(4, 0, tabuleiro.getPosLinha(4, 0), tabuleiro.getPosColuna(4, 0));
         rei.setImagemSprite();
         pecasBrancas.add(rei);
         tabuleiro.setPeça(rei);
 
-        Bispo bispo2 = new Bispo(5, 0);
+        Bispo bispo2 = new Bispo(5, 0, tabuleiro.getPosLinha(5, 0), tabuleiro.getPosColuna(5, 0));
         bispo2.setImagemSprite();
         pecasBrancas.add(bispo2);
         tabuleiro.setPeça(bispo2);
 
-        Cavalo cavalo2 = new Cavalo(6, 0);
+        Cavalo cavalo2 = new Cavalo(6, 0, tabuleiro.getPosLinha(6, 0), tabuleiro.getPosColuna(6, 0));
         cavalo2.setImagemSprite();
         pecasBrancas.add(cavalo2);
         tabuleiro.setPeça(cavalo2);
 
-        Torre torre2 = new Torre(7, 0);
+        Torre torre2 = new Torre(7, 0, tabuleiro.getPosLinha(7, 0), tabuleiro.getPosColuna(7, 0));
         torre2.setImagemSprite();
         pecasBrancas.add(torre2);
         tabuleiro.setPeça(torre2);
 
-        Peao peao1 = new Peao(0, 1);
+        Peao peao1 = new Peao(0, 1, tabuleiro.getPosLinha(0, 1), tabuleiro.getPosColuna(0, 1));
         peao1.setImagemSprite();
         pecasBrancas.add(peao1);
         tabuleiro.setPeça(peao1);
 
-        Peao peao2 = new Peao(1, 1);
+        Peao peao2 = new Peao(1, 1, tabuleiro.getPosLinha(1, 1), tabuleiro.getPosColuna(1, 1));
         peao2.setImagemSprite();
         pecasBrancas.add(peao2);
         tabuleiro.setPeça(peao2);
 
-        Peao peao3 = new Peao(2, 1);
+        Peao peao3 = new Peao(2, 1, tabuleiro.getPosLinha(2, 1), tabuleiro.getPosColuna(2, 1));
         peao3.setImagemSprite();
         pecasBrancas.add(peao3);
         tabuleiro.setPeça(peao3);
 
-        Peao peao4 = new Peao(3, 1);
+        Peao peao4 = new Peao(3, 1, tabuleiro.getPosLinha(3, 1), tabuleiro.getPosColuna(3, 1));
         peao4.setImagemSprite();
         pecasBrancas.add(peao4);
         tabuleiro.setPeça(peao4);
 
-        Peao peao5 = new Peao(4, 1);
+        Peao peao5 = new Peao(4, 1, tabuleiro.getPosLinha(4, 1), tabuleiro.getPosColuna(4, 1));
         peao5.setImagemSprite();
         pecasBrancas.add(peao5);
         tabuleiro.setPeça(peao5);
 
-        Peao peao6 = new Peao(5, 1);
+        Peao peao6 = new Peao(5, 1, tabuleiro.getPosLinha(5, 1), tabuleiro.getPosColuna(5, 1));
         peao6.setImagemSprite();
         pecasBrancas.add(peao6);
         tabuleiro.setPeça(peao6);
 
-        Peao peao7 = new Peao(6, 1);
+        Peao peao7 = new Peao(6, 1, tabuleiro.getPosLinha(6, 1), tabuleiro.getPosColuna(6, 1));
         peao7.setImagemSprite();
         pecasBrancas.add(peao7);
         tabuleiro.setPeça(peao7);
 
-        Peao peao8 = new Peao(7, 1);
+        Peao peao8 = new Peao(7, 1, tabuleiro.getPosLinha(7, 1), tabuleiro.getPosColuna(7, 1));
         peao8.setImagemSprite();
         pecasBrancas.add(peao8);
         tabuleiro.setPeça(peao8);
@@ -133,82 +133,82 @@ public class InterfaceGrafica {
         //----------------------------
         // Peças Pretas
         //----------------------------
-        peao1 = new Peao(0, 6);
+        peao1 = new Peao(0, 6, tabuleiro.getPosLinha(0, 6), tabuleiro.getPosColuna(0, 6));
         peao1.setImagemSprite();
         pecasPretas.add(peao1);
         tabuleiro.setPeça(peao1);
 
-        peao2 = new Peao(1, 6);
+        peao2 = new Peao(1, 6, tabuleiro.getPosLinha(1, 6), tabuleiro.getPosColuna(1, 6));
         peao2.setImagemSprite();
         pecasPretas.add(peao2);
         tabuleiro.setPeça(peao2);
 
-        peao3 = new Peao(2, 6);
+        peao3 = new Peao(2, 6, tabuleiro.getPosLinha(2, 6), tabuleiro.getPosColuna(2, 6));
         peao3.setImagemSprite();
         pecasPretas.add(peao3);
         tabuleiro.setPeça(peao3);
 
-        peao4 = new Peao(3, 6);
+        peao4 = new Peao(3, 6, tabuleiro.getPosLinha(3, 6), tabuleiro.getPosColuna(3, 6));
         peao4.setImagemSprite();
         pecasPretas.add(peao4);
         tabuleiro.setPeça(peao4);
 
-        peao5 = new Peao(4, 6);
+        peao5 = new Peao(4, 6, tabuleiro.getPosLinha(4, 6), tabuleiro.getPosColuna(4, 6));
         peao5.setImagemSprite();
         pecasPretas.add(peao5);
         tabuleiro.setPeça(peao5);
 
-        peao6 = new Peao(5, 6);
+        peao6 = new Peao(5, 6, tabuleiro.getPosLinha(5, 6), tabuleiro.getPosColuna(5, 6));
         peao6.setImagemSprite();
         pecasPretas.add(peao6);
         tabuleiro.setPeça(peao6);
 
-        peao7 = new Peao(6, 6);
+        peao7 = new Peao(6, 6, tabuleiro.getPosLinha(6, 6), tabuleiro.getPosColuna(6, 6));
         peao7.setImagemSprite();
         pecasPretas.add(peao7);
         tabuleiro.setPeça(peao7);
 
-        peao8 = new Peao(7, 6);
+        peao8 = new Peao(7, 6, tabuleiro.getPosLinha(7, 6), tabuleiro.getPosColuna(7, 6));
         peao8.setImagemSprite();
         pecasPretas.add(peao8);
         tabuleiro.setPeça(peao8);
 
-        torre = new Torre(0, 7);
+        torre = new Torre(0, 7, tabuleiro.getPosLinha(0, 7), tabuleiro.getPosColuna(0, 7));
         torre.setImagemSprite();
         pecasPretas.add(torre);
         tabuleiro.setPeça(torre);
 
-        cavalo = new Cavalo(1, 7);
+        cavalo = new Cavalo(1, 7, tabuleiro.getPosLinha(1, 7), tabuleiro.getPosColuna(1, 7));
         cavalo.setImagemSprite();
         pecasPretas.add(cavalo);
         tabuleiro.setPeça(cavalo);
 
-        bispo = new Bispo(2, 7);
+        bispo = new Bispo(2, 7, tabuleiro.getPosLinha(2, 7), tabuleiro.getPosColuna(2, 7));
         bispo.setImagemSprite();
         pecasPretas.add(bispo);
         tabuleiro.setPeça(bispo);
 
-        rainha = new Rainha(3, 7);
+        rainha = new Rainha(3, 7, tabuleiro.getPosLinha(3, 7), tabuleiro.getPosColuna(3, 7));
         rainha.setImagemSprite();
         pecasPretas.add(rainha);
         tabuleiro.setPeça(rainha);
 
-        rei = new Rei(4, 7);
+        rei = new Rei(4, 7, tabuleiro.getPosLinha(4, 7), tabuleiro.getPosColuna(4, 7));
         rei.setImagemSprite();
         pecasPretas.add(rei);
         tabuleiro.setPeça(rei);
 
-        bispo2 = new Bispo(5, 7);
+        bispo2 = new Bispo(5, 7, tabuleiro.getPosLinha(5, 7), tabuleiro.getPosColuna(5, 7));
         bispo2.setImagemSprite();
         pecasPretas.add(bispo2);
         tabuleiro.setPeça(bispo2);
 
-        cavalo2 = new Cavalo(6, 7);
+        cavalo2 = new Cavalo(6, 7, tabuleiro.getPosLinha(6, 7), tabuleiro.getPosColuna(6, 7));
         cavalo2.setImagemSprite();
         pecasPretas.add(cavalo2);
         tabuleiro.setPeça(cavalo2);
 
-        torre2 = new Torre(7, 7);
+        torre2 = new Torre(7, 7, tabuleiro.getPosLinha(7, 7), tabuleiro.getPosColuna(7, 7));
         torre2.setImagemSprite();
         pecasPretas.add(torre2);
         tabuleiro.setPeça(torre2);
@@ -282,217 +282,5 @@ public class InterfaceGrafica {
         janela.exit();
     }
 
-    public static final int getPosicaoLinhaPorCasa(Integer linha) {
-        if (linha == 0) {
-            return 41;
-        }
-        if (linha == 1) {
-            return 86;
-        }
-        if (linha == 2) {
-            return 138;
-        }
-        if (linha == 3) {
-            return 183;
-        }
-        if (linha == 4) {
-            return 238;
-        }
-        if (linha == 5) {
-            return 285;
-        }
-        if (linha == 6) {
-            return 340;
-        }
-        if (linha == 7) {
-            return 399;
-        }
-        return -1;
-    }
 
-    public static final int getPosicaoColunaPorCasa(Integer coluna, Integer linha) {
-        if (linha == 0) {
-            if (coluna == 0) {
-                return 93;
-            }
-            if (coluna == 1) {
-                return 147;
-            }
-            if (coluna == 2) {
-                return 203;
-            }
-            if (coluna == 3) {
-                return 258;
-            }
-            if (coluna == 4) {
-                return 313;
-            }
-            if (coluna == 5) {
-                return 368;
-            }
-            if (coluna == 6) {
-                return 423;
-            }
-            if (coluna == 7) {
-                return 478;
-            }
-        }
-        if (linha == 1) {
-            if (coluna == 0) {
-                return 89;
-            }
-            if (coluna == 1) {
-                return 144;
-            }
-            if (coluna == 2) {
-                return 199;
-            }
-            if (coluna == 3) {
-                return 254;
-            }
-            if (coluna == 4) {
-                return 309;
-            }
-            if (coluna == 5) {
-                return 364;
-            }
-            if (coluna == 6) {
-                return 419;
-            }
-            if (coluna == 7) {
-                return 474;
-            }
-        }
-        if (linha == 2 || linha == 3) {
-            if (coluna == 0) {
-                return 85;
-            }
-            if (coluna == 1) {
-                return 144;
-            }
-            if (coluna == 2) {
-                return 199;
-            }
-            if (coluna == 3) {
-                return 254;
-            }
-            if (coluna == 4) {
-                return 315;
-            }
-            if (coluna == 5) {
-                return 373;
-            }
-            if (coluna == 6) {
-                return 430;
-            }
-            if (coluna == 7) {
-                return 485;
-            }
-        }
-        if (linha == 4) {
-            if (coluna == 0) {
-                return 85;
-            }
-            if (coluna == 1) {
-                return 144;
-            }
-            if (coluna == 2) {
-                return 199;
-            }
-            if (coluna == 3) {
-                return 258;
-            }
-            if (coluna == 4) {
-                return 324;
-            }
-            if (coluna == 5) {
-                return 376;
-            }
-            if (coluna == 6) {
-                return 435;
-            }
-            if (coluna == 7) {
-                return 495;
-            }
-        }
-        if (linha == 5) {
-            if (coluna == 0) {
-                return 80;
-            }
-            if (coluna == 1) {
-                return 138;
-            }
-            if (coluna == 2) {
-                return 194;
-            }
-            if (coluna == 3) {
-                return 254;
-            }
-            if (coluna == 4) {
-                return 318;
-            }
-            if (coluna == 5) {
-                return 374;
-            }
-            if (coluna == 6) {
-                return 434;
-            }
-            if (coluna == 7) {
-                return 495;
-            }
-        }
-        if (linha == 6) {
-            if (coluna == 0) {
-                return 73;
-            }
-            if (coluna == 1) {
-                return 133;
-            }
-            if (coluna == 2) {
-                return 194;
-            }
-            if (coluna == 3) {
-                return 255;
-            }
-            if (coluna == 4) {
-                return 316;
-            }
-            if (coluna == 5) {
-                return 378;
-            }
-            if (coluna == 6) {
-                return 438;
-            }
-            if (coluna == 7) {
-                return 500;
-            }
-        }
-        if (linha == 7) {
-            if (coluna == 0) {
-                return 68;
-            }
-            if (coluna == 1) {
-                return 131;
-            }
-            if (coluna == 2) {
-                return 194;
-            }
-            if (coluna == 3) {
-                return 255;
-            }
-            if (coluna == 4) {
-                return 316;
-            }
-            if (coluna == 5) {
-                return 378;
-            }
-            if (coluna == 6) {
-                return 438;
-            }
-            if (coluna == 7) {
-                return 500;
-            }
-        }
-        return -1;
-    }
 }

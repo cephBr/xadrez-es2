@@ -19,13 +19,15 @@ public class Peca {
     public Sprite sprite;
     private Boolean ativa;
     public Boolean selecionada;
-    private int coluna,linha;
+    private int coluna, linha, posLinha, posColuna;
 
-    public Peca(int linha, int coluna) {
+    public Peca(int linha, int coluna, int posLinha, int posColuna) {
         this.ativa = true;
         this.selecionada=false;
         this.coluna= coluna;
         this.linha= linha;
+        this.posLinha = posLinha;
+        this.posColuna = posColuna;
     }
 
     public void desativarPeca() {
@@ -89,4 +91,19 @@ public class Peca {
         this.linha = linha;
     }
 
+    public int getPosColuna() {
+        return posColuna;
+    }
+
+    public void setPosColuna(int posColuna) {
+        this.posColuna = posColuna;
+    }
+
+    public int getPosLinha() {
+        return posLinha;
+    }
+
+    public void setPosLinha(int posLinha) {
+        this.posLinha = posLinha;
+    }
 }
