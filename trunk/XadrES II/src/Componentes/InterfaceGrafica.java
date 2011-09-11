@@ -4,12 +4,6 @@
  */
 package Componentes;
 
-import Componentes.Pecas.Bispo;
-import Componentes.Pecas.Cavalo;
-import Componentes.Pecas.Peao;
-import Componentes.Pecas.Rainha;
-import Componentes.Pecas.Rei;
-import Componentes.Pecas.Torre;
 import JPlay.Keyboard;
 import JPlay.Mouse;
 import JPlay.Sound;
