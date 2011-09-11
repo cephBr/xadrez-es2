@@ -236,7 +236,7 @@ public class InterfaceGrafica {
         }
     }
 
-    public void atualiazações() {
+    public void atualizações() {
         try {
             if (mouse.isLeftButtonPressed() == true) {
                 for (Peca p : pecasBrancas) {
@@ -274,7 +274,7 @@ public class InterfaceGrafica {
         while (executando) {// ultima peça é null
             desenhar();
             janela.display();
-            atualiazações();
+            atualizações();
         }
     }
 
