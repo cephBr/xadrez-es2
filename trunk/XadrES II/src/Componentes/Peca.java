@@ -12,6 +12,8 @@ import Parametros.Constantes;
  *
  * @author Ceph
  */
+
+//loubake viado
 public class Peca {
 
     private int id;
