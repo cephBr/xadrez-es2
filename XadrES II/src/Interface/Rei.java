@@ -12,10 +12,12 @@ import Parametros.Constantes;
 **/ 
 public class Rei extends Peca {
 
-    private static final String caminhoSprite = "imagens/rainha.png";
+    
 
-    public Rei(int linha, int coluna, int posLinha, int posColuna,int id,String apelido) {
-        super(id,apelido,caminhoSprite,Constantes.NUMERO_FRAMES_PECAS,linha,coluna);
-        super.sprite.setPosition(posLinha-26, posColuna-72);
+    public Rei(int linha, int coluna, int posLinha, int posColuna,int id,String cor,String caminhoSprite) {
+        super(id,cor,caminhoSprite,Constantes.NUMERO_FRAMES_PECAS,linha,coluna);
+        super.comp_X=29;
+        super.comp_Y=71;
+        super.sprite.setPosition(posLinha-super.comp_X, posColuna-super.comp_Y);
     }
 }
