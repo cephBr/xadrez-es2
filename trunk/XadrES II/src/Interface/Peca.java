@@ -14,27 +14,36 @@ import JPlay.Sprite;
 public class Peca {
 
     private int id;
-    private String apelido;
+    private String cor;
     public  Sprite sprite;
     private Boolean ativa;
     public Boolean selecionada;
+    public Boolean foiMexida;
     private int posX,posY;
+    public int comp_X;
+    public int comp_Y;
 
 
-
-    public Peca(int id, String apelido, String caminhoSprite, int numeroFrames, int i,int j) {
+    public Peca(int id, String cor, String caminhoSprite, int numeroFrames, int i,int j) {
         this.id = id;
-        this.apelido = apelido;
+        this.cor = cor;
         this.sprite = new Sprite(caminhoSprite,numeroFrames);
         this.sprite.setInitialFrame(0);
         this.sprite.setFinalFrame(1);
-        //this.sprite.setPosition(posIniX-26, posIniY-72);
+        this.foiMexida=false;
         this.ativa = true;
         this.selecionada=false;
         posX=j;
         posY=i;
     }
 
+    public String retornaCor(){
+        return this.cor;
+    }
+    
+    public Boolean foiMexida(){
+        return this.foiMexida;
+    }
     
     public int getPosX() {
         return posX;
@@ -57,7 +66,7 @@ public class Peca {
     }
 
     public String getApelido() {
-        return apelido;
+        return cor;
     }
 
     public int getId() {

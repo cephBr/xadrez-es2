@@ -63,13 +63,16 @@ public class Tabuleiro {
             this.desocupar(peca.getPosX(), peca.getPosY());
             this.tabuleiro[dim_Y][dim_X].ocupada=true;
             this.tabuleiro[dim_Y][dim_X].peca=peca;
-            this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-26, tabuleiro[dim_Y][dim_X].posY-72);
+            this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
             this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
             this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
             this.ultimaPeça=tabuleiro[dim_Y][dim_X].peca.getId();
+            this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
         }else throw new Exception();
     }
-
+    
+    
+    
     public void desocupar(int dim_X,int dim_Y){
         this.tabuleiro[dim_X][dim_Y].ocupada=false;
         this.tabuleiro[dim_X][dim_Y].peca=null;
