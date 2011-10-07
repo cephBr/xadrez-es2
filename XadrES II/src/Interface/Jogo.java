@@ -8,7 +8,6 @@ package Interface;
 import JPlay.Keyboard;
 import JPlay.Mouse;
 import JPlay.Sound;
-import JPlay.Window;
 import Parametros.Constantes;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,27 +18,71 @@ import javax.swing.JOptionPane;
  *
  * @author Ceph
  */
-public class InterfaceGrafica {
+public class Jogo implements InterfaceTela{
         Tabuleiro tabuleiro;
         List<Peca> pecas = new ArrayList<Peca>();
         
-        Window janela;
+        //Window janela;
         Keyboard keyboard;
         Mouse mouse;
         boolean executando;
         boolean temPecaSelecionada;
 
-    public InterfaceGrafica(){
-        carregaDados();
-        loop();
-        encerrarJogo();
+    
+    
+   
+
+    private void monitorPeca(Peca p) throws Exception{
+     
+                
+                if(p.estaSelecionada()){
+                    if (!mouse.isOverObject(p.sprite)) {
+                        tabuleiro.ocupar(tabuleiro.coordenadaX(mouse.getPosition().x, mouse.getPosition().y),tabuleiro.coordenadaY(mouse.getPosition().x, mouse.getPosition().y), p);
+                        temPecaSelecionada=false;
+                        p.sprite.reset();
+                    }
+                }
+
+               if(mouse.isOverObject(p.sprite)){
+                    if(!p.estaSelecionada()&&!temPecaSelecionada) {
+                            p.selecionar();
+                            temPecaSelecionada=true;
+                    }else{
+                            p.selecionada=false;
+                            temPecaSelecionada=false;
+                            p.sprite.reset();
+                        }
+               }
+               
+           }
+       
+
+    
+    
+    public void desenhar(){
+        tabuleiro.fundo.draw();
+        Peca peca;
+        for (int j = 0; j <= 7; j++) {
+            for(int i = 0; i<=7; i++){
+                peca = tabuleiro.retornaPeca(j, i);
+                if(peca!=null)
+                   peca.sprite.draw();
+            }
+            
+        }
     }
-     private void carregaDados(){
+
+    
+    
+   
+
+    public void carregar() {
+        
          temPecaSelecionada = false;
-         janela = new Window(Constantes.DIM_TABULEIRO_HORIZONTAL,Constantes.DIM_TABULEIRO_VERTICAL);
-         keyboard = janela.getKeyboard();
+         //janela = new Window(Constantes.DIM_TABULEIRO_HORIZONTAL,Constantes.DIM_TABULEIRO_VERTICAL);
+         keyboard = Motor.getInstancia().getJanela().getKeyboard();
          keyboard.setBehavior(Keyboard.ESCAPE_KEY, Keyboard. DETECT_INITIAL_PRESS_ONLY);
-         mouse = janela.getMouse();
+         mouse = Motor.getInstancia().getJanela().getMouse();
          tabuleiro = new Tabuleiro(8,8,Constantes.TABULEIRO);
          
          pecas.add(new Torre(0,0,119,113,1,"preto",Constantes.TORRE_PRETO));
@@ -110,36 +153,14 @@ public class InterfaceGrafica {
          tabuleiro.setPeça(7,7,pecas.get(31));
          
          executando = true;
-   }
-   
+    }
 
-    private void monitorPeca(Peca p) throws Exception{
-     
-                
-                if(p.estaSelecionada()){
-                    if (!mouse.isOverObject(p.sprite)) {
-                        tabuleiro.ocupar(tabuleiro.coordenadaX(mouse.getPosition().x, mouse.getPosition().y),tabuleiro.coordenadaY(mouse.getPosition().x, mouse.getPosition().y), p);
-                        temPecaSelecionada=false;
-                        p.sprite.reset();
-                    }
-                }
+    public void descarregar() {
+          tabuleiro=null;        
+    }
 
-               if(mouse.isOverObject(p.sprite)){
-                    if(!p.estaSelecionada()&&!temPecaSelecionada) {
-                            p.selecionar();
-                            temPecaSelecionada=true;
-                    }else{
-                            p.selecionada=false;
-                            temPecaSelecionada=false;
-                            p.sprite.reset();
-                        }
-               }
-               
-           }
-       
-
-    public void atualiazacoes(){
-          try {
+    public void logica() {
+        try {
             if (mouse.isLeftButtonPressed()==true) {
                 for (Iterator<Peca> it = pecas.iterator(); it.hasNext();) {
                     Peca peca = it.next();
@@ -151,39 +172,13 @@ public class InterfaceGrafica {
             new Sound(Constantes.ERRO_SOM).play();
               System.out.println("JOGADA ILEGAL");
         }
-          if ( keyboard.keyDown(Keyboard.ESCAPE_KEY) == true){
-             int op = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Sair", JOptionPane.OK_CANCEL_OPTION);
-             if (op == JOptionPane.OK_OPTION)
-                 executando = false;
-          }
-    }
-    
-    public void desenhar(){
-        tabuleiro.fundo.draw();
-        Peca peca;
-        for (int j = 0; j <= 7; j++) {
-            for(int i = 0; i<=7; i++){
-                peca = tabuleiro.retornaPeca(j, i);
-                if(peca!=null)
-                   peca.sprite.draw();
-            }
-            
-        }
+          
     }
 
-    
-    
-    private void loop(){
-        while(executando)
-        {
-             desenhar();
-             janela.display();
-             atualiazacoes();
+    public void proxTela() {
+        if (mouse.isRightButtonPressed() && mouse.isOverArea(0, 0, 0, 0)) {
+            Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
         }
-    }
-
-    private void encerrarJogo(){
-      janela.exit();
     }
 }
    

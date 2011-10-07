@@ -26,6 +26,10 @@ public class Constantes {
     public static final String TORRE_PRETO = "imagens/Torre_Preto.png";
     public static final String PEAO_PRETO = "imagens/Peao_Preto.png";
     public static final String BISPO_PRETO = "imagens/Bispo_Preto.png";
+    public static final String MENU_PRINCIPAL="imagens/Menu_Principal.jpg";
+    public static final String BOTAO_JOGAR="imagens/Jogar.png";
+    public static final String BOTAO_SAIR="imagens/Sair.png";
     public static final int NUMERO_FRAMES_PECAS=2;
-
+    public static final int TELA_INICIAL=0;
+    public static final int TELA_JOGO=1;
 }

@@ -4,15 +4,10 @@
  */
 package xadresii;
 
-import Interface.InterfaceGrafica;
-import Interface.Peca;
-import Interface.Tabuleiro;
-import JPlay.Keyboard;
-import JPlay.Mouse;
-import JPlay.Sound;
+import Interface.Jogo;
+import Interface.MenuPrincipal;
+import Interface.Motor;
 import Parametros.Constantes;
-import JPlay.Window;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +20,11 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        InterfaceGrafica i = new InterfaceGrafica();
+        Motor motor = new Motor();
+        motor.criarJanela(Constantes.DIM_TABULEIRO_HORIZONTAL, Constantes.DIM_TABULEIRO_VERTICAL);
+        motor.addTela(Constantes.TELA_INICIAL, new MenuPrincipal());
+        motor.setTelaInicial(Constantes.TELA_INICIAL);
+        motor.addTela(Constantes.TELA_JOGO, new Jogo());
+        motor.rodar();
     }
 }
