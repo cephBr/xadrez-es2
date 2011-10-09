@@ -15,14 +15,17 @@ import java.awt.Font;
  *
  * @author Ceph
  */
-public class MenuPrincipal implements InterfaceTela {
-    GameImage fundo = new GameImage(Constantes.MENU_PRINCIPAL);
+public class TelaMenuPrincipal implements InterfaceTela {
+    GameImage fundo;
     Font fonte;
     Keyboard keyboard;
     Mouse mouse;
     Sprite botaoJogar;
     Sprite botaoSair;
+    Sprite botaoAjuda;
+    
     public void carregar() {
+       fundo =  new GameImage(Constantes.MENU_PRINCIPAL); 
        keyboard = Motor.getInstancia().getJanela().getKeyboard();
        mouse = Motor.getInstancia().getJanela().getMouse();
        botaoJogar = new Sprite(Constantes.BOTAO_JOGAR,2);
@@ -33,6 +36,11 @@ public class MenuPrincipal implements InterfaceTela {
        botaoSair.setPosition(250, 500);
        botaoSair.setInitialFrame(0);
        botaoSair.setFinalFrame(1);
+       botaoAjuda=new Sprite(Constantes.BOTAO_AJUDA,2);
+       botaoAjuda.setPosition(250, 450);
+       botaoAjuda.setInitialFrame(0);
+       botaoAjuda.setFinalFrame(1);
+       
     }
 
     public void descarregar() {
@@ -51,6 +59,12 @@ public class MenuPrincipal implements InterfaceTela {
         }else
             botaoSair.setCurrFrame(0);
         
+        if (mouse.isOverObject(botaoAjuda)) {
+            botaoAjuda.setCurrFrame(1);
+            
+        }else
+            botaoAjuda.setCurrFrame(0);
+        
         
     }
 
@@ -58,13 +72,21 @@ public class MenuPrincipal implements InterfaceTela {
         fundo.draw();
         botaoJogar.draw(); 
         botaoSair.draw();
+        botaoAjuda.draw();
         
     }
 
     public void proxTela() {
-        if (mouse.isLeftButtonPressed() && mouse.isOverObject(botaoJogar)) {
-            Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
-        }
+        if (mouse.isLeftButtonPressed()) {
+            if(mouse.isOverObject(botaoJogar))
+                Motor.getInstancia().setProxTela(Constantes.TELA_JOGAR);
+            else 
+                if(mouse.isOverObject(botaoAjuda))
+                    Motor.getInstancia().setProxTela(Constantes.TELA_AJUDA);
+                else
+                    if(mouse.isOverObject(botaoSair))
+                        Motor.getInstancia().sair();
+         }
         
     }
     

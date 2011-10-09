@@ -9,6 +9,7 @@ import JPlay.Mouse;
 import JPlay.Window;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  * Classe responsável pela execução da Tela do jogo.
@@ -67,6 +68,7 @@ public class Motor {
     public void criarJanela(int largura, int altura){
         janela = new Window(largura, altura);
     }
+    
     
     
     /**
@@ -146,7 +148,7 @@ public class Motor {
             telaCorrente.logica();            
             telaCorrente.desenhar();
             janela.display();
-            if(proxTela != null)
+           if(proxTela != null)
             {
                 telaCorrente.descarregar();
                 proxTela.carregar();

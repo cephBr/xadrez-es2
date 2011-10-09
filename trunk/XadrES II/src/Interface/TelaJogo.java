@@ -12,13 +12,12 @@ import Parametros.Constantes;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Ceph
  */
-public class Jogo implements InterfaceTela{
+public class TelaJogo implements InterfaceTela{
         Tabuleiro tabuleiro;
         List<Peca> pecas = new ArrayList<Peca>();
         
@@ -156,7 +155,8 @@ public class Jogo implements InterfaceTela{
     }
 
     public void descarregar() {
-          tabuleiro=null;        
+          this.tabuleiro.fundo=null;        
+          this.pecas=null;
     }
 
     public void logica() {
@@ -170,7 +170,7 @@ public class Jogo implements InterfaceTela{
             }
         }catch (Exception e){
             new Sound(Constantes.ERRO_SOM).play();
-              System.out.println("JOGADA ILEGAL");
+              System.out.println(e.getMessage());
         }
           
     }
