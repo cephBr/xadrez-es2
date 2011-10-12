@@ -7,6 +7,8 @@ package Interface;
 
 import JPlay.GameImage;
 
+import MaquinaRegras.Movimentacao;
+import MaquinaRegras.Posicao;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,24 +24,14 @@ public class Tabuleiro {
     private Casa[][] tabuleiro;
     public GameImage fundo;
     public int ultimaPeça= 32;
-
+    
+    Movimentacao mov = new Movimentacao();
+    
     public int retornaIdUltimaPeça(){
         return ultimaPeça;
     }
 
-   public class Casa{
-        Peca peca;
-        Boolean ocupada;
-        int x0,x1,y0,y1;
-        int posX,posY;
-        int prioridadeDesenho;
-    };
-
-    
-    
-     
-
-    public Tabuleiro(int dim_X,int dim_Y,String caminhoFundo) {
+       public Tabuleiro(int dim_X,int dim_Y,String caminhoFundo) {
         this.tabuleiro = new Casa[dim_X][dim_Y];
         this.fundo = new GameImage(caminhoFundo);
         this.inicializarTabuleiro();
@@ -59,7 +51,13 @@ public class Tabuleiro {
     }
 
     public void ocupar(int dim_X,int dim_Y,Peca peca) throws Exception{
-        if(!estaOcupado(dim_X, dim_Y)){
+        
+        List<Posicao> resposta;
+        
+        resposta = mov.posicoesValidas(tabuleiro, peca);
+        Posicao pos = new Posicao(dim_Y,dim_X);
+               
+        if(mov.contemNaLista(pos, resposta)){
             this.desocupar(peca.getPosX(), peca.getPosY());
             this.tabuleiro[dim_Y][dim_X].ocupada=true;
             this.tabuleiro[dim_Y][dim_X].peca=peca;
