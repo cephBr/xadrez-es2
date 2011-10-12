@@ -14,7 +14,7 @@ import JPlay.Sprite;
 public class Peca {
 
     private int id;
-    private String cor;
+    public  String cor;
     public  Sprite sprite;
     private Boolean ativa;
     public Boolean selecionada;
