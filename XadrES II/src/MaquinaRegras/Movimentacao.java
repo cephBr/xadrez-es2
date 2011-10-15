@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class Movimentacao {
     
-    //Tabuleiro tab;
-      
     public int retornaTipoPeca(int id){
         return id%6;
     }
@@ -33,20 +31,6 @@ public class Movimentacao {
         }
         
         return contem;
-    }
-    
-    // REMOVE DA LISTA OS ELEMENTOS QUE CONTEM //
-    // POSICOES NEGATIVAS OU MAIOR QUE SETE //
-    public void removeDaLista (List<Posicao> lista){
-                
-        for (Posicao p:lista) {
-            if (p.posX < 0 || p.posX > 7) {
-                lista.remove(p);
-            }
-            if (p.posY < 0 || p.posY > 7) {
-                lista.remove(p);
-            }
-        }
     }
     
     public List posicoesValidasPeao(Casa[][] tab, Peca p){
@@ -120,9 +104,6 @@ public class Movimentacao {
         
         // FAZER MOVIMENTACAO ESPECIAL DO PEAO... //
         
-        //Boolean vv = tab.getOcupado(p.getPosX()-1,p.getPosY()-1);
-        //removeDaLista(resposta);
-                  
         return resposta;
     }
     
@@ -388,155 +369,17 @@ public class Movimentacao {
     
     public List posicoesValidasDama(Casa[][] tab, Peca p){
         List<Posicao> resposta = new ArrayList<Posicao>();
+        List<Posicao> resposta1, resposta2;
         
-        for (int i = p.getPosX()+1; i <= 7; i++) {
-            if (tab[i][p.getPosY()].ocupada) {
-                if (!tab[i][p.getPosY()].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(i,p.getPosY()));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else { 
-                if (i != p.getPosX()) {
-                    resposta.add(new Posicao(i,p.getPosY()));
-                }
-            }
+        resposta1 = posicoesValidasTorre(tab, p);
+        resposta2 = posicoesValidasBispo(tab, p);
+        
+        for (Posicao pos:resposta1) {
+            resposta.add(pos);
         }
         
-        for (int i = p.getPosX()-1; i >= 0; i--) {
-            if (tab[i][p.getPosY()].ocupada) {
-                if (!tab[i][p.getPosY()].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(i,p.getPosY()));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else { 
-                if (i != p.getPosX()) {
-                    resposta.add(new Posicao(i,p.getPosY()));
-                }
-            }
-        }
-        
-        for (int i = p.getPosY()+1; i <= 7; i++) {
-            if (tab[p.getPosX()][i].ocupada) {
-                if (!tab[p.getPosX()][i].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(p.getPosX(),i));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                if (i != p.getPosY()) {
-                    resposta.add(new Posicao(p.getPosX(),i));
-                }
-            }
-        }
-        
-        for (int i = p.getPosY()-1; i >= 0; i--) {
-            if (tab[p.getPosX()][i].ocupada) {
-                if (!tab[p.getPosX()][i].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(p.getPosX(),i));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                if (i != p.getPosY()) {
-                    resposta.add(new Posicao(p.getPosX(),i));
-                }
-            }
-        }
-        
-        int i,j;
-        
-        i = p.getPosX()+1;
-        j = p.getPosY()+1;
-        while (i <= 7 && j <= 7) {
-            if (tab[i][j].ocupada) {
-                if (!tab[i][j].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(i,j));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else { 
-                resposta.add(new Posicao(i,j));
-            }
-            
-            i++;
-            j++;
-        }
-        
-        i = p.getPosX()-1;
-        j = p.getPosY()-1;
-        while (i >= 0 && j >= 0) {
-            if (tab[i][j].ocupada) {
-                if (!tab[i][j].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(i,j));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else { 
-                resposta.add(new Posicao(i,j));
-            }
-            
-            i--;
-            j--;
-        }
-        
-        i = p.getPosX()+1;
-        j = p.getPosY()-1;
-        while (i <= 7 && j >= 0) {
-            if (tab[i][j].ocupada) {
-                if (!tab[i][j].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(i,j));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                resposta.add(new Posicao(i,j));
-            }
-            
-            i++;
-            j--;
-        }
-        
-        i = p.getPosX()-1;
-        j = p.getPosY()+1;
-        while (i >= 0 && j <= 7) {
-            if (tab[i][j].ocupada) {
-                if (!tab[i][j].peca.cor.equalsIgnoreCase(p.cor)) {
-                    resposta.add(new Posicao(i,j));
-                    break;
-                }
-                else {
-                    break;
-                }
-            }
-            else {
-                resposta.add(new Posicao(i,j));
-            }
-            
-            i--;
-            j++;
+        for (Posicao pos:resposta2) {
+            resposta.add(pos);
         }
         
         return resposta;
