@@ -9,6 +9,7 @@ import JPlay.Keyboard;
 import JPlay.Mouse;
 import JPlay.Sprite;
 import Parametros.Constantes;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,10 +77,26 @@ public class TelaNovoJogo implements InterfaceTela {
     public void proxTela() {
         if (mouse.isLeftButtonPressed()) {
             if (mouse.isOverObject(botaoP1vsCpu)) {
-                Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                String nome;
+                nome = JOptionPane.showInputDialog("Digite o nome do Jogador 1: ");
+                Motor.getInstancia().parametros.setNomeJogador1(nome);
+                if(nome!=null){
+                    Motor.getInstancia().parametros.setTemCpu(Boolean.TRUE);
+                    Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                    Motor.getInstancia().parametros.defineTurno(Constantes.BRANCO);
+                }
             }else
                 if(mouse.isOverObject(botaoP1vsP2)){
-                    Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                    String nomeJ1,nomeJ2;
+                    nomeJ1 = JOptionPane.showInputDialog("Digite o nome do Jogador 1: ");
+                    Motor.getInstancia().parametros.setNomeJogador1(nomeJ1);
+                    nomeJ2 = JOptionPane.showInputDialog("Digite o nome do Jogador 2: ");
+                    Motor.getInstancia().parametros.setNomeJogador2(nomeJ2);
+                    if(nomeJ1!=null && nomeJ2!=null){
+                        Motor.getInstancia().parametros.setTemCpu(Boolean.FALSE);
+                        Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                        Motor.getInstancia().parametros.defineTurno(Constantes.BRANCO);
+                    }
                 }else
                     if(mouse.isOverObject(botaoVoltar))
                         Motor.getInstancia().setProxTela(Constantes.TELA_JOGAR);

@@ -7,9 +7,9 @@ package Interface;
 import JPlay.Keyboard;
 import JPlay.Mouse;
 import JPlay.Window;
+import Parametros.Parametros;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 
 /**
  * Classe responsável pela execução da Tela do jogo.
@@ -20,7 +20,7 @@ public class Motor {
     Hashtable telas;
     boolean executando;
     static Motor instancia;
-    
+    Parametros parametros = new Parametros();    
     /**
      * Tela que está sendo executada.
      */

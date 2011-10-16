@@ -6,6 +6,7 @@
 package Interface;
 
 import JPlay.Sprite;
+import Parametros.Constantes;
 
 /**
  *
@@ -76,7 +77,18 @@ public class Peca {
     public Boolean estaSelecionada() {
         return selecionada;
     }
-
+    
+    public Boolean estaAtiva(){
+        return ativa;
+    }
+    
+    public void trocaCor(){
+        if(cor.equals(Constantes.BRANCO))
+            cor=Constantes.PRETO;
+        else
+            cor=Constantes.BRANCO;
+    }
+    
     public void selecionar() {
         this.selecionada = true;
         this.sprite.setCurrFrame(sprite.getFinalFrame());
@@ -84,6 +96,8 @@ public class Peca {
 
     public void deselecionar(){
         this.selecionada = false;
+        this.sprite.reset();
+        //this.selecionada = false;
     }
 
 

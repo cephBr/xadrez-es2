@@ -23,11 +23,11 @@ import java.util.StringTokenizer;
 public class Tabuleiro {
     private Casa[][] tabuleiro;
     public GameImage fundo;
-    public int ultimaPeça= 32;
+    public Peca ultimaPeça;
     
     Movimentacao mov = new Movimentacao();
     
-    public int retornaIdUltimaPeça(){
+    public Peca retornaUltimaPeça(){
         return ultimaPeça;
     }
 
@@ -52,29 +52,48 @@ public class Tabuleiro {
 
     public void ocupar(int dim_X,int dim_Y,Peca peca) throws Exception{
         
+        if(dim_X==-1 || dim_Y==-1){
+            peca.deselecionar();
+            peca.sprite.reset();
+            throw new Exception("Tentativa de mover a peça para fora do tabuleiro");
+        }
+        
         List<Posicao> resposta;
         
         resposta = mov.posicoesValidas(tabuleiro, peca);
         Posicao pos = new Posicao(dim_Y,dim_X);
                
         if(mov.contemNaLista(pos, resposta)){
+            this.comerPeca(dim_Y, dim_X, peca);
             this.desocupar(peca.getPosX(), peca.getPosY());
             this.tabuleiro[dim_Y][dim_X].ocupada=true;
             this.tabuleiro[dim_Y][dim_X].peca=peca;
             this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
             this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
             this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
-            this.ultimaPeça=tabuleiro[dim_Y][dim_X].peca.getId();
+            this.ultimaPeça=peca;
             this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
-        }else throw new Exception();
+            Motor.getInstancia().parametros.passaVez();
+            
+        }
+    }
+    
+    
+    public void desocupar(int dim_X,int dim_Y){
+        this.tabuleiro[dim_X][dim_Y].peca=null;
+        this.tabuleiro[dim_X][dim_Y].ocupada=false;
+    }
+    
+    private void comerPeca(int x, int y, Peca p){
+        if(this.tabuleiro[y][x].peca!=null &&
+             !this.tabuleiro[y][x].peca.retornaCor().equals(p.retornaCor())){
+                 this.desocupar(x,y);                 
+        }
     }
     
     
     
-    public void desocupar(int dim_X,int dim_Y){
-        this.tabuleiro[dim_X][dim_Y].ocupada=false;
-        this.tabuleiro[dim_X][dim_Y].peca=null;
-    };
+    
 
     private void montarCasas(){
        try {
@@ -92,8 +111,8 @@ public class Tabuleiro {
                   this.tabuleiro[j][i].posY=Integer.parseInt(st.nextToken());
                   this.tabuleiro[j][i].prioridadeDesenho=j;
               }
-
             }
+            
          }
          entrada.close();
     } catch (IOException e) {
@@ -101,8 +120,6 @@ public class Tabuleiro {
 
     }
 
-   
-     
     
     private void inicializarTabuleiro(){
         for (int j = 0; j <= 7; j++) {

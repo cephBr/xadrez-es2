@@ -57,7 +57,9 @@ public class Constantes {
     
     //Configurações
     public static final int NUMERO_FRAMES_PECAS=2;
-    public static final int TEMPO = 5000;
+    public static final int TEMPO = 3000;
+    public static final String BRANCO ="branco";
+    public static final String PRETO = "preto";
     
     //ID das Telas
     public static final int TELA_INICIAL=0;
