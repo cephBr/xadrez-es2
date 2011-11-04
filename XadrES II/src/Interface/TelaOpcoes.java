@@ -69,7 +69,7 @@ public class TelaOpcoes implements InterfaceTela {
     public void desenhar() {
         fundo.draw();
         botaoNivel.draw();
-        botaoEstatistica.draw();
+        //botaoEstatistica.draw();
         botaoVoltar.draw();
     }
 
