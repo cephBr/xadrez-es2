@@ -9,6 +9,7 @@ import JPlay.Keyboard;
 import JPlay.Mouse;
 import JPlay.Sprite;
 import Parametros.Constantes;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -98,7 +99,9 @@ public class TelaJogar implements InterfaceTela {
                     else 
                         if(mouse.isOverObject(botaoCarregarJogo)){
                             Motor.getInstancia().contexto.carregarJogo();
-                            Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                            if(Motor.getInstancia().contexto.getResposta()==JFileChooser.APPROVE_OPTION){
+                                Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                            }
                         }    
         }
     }

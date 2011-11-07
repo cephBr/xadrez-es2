@@ -37,6 +37,7 @@ public class Contexto {
     File diretorio = new File("../XadrES II/Jogos_Salvos/");
     Parametros p;
     Buffer buffer;
+    int resposta;
     public Contexto(Buffer buffer) {
         this.buffer = buffer;
     }
@@ -62,7 +63,7 @@ public class Contexto {
                 return "Jogos Salvos (.xad)";
             }
         });
-        int resposta = fc.showSaveDialog(null);
+        resposta = fc.showSaveDialog(null);
         if(resposta == JFileChooser.APPROVE_OPTION){
             
             arquivo = fc.getSelectedFile();
@@ -259,7 +260,7 @@ public class Contexto {
                 return "Jogos Salvos (.xad)";
             }
         });
-        int resposta = fc.showDialog(null, "Carregar");
+        resposta = fc.showDialog(null, "Carregar");
         if (resposta==fc.APPROVE_OPTION) {
             File arquivo = fc.getSelectedFile();
             try {
@@ -336,6 +337,10 @@ public class Contexto {
                     Logger.getLogger(Contexto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public int getResposta() {
+        return resposta;
     }
     
     private void traduzirFileChooser(){    
