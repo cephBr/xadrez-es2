@@ -33,9 +33,10 @@ public class Constantes {
     public static final String BISPO_PRETO = "imagens/Bispo_Preto.png";
     
     //Backgrounds
-    public static final String TABULEIRO = "imagens/tabuleiro.png";
+    public static final String TABULEIRO = "imagens/tabuleiro2.jpg";
     public static final String MENU_PRINCIPAL="imagens/Menu_Principal.jpg";
     public static final String TELA_PRETA="imagens/Tela_Preta.jpg";
+    public static final String BARRA_PRETA="imagens/barraPreta.png";
     
     //Botões
     public static final String BOTAO_JOGAR="imagens/Jogar.png";
@@ -54,6 +55,12 @@ public class Constantes {
     public static final String BOTAO_NOVO_JOGO="imagens/Novo_Jogo.png";
     public static final String BOTAO_CARREGAR_JOGO="imagens/Carregar_Jogo.png";
     public static final String BOTAO_CARREGAR="imagens/Carregar.png";
+    public static final String BOTAO_NOVO_JOGO_MINI="imagens/novo_jogo_mini.png";
+    public static final String BOTAO_AJUDA_MINI="imagens/ajuda_mini.png";
+    public static final String BOTAO_ESTTISTICAS_MINI="imagens/estatisticas_mini.png";
+    public static final String BOTAO_SALVAR_JOGO_MINI="imagens/salvar_jogo_mini.png";
+    public static final String BOTAO_CARREGAR_JOGO_MINI="imagens/carregar_jogo_mini.png";
+    public static final String BOTAO_SOBRE_MINI="imagens/sobre_mini.png";
     
     //Configurações
     public static final int NUMERO_FRAMES_PECAS=2;
@@ -61,6 +68,7 @@ public class Constantes {
     public static final String BRANCO ="branco";
     public static final String PRETO = "preto";
     
+   
     //ID das Telas
     public static final int TELA_INICIAL=0;
     public static final int TELA_JOGO=1;

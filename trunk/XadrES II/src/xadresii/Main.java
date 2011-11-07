@@ -4,18 +4,7 @@
  */
 package xadresii;
 
-import Interface.TelaJogo;
-import Interface.TelaAjuda;
-import Interface.TelaMenuPrincipal;
-import Interface.Motor;
 import Interface.SplashScreen;
-import Interface.TelaEstatisticas;
-import Interface.TelaJogar;
-import Interface.TelaNivel;
-import Interface.TelaNovoJogo;
-import Interface.TelaOpcoes;
-import Interface.TelaRegras;
-import Parametros.Constantes;
 
 /**
  *

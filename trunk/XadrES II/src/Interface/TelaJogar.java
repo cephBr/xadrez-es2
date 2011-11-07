@@ -95,6 +95,11 @@ public class TelaJogar implements InterfaceTela {
                 }else
                     if(mouse.isOverObject(botaoOpcoes))
                         Motor.getInstancia().setProxTela(Constantes.TELA_OPCOES);
+                    else 
+                        if(mouse.isOverObject(botaoCarregarJogo)){
+                            Motor.getInstancia().contexto.carregarJogo();
+                            Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+                        }    
         }
     }
     

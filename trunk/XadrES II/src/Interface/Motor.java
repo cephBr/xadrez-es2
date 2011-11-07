@@ -7,6 +7,8 @@ package Interface;
 import JPlay.Keyboard;
 import JPlay.Mouse;
 import JPlay.Window;
+import Parametros.Buffer;
+import Parametros.Contexto;
 import Parametros.Parametros;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
@@ -21,6 +23,28 @@ public class Motor {
     boolean executando;
     static Motor instancia;
     Parametros parametros = new Parametros();    
+    Buffer buffer = new Buffer();
+    Contexto contexto = new Contexto(buffer);
+    Boolean isJogoCarregado = false;
+
+    public Boolean getIsJogoCarregado() {
+        return isJogoCarregado;
+    }
+
+    public void setIsJogoCarregado(Boolean isJogoCarregado) {
+        this.isJogoCarregado = isJogoCarregado;
+    }
+
+    public Parametros getParametros() {
+        return parametros;
+    }
+
+    public void setParametros(Parametros parametros) {
+        this.parametros = parametros;
+    }
+    
+    
+    
     /**
      * Tela que está sendo executada.
      */

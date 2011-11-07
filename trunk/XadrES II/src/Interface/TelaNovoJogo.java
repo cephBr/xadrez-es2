@@ -78,6 +78,7 @@ public class TelaNovoJogo implements InterfaceTela {
         if (mouse.isLeftButtonPressed()) {
             if (mouse.isOverObject(botaoP1vsCpu)) {
                 String nome;
+                Motor.getInstancia().setIsJogoCarregado(false);
                 nome = JOptionPane.showInputDialog("Digite o nome do Jogador 1: ");
                 Motor.getInstancia().parametros.setNomeJogador1(nome);
                 if(nome!=null){
@@ -88,6 +89,7 @@ public class TelaNovoJogo implements InterfaceTela {
             }else
                 if(mouse.isOverObject(botaoP1vsP2)){
                     String nomeJ1,nomeJ2;
+                    Motor.getInstancia().setIsJogoCarregado(false);
                     nomeJ1 = JOptionPane.showInputDialog("Digite o nome do Jogador 1: ");
                     Motor.getInstancia().parametros.setNomeJogador1(nomeJ1);
                     nomeJ2 = JOptionPane.showInputDialog("Digite o nome do Jogador 2: ");
