@@ -21,7 +21,7 @@ import java.util.StringTokenizer;
  * @author Ceph
  */
 public class Tabuleiro {
-    private Casa[][] tabuleiro;
+    public Casa[][] tabuleiro;
     public GameImage fundo;
     public Peca ultimaPeça;
     
@@ -78,6 +78,16 @@ public class Tabuleiro {
         }
     }
     
+    public void reposicionarTabuleiro(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (this.tabuleiro[j][i].peca!=null) {
+                   this.tabuleiro[j][i].peca.sprite.setPosition(tabuleiro[j][i].posX-tabuleiro[j][i].peca.comp_X, tabuleiro[j][i].posY-tabuleiro[j][i].peca.comp_Y);    
+                }
+                
+            }
+        }
+    }
     
     public void desocupar(int dim_X,int dim_Y){
         this.tabuleiro[dim_X][dim_Y].peca=null;
@@ -95,7 +105,7 @@ public class Tabuleiro {
     
     
 
-    private void montarCasas(){
+    public void montarCasas(){
        try {
         BufferedReader entrada = new BufferedReader(new FileReader("src/configurações.txt"));
         StringTokenizer st;

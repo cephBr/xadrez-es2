@@ -20,6 +20,10 @@ public class Parametros {
     public String vezDeQuem(){
         return turno;
     }
+
+    public void setTurno(String turno) {
+        this.turno = turno;
+    }
     
     public void passaVez(){
         if (turno.equals(Constantes.BRANCO)) 

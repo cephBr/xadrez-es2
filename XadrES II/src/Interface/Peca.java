@@ -14,16 +14,23 @@ import Parametros.Constantes;
  */
 public class Peca {
 
-    private int id;
+    public int id;
     public  String cor;
     public  Sprite sprite;
-    private Boolean ativa;
+    public Boolean ativa;
     public Boolean selecionada;
     public Boolean foiMexida;
-    private int posX,posY;
+    public int posX,posY;
     public int comp_X;
     public int comp_Y;
-
+    public Peca(){
+        this.ativa=null;
+        sprite=null;
+        cor=null;
+        selecionada=null;
+        foiMexida=null;
+        
+    }
 
     public Peca(int id, String cor, String caminhoSprite, int numeroFrames, int i,int j) {
         this.id = id;
