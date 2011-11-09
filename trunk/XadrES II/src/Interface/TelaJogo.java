@@ -351,11 +351,9 @@ public class TelaJogo implements InterfaceTela{
         }
         if(clicouSalvar){
             clicouSalvar=false;    
-            //Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
         }
         if(clicouCarregar){
           clicouCarregar=false; 
-          Motor.getInstancia().contexto.carregarJogo();
           Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
         }
         if(clicouEstatistica){
