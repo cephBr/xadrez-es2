@@ -13,6 +13,7 @@ import Parametros.Parametros;
 import java.util.Hashtable;
 import javax.swing.JOptionPane;
 
+
 /**
  * Classe responsável pela execução da Tela do jogo.
  * @author me
@@ -166,14 +167,17 @@ public class Motor {
         telaCorrente.carregar();        
         teclado = janela.getKeyboard();
         mouse = janela.getMouse();
+        
         while(executando == true)
         {   
+            
             telaCorrente.proxTela();
             telaCorrente.logica();            
             telaCorrente.desenhar();
-            janela.display();
+            janela.display();   
            if(proxTela != null)
             {
+                
                 telaCorrente.descarregar();
                 proxTela.carregar();
 

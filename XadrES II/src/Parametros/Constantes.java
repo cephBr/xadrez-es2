@@ -19,18 +19,35 @@ public class Constantes {
     public static final String ERRO_SOM = "imagens/erro.wav";
     
     //Peças
-    public static final String DAMA_BRANCO = "imagens/Dama_Branco.png";
-    public static final String REI_BRANCO = "imagens/Rei_Branco.png";
-    public static final String CAVALO_BRANCO = "imagens/Cavalo_Branco.png";
-    public static final String TORRE_BRANCO = "imagens/Torre_Branco.png";
-    public static final String PEAO_BRANCO = "imagens/Peao_Branco.png";
-    public static final String BISPO_BRANCO = "imagens/Bispo_Branco.png";
-    public static final String DAMA_PRETO = "imagens/Dama_Preto.png";
-    public static final String REI_PRETO = "imagens/Rei_Preto.png";
-    public static final String CAVALO_PRETO = "imagens/Cavalo_Preto.png";
-    public static final String TORRE_PRETO = "imagens/Torre_Preto.png";
-    public static final String PEAO_PRETO = "imagens/Peao_Preto.png";
-    public static final String BISPO_PRETO = "imagens/Bispo_Preto.png";
+    public static final String DAMA_BRANCO = "imagens/Dama_Branco.png";         
+    public static final String REI_BRANCO = "imagens/Rei_Branco.png";           
+    public static final String CAVALO_BRANCO = "imagens/Cavalo_Branco.png";     
+    public static final String TORRE_BRANCO = "imagens/Torre_Branco.png";       
+    public static final String PEAO_BRANCO = "imagens/Peao_Branco.png";         
+    public static final String BISPO_BRANCO = "imagens/Bispo_Branco.png";       
+    public static final String DAMA_PRETO = "imagens/Dama_Preto.png";           
+    public static final String REI_PRETO = "imagens/Rei_Preto.png";             
+    public static final String CAVALO_PRETO = "imagens/Cavalo_Preto.png";      
+    public static final String TORRE_PRETO = "imagens/Torre_Preto.png";         
+    public static final String PEAO_PRETO = "imagens/Peao_Preto.png";           
+    public static final String BISPO_PRETO = "imagens/Bispo_Preto.png";         
+    
+    //Força das Peças
+    public static final int FORCA_PEAO = 100;
+    public static final int FORCA_CAVALO = 300;
+    public static final int FORCA_BISPO = 325;
+    public static final int FORCA_TORRE = 500;
+    public static final int FORCA_DAMA = 900;
+    public static final int FORCA_REI = 3000;
+    
+    //Tipos das Peças
+    public static final String DAMA = "dama";
+    public static final String REI = "rei";
+    public static final String CAVALO = "cavalo";
+    public static final String TORRE = "torre";
+    public static final String PEAO = "peao";
+    public static final String BISPO = "bispo";
+    
     
     //Backgrounds
     public static final String TABULEIRO = "imagens/tabuleiro2.jpg";
