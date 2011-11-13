@@ -7,7 +7,9 @@ package MaquinaRegras;
 import Interface.Casa;
 import Interface.Peca;
 import Interface.Tabuleiro;
+import Parametros.Constantes;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -414,6 +416,7 @@ public class Movimentacao {
     }
     
     public List posicoesValidas(Casa[][] tab, Peca p){
+        
         List<Posicao> resposta = new ArrayList<Posicao>();
         
         int tipoPeca;
@@ -445,5 +448,9 @@ public class Movimentacao {
         
         return resposta;
     }
+    
+    
+    
+    
     
 }

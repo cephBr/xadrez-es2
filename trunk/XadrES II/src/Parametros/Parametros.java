@@ -6,6 +6,8 @@ package Parametros;
 
 import Interface.Tabuleiro;
 
+
+
 /**
  *
  * @author Ceph
@@ -17,6 +19,9 @@ public class Parametros {
     String turno;  
     Boolean temCpu = Boolean.FALSE;
     
+    
+     
+
     public String vezDeQuem(){
         return turno;
     }

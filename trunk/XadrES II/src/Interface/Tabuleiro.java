@@ -9,6 +9,7 @@ import JPlay.GameImage;
 
 import MaquinaRegras.Movimentacao;
 import MaquinaRegras.Posicao;
+import Parametros.Constantes;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class Tabuleiro {
     public GameImage fundo;
     public Peca ultimaPeça;
     
-    Movimentacao mov = new Movimentacao();
+    public Movimentacao mov = new Movimentacao();
     
     public Peca retornaUltimaPeça(){
         return ultimaPeça;
@@ -62,7 +63,13 @@ public class Tabuleiro {
         
         resposta = mov.posicoesValidas(tabuleiro, peca);
         Posicao pos = new Posicao(dim_Y,dim_X);
-               
+        /*
+        if (Motor.getInstancia().parametros.temCpu() && Motor.getInstancia().parametros.vezDeQuem().equals(Constantes.PRETO)) {
+             pos = new Posicao(dim_X,dim_Y);    
+        }else{
+             pos = new Posicao(dim_Y,dim_X);
+        }
+             */
         if(mov.contemNaLista(pos, resposta)){
             this.comerPeca(dim_Y, dim_X, peca);
             this.desocupar(peca.getPosX(), peca.getPosY());
@@ -75,7 +82,8 @@ public class Tabuleiro {
             this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
             Motor.getInstancia().parametros.passaVez();
             
-        }
+        }else
+            throw new Exception("Posição inválida");
     }
     
     public void reposicionarTabuleiro(){
@@ -89,12 +97,14 @@ public class Tabuleiro {
         }
     }
     
+  
+    
     public void desocupar(int dim_X,int dim_Y){
         this.tabuleiro[dim_X][dim_Y].peca=null;
         this.tabuleiro[dim_X][dim_Y].ocupada=false;
     }
     
-    private void comerPeca(int x, int y, Peca p){
+    public void comerPeca(int x, int y, Peca p){
         if(this.tabuleiro[y][x].peca!=null &&
              !this.tabuleiro[y][x].peca.retornaCor().equals(p.retornaCor())){
                  this.desocupar(x,y);                 
@@ -131,7 +141,7 @@ public class Tabuleiro {
     }
 
     
-    private void inicializarTabuleiro(){
+    public void inicializarTabuleiro(){
         for (int j = 0; j <= 7; j++) {
             for (int i = 0; i <= 7; i++) {
                  Casa casa = new Casa();
@@ -152,7 +162,14 @@ public class Tabuleiro {
     }
 
     public Peca retornaPeca(int posX, int posY){
+       
         return this.tabuleiro[posY][posX].peca;
+    }
+    
+    public Casa[][] retornaCasa(int posX, int posY){
+        Casa[][] aux;
+        aux = tabuleiro;
+        return this.tabuleiro;
     }
 
     private  List encontrarCoordenada(int posX, int posY){

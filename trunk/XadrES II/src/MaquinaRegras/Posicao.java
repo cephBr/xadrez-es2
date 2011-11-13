@@ -17,4 +17,12 @@ public class Posicao {
         this.posY = posY;
     }
     
+    public int getPosX(){
+        return this.posX;
+    }
+    
+    public int getPosY(){
+        return this.posY;
+    }
+            
 }
