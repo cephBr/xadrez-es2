@@ -411,6 +411,43 @@ public class Movimentacao {
         }
         
         // FAZER MOVIMENTO ESPECIAL DO REI .... //
+        /*  No roque, pequeno ou grande, o rei sempre se move duas casas na direção de uma das torres;
+         * completando o movimento, a torre salta sobre o rei e passa a ocupar a casa ao seu lado.
+           O roque não é permitido se:
+            - o rei ou a torre já tiverm sido movimentados;
+            - o rei estiver em xeque;
+            - o rei ficar em xeque ao final do movimento;
+            - o rei passar por uma casa dominada por peça adversária;
+            - houver alguma peça entre o rei e a torre.
+         */
+        
+        //if (nao estah em cheque..) {
+            // pequeno roque //
+            if (!p.foiMexida()) {
+                if (tab[posX][7].ocupada) {
+                    if (!tab[posX][7].peca.foiMexida()) {
+                        if (!tab[posX][posY+1].ocupada && !tab[posX][posY+2].ocupada) {
+                            int j;
+                            j = posY+2;
+                            resposta.add(new Posicao(posX,j));
+                        }                                                
+                    }                    
+                }            
+            }
+            
+            // grande roque //
+            if (!p.foiMexida()) {
+                if (tab[posX][0].ocupada) {
+                    if (!tab[posX][0].peca.foiMexida()) {
+                        if (!tab[posX][posY-1].ocupada && !tab[posX][posY-2].ocupada && !tab[posX][posY-3].ocupada) {
+                            int j;
+                            j = posY-2;
+                            resposta.add(new Posicao(posX,j));
+                        }                                                
+                    }                    
+                }            
+            }
+        //}
         
         return resposta;
     }
