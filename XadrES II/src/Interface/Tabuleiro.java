@@ -83,23 +83,12 @@ public class Tabuleiro {
             this.ultimaPeça=peca;
             this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
             
-            System.out.print("dim_Y = ");
-            System.out.println(dim_Y);
-            System.out.print("dim_X = ");
-            System.out.println(dim_X);
-            
-            System.out.print("peca_Y = ");
-            System.out.println(peca.getPosY());
-            System.out.print("peca_X = ");
-            System.out.println(peca.getPosX());
-            
             // MOVER A TORRE PARA REALIZAR O ROQUE //
             if ((peca.id%6) == 5) {
                 // pequeno roque //
                 if (dim_X == (posInicial_Y+2)) {
                     peca=this.tabuleiro[dim_Y][7].peca;
-                    this.comerPeca(dim_Y, 5, peca);
-                    this.desocupar(peca.getPosX(), peca.getPosX());
+                    this.desocupar(peca.getPosX(), peca.getPosY());
                     this.tabuleiro[dim_Y][5].ocupada=true;
                     this.tabuleiro[dim_Y][5].peca=peca;
                     this.tabuleiro[dim_Y][5].peca.sprite.setPosition(tabuleiro[dim_Y][5].posX-tabuleiro[dim_Y][5].peca.comp_X, tabuleiro[dim_Y][5].posY-tabuleiro[dim_Y][5].peca.comp_Y);
@@ -111,8 +100,7 @@ public class Tabuleiro {
                 // grande roque //
                 if (dim_X == (posInicial_Y-2)) {
                     peca=this.tabuleiro[dim_Y][0].peca;
-                    this.comerPeca(dim_Y, 3, peca);
-                    this.desocupar(peca.getPosX(), peca.getPosX());
+                    this.desocupar(peca.getPosX(), peca.getPosY());
                     this.tabuleiro[dim_Y][3].ocupada=true;
                     this.tabuleiro[dim_Y][3].peca=peca;
                     this.tabuleiro[dim_Y][3].peca.sprite.setPosition(tabuleiro[dim_Y][3].posX-tabuleiro[dim_Y][3].peca.comp_X, tabuleiro[dim_Y][3].posY-tabuleiro[dim_Y][3].peca.comp_Y);
