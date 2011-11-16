@@ -52,7 +52,7 @@ public class TelaHistorico implements InterfaceTela {
 
     public void desenhar() {
         fundo.draw();
-        janela.drawText("Estatísticas", 250, 100, Color.RED, fonte);
+        janela.drawText("Histórico", 200, 100, Color.RED, fonte);
         botaoVoltar.draw();
     }
 

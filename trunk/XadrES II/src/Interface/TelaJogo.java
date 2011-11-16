@@ -356,7 +356,7 @@ public class TelaJogo implements InterfaceTela{
         }
         if(clicouEstatistica){
            clicouEstatistica=false; 
-           Motor.getInstancia().setProxTela(Constantes.TELA_ESTATISTICA);
+           Motor.getInstancia().setProxTela(Constantes.TELA_HISTORICO);
         }
         if(clicouAjuda){
               clicouAjuda=false;

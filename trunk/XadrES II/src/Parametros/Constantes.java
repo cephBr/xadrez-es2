@@ -95,6 +95,5 @@ public class Constantes {
     public static final int TELA_NOVO_JOGO=5;
     public static final int TELA_CARREGAR_JOGO=6;
     public static final int TELA_OPCOES=7;
-    public static final int TELA_NIVEL=8;
-    public static final int TELA_ESTATISTICA=9;
+    public static final int TELA_HISTORICO=9;
 }

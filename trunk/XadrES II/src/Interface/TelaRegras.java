@@ -52,7 +52,7 @@ public class TelaRegras implements InterfaceTela {
     public void desenhar() {
         fundo.draw();
         botaoVoltar.draw();
-        janela.drawText("Regras", 250, 100, Color.RED,fonte);
+        janela.drawText("Regras", 200, 100, Color.RED,fonte);
         
     }
 

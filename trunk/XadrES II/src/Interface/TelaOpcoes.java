@@ -19,7 +19,7 @@ public class TelaOpcoes implements InterfaceTela {
     Mouse mouse;
     Keyboard teclado;
    
-    Sprite botaoEstatistica;
+    Sprite botaoHistorico;
     Sprite botaoVoltar;
     
     public void carregar() {
@@ -27,10 +27,10 @@ public class TelaOpcoes implements InterfaceTela {
         mouse = Motor.getInstancia().getJanela().getMouse();
         teclado = Motor.getInstancia().getJanela().getKeyboard();
         
-        botaoEstatistica = new Sprite(Constantes.BOTAO_ESTATISTICAS,2);
-        botaoEstatistica.setPosition(250,450);
-        botaoEstatistica.setInitialFrame(0);
-        botaoEstatistica.setFinalFrame(1);
+        botaoHistorico = new Sprite(Constantes.BOTAO_ESTATISTICAS,2);
+        botaoHistorico.setPosition(250,450);
+        botaoHistorico.setInitialFrame(0);
+        botaoHistorico.setFinalFrame(1);
         botaoVoltar = new Sprite(Constantes.BOTAO_VOLTAR,2);
         botaoVoltar.setPosition(250,500);
         botaoVoltar.setInitialFrame(0);
@@ -41,7 +41,7 @@ public class TelaOpcoes implements InterfaceTela {
     public void descarregar() {
         fundo = null ;
         
-        botaoEstatistica = null;
+        botaoHistorico = null;
         botaoVoltar = null ;
     }
 
@@ -53,10 +53,10 @@ public class TelaOpcoes implements InterfaceTela {
         }else
             botaoVoltar.setCurrFrame(0);
         
-        if (mouse.isOverObject(botaoEstatistica)) {
-            botaoEstatistica.setCurrFrame(1);
+        if (mouse.isOverObject(botaoHistorico)) {
+            botaoHistorico.setCurrFrame(1);
         }else
-            botaoEstatistica.setCurrFrame(0);
+            botaoHistorico.setCurrFrame(0);
     }
 
     public void desenhar() {
@@ -70,8 +70,8 @@ public class TelaOpcoes implements InterfaceTela {
             if (mouse.isOverObject(botaoVoltar)) {
                 Motor.getInstancia().setProxTela(Constantes.TELA_JOGAR);
             }else
-                if(mouse.isOverObject(botaoEstatistica))
-                    Motor.getInstancia().setProxTela(Constantes.TELA_ESTATISTICA);
+                if(mouse.isOverObject(botaoHistorico))
+                    Motor.getInstancia().setProxTela(Constantes.TELA_HISTORICO);
                 
         }
     }
