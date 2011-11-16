@@ -17,7 +17,7 @@ import java.awt.Font;
  *
  * @author Ceph
  */
-public class TelaEstatisticas implements InterfaceTela {
+public class TelaHistorico implements InterfaceTela {
     GameImage fundo;
     Mouse mouse;
     Keyboard teclado;
