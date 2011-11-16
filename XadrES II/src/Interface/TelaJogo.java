@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import IA.MiniMax;
 import IA.Movimento;
+import MaquinaRegras.Movimentacao;
 import javax.swing.JFileChooser;
 
 /**
@@ -60,8 +61,12 @@ public class TelaJogo implements InterfaceTela{
                         p.deselecionar();
                         throw new Exception("");
                     }
-                }
-
+                    
+                }     
+               
+                
+               
+                
                if(mouse.isOverObject(p.sprite)){
                    if(!p.estaSelecionada()&&!temPecaSelecionada) {
                       if(p.retornaCor().equals(Motor.getInstancia().parametros.vezDeQuem())){    
@@ -319,11 +324,27 @@ public class TelaJogo implements InterfaceTela{
                 for (Iterator<Peca> it = pecas.iterator(); it.hasNext();) {
                     Peca peca = it.next();
                     monitorPeca(peca);
-            }
+                }
     
-                
-                
             }
+            if (mouse.isRightButtonPressed()==true){
+                        Movimentacao mov = new Movimentacao();
+                        for (Iterator<Peca> it = pecas.iterator(); it.hasNext();) {
+                            Peca peca = it.next();
+                            if(peca.estaSelecionada() && mov.retornaTipoPeca(peca.id)==0){
+                              if(!Motor.getInstancia().isPromocaoAtiva()){
+                                  Motor.getInstancia().setPromocaoAtiva(Boolean.TRUE);
+                                  new Thread(new TelaPromocao()).start();
+                                  temPecaSelecionada=false;
+                                  peca.deselecionar();
+                                  throw new Exception("");
+                                  
+                              }   
+                            }
+                         }
+            }             
+            
+            
         }catch (Exception e){
             if(!e.getMessage().equals(""))
                 new Sound(Constantes.ERRO_SOM).play();

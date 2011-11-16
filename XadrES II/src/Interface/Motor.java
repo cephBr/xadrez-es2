@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Motor {
     Window janela;
     Hashtable telas;
+    boolean promocaoAtiva = false;
     boolean executando;
     static Motor instancia;
     Parametros parametros = new Parametros();    
@@ -28,6 +29,16 @@ public class Motor {
     Contexto contexto = new Contexto(buffer);
     Boolean isJogoCarregado = false;
 
+    public boolean isPromocaoAtiva() {
+        return promocaoAtiva;
+    }
+
+    public void setPromocaoAtiva(boolean promocaoAtiva) {
+        this.promocaoAtiva = promocaoAtiva;
+    }
+
+    
+    
     public Boolean getIsJogoCarregado() {
         return isJogoCarregado;
     }

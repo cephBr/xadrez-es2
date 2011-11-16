@@ -18,7 +18,7 @@ public class Parametros {
     Tabuleiro tabuleiro;
     String turno;  
     Boolean temCpu = Boolean.FALSE;
-    
+     
     
      
 
