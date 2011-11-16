@@ -19,6 +19,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import IA.MiniMax;
 import IA.Movimento;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -38,7 +39,6 @@ public class TelaJogo implements InterfaceTela{
         Sprite botaoAjuda;
         Sprite botaoSalvarJogo;
         Sprite botaoEstatisticas;
-        Sprite botaoSobre;
         Sprite barraPreta;
         Boolean clicouAjuda;
         Boolean clicouEstatistica;
@@ -96,7 +96,7 @@ public class TelaJogo implements InterfaceTela{
         botaoCarregarJogo.draw();
         botaoEstatisticas.draw();
         botaoAjuda.draw();
-        botaoSobre.draw();
+      
         Peca peca;
         for (int j = 0; j <= 7; j++) {
             for(int i = 0; i<=7; i++){
@@ -141,35 +141,33 @@ public class TelaJogo implements InterfaceTela{
          botaoCarregarJogo = new Sprite(Constantes.BOTAO_CARREGAR_JOGO_MINI, 2);
          botaoSalvarJogo = new Sprite(Constantes.BOTAO_SALVAR_JOGO_MINI,2);
          botaoEstatisticas = new Sprite(Constantes.BOTAO_ESTTISTICAS_MINI,2);
-         botaoSobre = new Sprite(Constantes.BOTAO_SOBRE_MINI,2);
-         int espacamento = botaoNovoJogo.width; 
+         
+         
          botaoNovoJogo.setInitialFrame(0);
          botaoNovoJogo.setFinalFrame(1);
-         botaoNovoJogo.setPosition(0, 0);
+         botaoNovoJogo.setPosition(1, 0);
          
          botaoSalvarJogo.setInitialFrame(0);
          botaoSalvarJogo.setFinalFrame(1);
-         botaoSalvarJogo.setPosition(espacamento+50, 0);
-         espacamento+=botaoSalvarJogo.width;
+         botaoSalvarJogo.setPosition(90, 0);
+         
          
          botaoCarregarJogo.setInitialFrame(0);
          botaoCarregarJogo.setFinalFrame(1);
-         botaoCarregarJogo.setPosition(espacamento+50, 0);
-         espacamento+=botaoCarregarJogo.width;
+         botaoCarregarJogo.setPosition(195, 0);
+         
          
          botaoEstatisticas.setInitialFrame(0);
          botaoEstatisticas.setFinalFrame(1);
-         botaoEstatisticas.setPosition(espacamento+50, 0);
-         espacamento+=botaoEstatisticas.width;
+         botaoEstatisticas.setPosition(310, 0);
+         
          
          botaoAjuda.setInitialFrame(0);
          botaoAjuda.setFinalFrame(1);
-         botaoAjuda.setPosition(espacamento+50, 0);
-         espacamento+=botaoAjuda.width;
+         botaoAjuda.setPosition(395, 0);
          
-         botaoSobre.setInitialFrame(0);
-         botaoSobre.setFinalFrame(1);
-         botaoSobre.setPosition(espacamento+50, 0);
+         
+         
          
          clicouAjuda=false;
          clicouEstatistica=false;
@@ -263,7 +261,7 @@ public class TelaJogo implements InterfaceTela{
           this.botaoEstatisticas=null;
           this.botaoNovoJogo=null;
           this.botaoSalvarJogo=null;
-          this.botaoSobre=null;
+          
                  
     }
 
@@ -288,10 +286,7 @@ public class TelaJogo implements InterfaceTela{
                     botaoEstatisticas.setCurrFrame(1);
                 }else
                     botaoEstatisticas.setCurrFrame(0);
-                if (mouse.isOverObject(botaoSobre)) {
-                    botaoSobre.setCurrFrame(1);
-                }else
-                    botaoSobre.setCurrFrame(0);
+                
         try {
             
             
@@ -303,29 +298,13 @@ public class TelaJogo implements InterfaceTela{
             }
             
             if (mouse.isLeftButtonPressed()==true) {
-                if(mouse.isOverObject(botaoSobre)){
-                                String menssagem= "Universidade Federal Fluminense \n"
-                                                  +"Engenharia de Software II \n" 
-                                                  +"Projeto: XadrES II \n\n"
-                                                  +"Grupo 4: \n"
-                                                  +"                Antônio Carlos\n"
-                                                  +"                Carlos Eduardo\n"
-                                                  +"                Diego Zahn\n"
-                                                  +"                Gabriel Loubake\n"
-                                                  +"                Leandro\n"
-                                                  +"                Thiago\n"
-                                                  +"                Uenes\n\n"
-                                                  + "                2011 - 2";
-                                                  
-                                 JOptionPane.showMessageDialog(null, menssagem, "Sobre",JOptionPane.INFORMATION_MESSAGE);                                 
-                            }
+                
                 if(mouse.isOverObject(botaoSalvarJogo)){
                    String[] nomeJogadores = {Motor.getInstancia().parametros.getNomeJogador1(),Motor.getInstancia().parametros.getNomeJogador2()};
                    Motor.getInstancia().contexto.salvarJogo(this.tabuleiro, nomeJogadores,this.pecas, Motor.getInstancia().parametros.temCpu());
                    clicouSalvar=true;
                 }
                 if(mouse.isOverObject(botaoCarregarJogo)){
-                  Motor.getInstancia().contexto.carregarJogo();
                   clicouCarregar=true;
                 }
                 if(mouse.isOverObject(botaoAjuda)){
@@ -368,8 +347,12 @@ public class TelaJogo implements InterfaceTela{
             clicouSalvar=false;    
         }
         if(clicouCarregar){
-          clicouCarregar=false; 
-          Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+          clicouCarregar=false;
+          Motor.getInstancia().contexto.carregarJogo();
+          if(Motor.getInstancia().contexto.getResposta()==JFileChooser.APPROVE_OPTION){
+                Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
+          }
+          
         }
         if(clicouEstatistica){
            clicouEstatistica=false; 
