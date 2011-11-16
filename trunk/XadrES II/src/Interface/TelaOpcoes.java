@@ -18,7 +18,7 @@ public class TelaOpcoes implements InterfaceTela {
     GameImage fundo;
     Mouse mouse;
     Keyboard teclado;
-    Sprite botaoNivel;
+   
     Sprite botaoEstatistica;
     Sprite botaoVoltar;
     
@@ -26,10 +26,7 @@ public class TelaOpcoes implements InterfaceTela {
         fundo = new GameImage(Constantes.MENU_PRINCIPAL);
         mouse = Motor.getInstancia().getJanela().getMouse();
         teclado = Motor.getInstancia().getJanela().getKeyboard();
-        botaoNivel = new Sprite(Constantes.BOTAO_NIVEL,2); 
-        botaoNivel.setPosition(250,400);
-        botaoNivel.setInitialFrame(0);
-        botaoNivel.setFinalFrame(1);
+        
         botaoEstatistica = new Sprite(Constantes.BOTAO_ESTATISTICAS,2);
         botaoEstatistica.setPosition(250,450);
         botaoEstatistica.setInitialFrame(0);
@@ -43,17 +40,13 @@ public class TelaOpcoes implements InterfaceTela {
 
     public void descarregar() {
         fundo = null ;
-        botaoNivel = null;
+        
         botaoEstatistica = null;
         botaoVoltar = null ;
     }
 
     public void logica() {
-         if (mouse.isOverObject(botaoNivel)) {
-            botaoNivel.setCurrFrame(1);
-        }else
-            botaoNivel.setCurrFrame(0);
-        
+         
         if (mouse.isOverObject(botaoVoltar)) {
             botaoVoltar.setCurrFrame(1);
             
@@ -68,7 +61,6 @@ public class TelaOpcoes implements InterfaceTela {
 
     public void desenhar() {
         fundo.draw();
-        botaoNivel.draw();
         //botaoEstatistica.draw();
         botaoVoltar.draw();
     }
@@ -80,9 +72,7 @@ public class TelaOpcoes implements InterfaceTela {
             }else
                 if(mouse.isOverObject(botaoEstatistica))
                     Motor.getInstancia().setProxTela(Constantes.TELA_ESTATISTICA);
-                else
-                    if(mouse.isOverObject(botaoNivel))
-                        Motor.getInstancia().setProxTela(Constantes.TELA_NIVEL);
+                
         }
     }
     
