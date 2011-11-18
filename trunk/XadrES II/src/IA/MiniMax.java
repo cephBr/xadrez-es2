@@ -12,8 +12,7 @@ import Parametros.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -42,7 +41,7 @@ public class MiniMax {
         
         Casa[][] casa;
         Movimento movimento;
-        Posicao posInicial;
+      
         Posicao posFinal;
         
         
@@ -52,20 +51,16 @@ public class MiniMax {
                         Peca peca = tab.retornaPeca(i, j);
                         if(peca.retornaCor().equals(corLado)){  
                                 casa = tab.retornaCasa(i, j);  
-                                //System.out.println("=================");
-                                //System.out.println("Casa: i = "+i+", j ="+j);
-                                //System.out.println("Peca ID = "+peca.getId());
+                            
                                 arrayPeca = tab.mov.posicoesValidas(casa, peca); 
-                                //System.out.println("Numero de movimentos = "+arrayPeca.size());
-                                //System.out.println("=================");
-                                //arrayPeca = tab.mov.posicoesValidas(casa, peca); 
+                                
                                 if (!(arrayPeca.isEmpty())){
-                                    posInicial = new Posicao(i,j);
+                                    
                                     for(int index=0;index<arrayPeca.size();index++){
                                       
                                         posFinal = arrayPeca.get(index);
                                         
-                                        movimento = new Movimento(posInicial,posFinal,peca);
+                                        movimento = new Movimento(posFinal,peca);
                                         
                                         arrayTodasPosicoes.add(movimento);
                                     }   
@@ -86,7 +81,7 @@ public class MiniMax {
         
         Casa[][] casa;
         Movimento movimento;
-        Posicao posInicial;
+      
         Posicao posFinal;
         
        
@@ -98,19 +93,16 @@ public class MiniMax {
                         Peca peca = tab.retornaPeca(i, j);
                         if(peca.retornaCor().equals(corLado)){  
                                 casa = tab.retornaCasa(i, j);  
-                                //System.out.println("=================");
-                                //System.out.println("Casa: i = "+i+", j ="+j);
-                                //System.out.println("Peca ID = "+peca.getId());
+                               
                                 arrayPeca = tab.mov.posicoesValidas(casa, peca); 
-                                //System.out.println("Numero de movimentos = "+arrayPeca.size());
-                                //System.out.println("=================");
+                                
                                 if (!(arrayPeca.isEmpty())){
-                                    posInicial = new Posicao(i,j);
+                                   
                                     for(int index=0;index<arrayPeca.size();index++){
                                       
                                         posFinal = arrayPeca.get(index);
                                         
-                                        movimento = new Movimento(posInicial,posFinal,peca);
+                                        movimento = new Movimento(posFinal,peca);
                                         
                                         arrayTodasPosicoes.add(movimento);
                                     }   
@@ -125,7 +117,7 @@ public class MiniMax {
     }
     
     // IA AlphaBetaNegamax
-    
+   /* 
     public int AlphaBetaNegamax(TabuleiroIA tab, int depth, String corLado, String corOponente,int alpha,int beta){
             
             System.out.println("=================");
@@ -299,22 +291,8 @@ public class MiniMax {
     }
     
     
+    */
     
-    
-    public Movimento RandomIA(Tabuleiro tab){
-       
-        
-        List<Movimento> arrayMovimentos= new ArrayList<Movimento>();
-        arrayMovimentos = this.todasPosicoesValidas(tab, Constantes.PRETO);
-      
-        Random generator = new Random();
-        int count = arrayMovimentos.size();
-        int randomIndex = generator.nextInt( count );
-        
-        Movimento mov = arrayMovimentos.get(randomIndex);
-        
-        return mov;
-    }
     
     public void IA(Tabuleiro tab,int depth){
        
@@ -326,12 +304,24 @@ public class MiniMax {
         TabuleiroIA tabIA = new TabuleiroIA(8,8);
         tabIA.copiarPecas(tab);
         
-        
-        
-        
-        
-        
+   
     }
+    
+    public Movimento RandomIA(Tabuleiro tab){
+       
+        
+        List<Movimento> arrayMovimentos= new ArrayList<Movimento>();
+        arrayMovimentos = this.todasPosicoesValidas(tab, Constantes.PRETO);
+      
+        Random generator = new Random();
+        int count = arrayMovimentos.size();
+        int randomIndex = generator.nextInt( count-1 );
+        
+        Movimento mov = arrayMovimentos.get(randomIndex);
+        
+        return mov;
+    }
+    
     
     
     

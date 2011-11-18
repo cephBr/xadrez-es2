@@ -295,10 +295,10 @@ public class TelaJogo implements InterfaceTela{
         try {
             
             
-            if (Motor.getInstancia().parametros.temCpu()) { //break point
+            if (Motor.getInstancia().parametros.temCpu()) { 
                 if (Motor.getInstancia().parametros.vezDeQuem().equals(Constantes.PRETO)) {
                     Movimento movimento = ia.RandomIA(tabuleiro);             
-                    tabuleiro.ocupar(movimento.getPosFin().getPosX(), movimento.getPosFin().getPosY(), movimento.getPeca());
+                    tabuleiro.ocupar2(movimento.getPosFin().getPosX(), movimento.getPosFin().getPosY(), movimento.getPeca());
                 }
             }
             

@@ -59,7 +59,6 @@ public class TabuleiroIA {
             this.tabuleiro[dim_Y][dim_X].peca=peca;
             this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
             this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
-           // this.ultimaPeça=peca;
             this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
             
         
