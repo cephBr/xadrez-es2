@@ -291,7 +291,7 @@ public class MiniMax {
     }
     
     
-    */
+    
     
     
     public void IA(Tabuleiro tab,int depth){
@@ -306,6 +306,79 @@ public class MiniMax {
         
    
     }
+    
+     
+    
+     */
+    
+    
+    
+    public Movimento Minimax(Tabuleiro tab, String corPlayerAtual, String corOutroPlayer, int depth){
+        
+        List<Movimento> arrayMovimentos = new ArrayList<Movimento>();
+        
+        arrayMovimentos = this.todasPosicoesValidas(tab, corPlayerAtual);
+        
+        int highest_seen_value = Integer.MIN_VALUE;
+        
+        FuncaoAvaliacao evalue = new FuncaoAvaliacao();
+        
+        Movimento best_move = null;
+        
+        for(int i=0; i<=arrayMovimentos.size();i++ ){
+            int value = 0;
+            try{
+                TabuleiroIA tabIA = new TabuleiroIA(8,8);
+                tabIA.copiarPecas(tab);
+                Movimento move = arrayMovimentos.get(i);
+                //int bestboardvalue= evalue.calcularAvaliacaoIA(tabIA, corPlayerAtual);
+                
+                
+                if(corPlayerAtual.equals(Constantes.PRETO)){
+                    if(value>highest_seen_value){
+                        highest_seen_value = value;
+                        best_move = move;
+                    }   
+                } 
+                } catch (Exception e){
+                    
+                }     
+        }
+        return best_move;
+        
+    }
+    
+    
+    public int minimaxValue(Tabuleiro tab, String corPlayerAtual, String corOutroPlayer, int depth, int bestBoardValue){
+        
+        FuncaoAvaliacao evalue = new FuncaoAvaliacao();
+        
+        int jogadaAtual = bestBoardValue;
+        int ret_val = 0;
+        if(depth==0){
+            ret_val = bestBoardValue;
+        }else if(corPlayerAtual.equals(Constantes.PRETO)){
+             List<Movimento> arrayMovimentos = new ArrayList<Movimento>();
+            arrayMovimentos = this.todasPosicoesValidas(tab, corOutroPlayer);
+            int highest_seen_value = Integer.MIN_VALUE;
+            int oldvalue = Integer.MIN_VALUE;
+            int value = 0;
+            for(int i=0;i<arrayMovimentos.size();i++){
+                TabuleiroIA tabIA = new TabuleiroIA(8,8);
+                //tabIA = tab.copiarPecas(tab);
+                Movimento move = arrayMovimentos.get(i);
+                
+                
+            }
+            
+            
+        }
+        
+        return 3;
+    }
+    
+
+    
     
     public Movimento RandomIA(Tabuleiro tab){
        

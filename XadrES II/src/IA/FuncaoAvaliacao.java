@@ -265,13 +265,6 @@ public class FuncaoAvaliacao {
     
     
     
-        public void testeIA(Tabuleiro tab) throws Exception{
-         
-            MiniMax mm = new MiniMax();
-           
-            mm.IA(tab, 2);
-             
-             
-    }
+   
     
 }
