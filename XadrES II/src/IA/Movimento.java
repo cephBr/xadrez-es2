@@ -15,19 +15,17 @@ import MaquinaRegras.Posicao;
  */
 public class Movimento {
     
-        private Posicao posIni;
+        
         private Posicao posFin;
         private Peca peca;
         
-        public Movimento(Posicao ini, Posicao fin, Peca peca){
-            this.posIni = ini;
+        public Movimento(Posicao fin, Peca peca){
+          
             this.posFin = fin;
             this.peca = peca;
         }
     
-        public Posicao getPosIni(){
-               return this.posIni;
-        }
+      
         
         public Posicao getPosFin(){
                 return this.posFin;
@@ -37,9 +35,7 @@ public class Movimento {
                 return this.peca;
         }
         
-        public void setPosIni(){
-               
-        }
+       
         
         public void setPosFin(){
                 

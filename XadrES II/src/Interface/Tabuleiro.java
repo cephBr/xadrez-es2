@@ -116,6 +116,65 @@ public class Tabuleiro {
             throw new Exception("Posição inválida");
     }
     
+   
+    public void ocupar2(int dim_Y,int dim_X,Peca peca) throws Exception{
+        
+        if(dim_X==-1 || dim_Y==-1){
+            peca.deselecionar();
+            peca.sprite.reset();
+            throw new Exception("Tentativa de mover a peça para fora do tabuleiro");
+        }
+        
+        
+        int posInicial_X = peca.getPosX();
+        int posInicial_Y = peca.getPosY();
+        
+        
+       
+      
+            this.comerPeca(dim_Y, dim_X, peca);
+            this.desocupar(peca.getPosX(), peca.getPosY());
+            this.tabuleiro[dim_Y][dim_X].ocupada=true;
+            this.tabuleiro[dim_Y][dim_X].peca=peca;
+            this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
+            this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
+            this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
+            this.ultimaPeça=peca;
+            this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
+            
+            // MOVER A TORRE PARA REALIZAR O ROQUE //
+            if ((peca.id%6) == 5) {
+                // pequeno roque //
+                if (dim_X == (posInicial_Y+2)) {
+                    peca=this.tabuleiro[dim_Y][7].peca;
+                    this.desocupar(peca.getPosX(), peca.getPosY());
+                    this.tabuleiro[dim_Y][5].ocupada=true;
+                    this.tabuleiro[dim_Y][5].peca=peca;
+                    this.tabuleiro[dim_Y][5].peca.sprite.setPosition(tabuleiro[dim_Y][5].posX-tabuleiro[dim_Y][5].peca.comp_X, tabuleiro[dim_Y][5].posY-tabuleiro[dim_Y][5].peca.comp_Y);
+                    this.tabuleiro[dim_Y][5].peca.setPosX(dim_Y);
+                    this.tabuleiro[dim_Y][5].peca.setPosY(5);
+                    this.ultimaPeça=peca;
+                    this.tabuleiro[dim_Y][5].peca.foiMexida=true;
+                }
+                // grande roque //
+                if (dim_X == (posInicial_Y-2)) {
+                    peca=this.tabuleiro[dim_Y][0].peca;
+                    this.desocupar(peca.getPosX(), peca.getPosY());
+                    this.tabuleiro[dim_Y][3].ocupada=true;
+                    this.tabuleiro[dim_Y][3].peca=peca;
+                    this.tabuleiro[dim_Y][3].peca.sprite.setPosition(tabuleiro[dim_Y][3].posX-tabuleiro[dim_Y][3].peca.comp_X, tabuleiro[dim_Y][3].posY-tabuleiro[dim_Y][3].peca.comp_Y);
+                    this.tabuleiro[dim_Y][3].peca.setPosX(dim_Y);
+                    this.tabuleiro[dim_Y][3].peca.setPosY(3);
+                    this.ultimaPeça=peca;
+                    this.tabuleiro[dim_Y][3].peca.foiMexida=true;
+                }
+            }
+            Motor.getInstancia().parametros.passaVez();
+            
+      
+    }
+    
+    
     public void reposicionarTabuleiro(){
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
