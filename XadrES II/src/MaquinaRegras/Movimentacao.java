@@ -480,14 +480,9 @@ public class Movimentacao {
                 resposta = posicoesValidasRei(tab, p);
                 break;
              default:
-                 System.out.println("Este não é uma peça válida!");
+                 System.out.println("Esta não é uma peça válida!");
          }
         
         return resposta;
     }
-    
-    
-    
-    
-    
 }

@@ -4,6 +4,8 @@
  */
 package MaquinaRegras;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author Thiago
@@ -24,5 +26,6 @@ public class Posicao {
     public int getPosY(){
         return this.posY;
     }
-            
+
+    
 }

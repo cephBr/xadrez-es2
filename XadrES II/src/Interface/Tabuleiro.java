@@ -7,6 +7,7 @@ package Interface;
 
 import JPlay.GameImage;
 
+import MaquinaRegras.Arbitro;
 import MaquinaRegras.Movimentacao;
 import MaquinaRegras.Posicao;
 import Parametros.Constantes;
@@ -27,6 +28,7 @@ public class Tabuleiro {
     public Peca ultimaPeça;
     
     public Movimentacao mov = new Movimentacao();
+    public Arbitro arbitro = new Arbitro();
     
     public Peca retornaUltimaPeça(){
         return ultimaPeça;
@@ -110,6 +112,16 @@ public class Tabuleiro {
                     this.tabuleiro[dim_Y][3].peca.foiMexida=true;
                 }
             }
+            
+            if (arbitro.estaEmXeque("branco", tabuleiro)) {
+                System.out.println("estah em Xeque!!!!!!");
+                System.out.println("branco");
+            }
+            if (arbitro.estaEmXeque("preto", tabuleiro)) {
+                System.out.println("estah em Xeque!!!!!!");
+                System.out.println("preto");
+            }
+            
             Motor.getInstancia().parametros.passaVez();
             
         }else
