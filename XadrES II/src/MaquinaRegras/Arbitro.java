@@ -153,15 +153,11 @@ public class Arbitro {
         
         //iterador com as posições destino possíveis do rei
         List<Posicao> posicoesPossiveisRei = mov.posicoesValidasRei(Tab, Tab[posicaoRei.posX][posicaoRei.posY].peca);
-        if ((Tab[posicaoRei.posX][posicaoRei.posY].peca.id%6) == 5) {
-            System.out.println("EH REI!!!");
-        }
-        System.out.println("posicoes do rei antes do while...");
-        imprimePosicoes(posicoesPossiveisRei);
         
-        boolean reiEmPerigo = true;
+        
         //Rei pode fugir?
         int i = 0;
+        boolean reiEmPerigo = true;
         while ((i < posicoesPossiveisRei.size()) && reiEmPerigo) {
             Posicao possivelPosRei = posicoesPossiveisRei.get(i);
             //Armazena o rei e a peça que está na posição que ele vai testar para retornar depois
