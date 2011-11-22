@@ -114,13 +114,28 @@ public class Tabuleiro {
             }
             
             if (arbitro.estaEmXeque("branco", tabuleiro)) {
-                System.out.println("estah em Xeque!!!!!!");
-                System.out.println("branco");
+                System.out.println("rei branco estah em Xeque!!!!!!");
+                if (arbitro.reiPodeFugir("branco", tabuleiro)) {
+                    System.out.println("rei branco pode fugir!!!!!!");
+                }else
+                    System.out.println("rei branco NAO pode fugir!!!!!!");
             }
             if (arbitro.estaEmXeque("preto", tabuleiro)) {
-                System.out.println("estah em Xeque!!!!!!");
-                System.out.println("preto");
+                System.out.println("rei preto estah em Xeque!!!!!!");
+                if (arbitro.reiPodeFugir("preto", tabuleiro)) {
+                    System.out.println("rei preto pode fugir!!!!!!");
+                }else
+                    System.out.println("rei preto NAO pode fugir!!!!!!");
             }
+            
+            /*if (arbitro.xequeMate("branco", tabuleiro)) {
+                System.out.println("rei branco estah em Xeque Mate!!!!!!");
+            }
+            if (arbitro.xequeMate("preto", tabuleiro)) {
+                System.out.println("rei preto estah em Xeque Mate!!!!!!");
+            }*/
+            
+            
             
             Motor.getInstancia().parametros.passaVez();
             
