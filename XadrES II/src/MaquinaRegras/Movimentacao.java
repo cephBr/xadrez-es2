@@ -6,10 +6,7 @@ package MaquinaRegras;
 
 import Interface.Casa;
 import Interface.Peca;
-import Interface.Tabuleiro;
-import Parametros.Constantes;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,6 +14,7 @@ import java.util.List;
  * @author Thiago
  */
 public class Movimentacao {
+   // Arbitro arbitro = new Arbitro();
     
     public int retornaTipoPeca(int id){
         return id%6;
@@ -410,18 +408,8 @@ public class Movimentacao {
             }
         }
         
-        // FAZER MOVIMENTO ESPECIAL DO REI .... //
-        /*  No roque, pequeno ou grande, o rei sempre se move duas casas na direção de uma das torres;
-         * completando o movimento, a torre salta sobre o rei e passa a ocupar a casa ao seu lado.
-           O roque não é permitido se:
-            - o rei ou a torre já tiverm sido movimentados;
-            - o rei estiver em xeque;
-            - o rei ficar em xeque ao final do movimento;
-            - o rei passar por uma casa dominada por peça adversária;
-            - houver alguma peça entre o rei e a torre.
-         */
-        
-        //if (nao estah em cheque..) {
+        // MOVIMENTO ESPECIAL DO REI //
+        //if (!arbitro.estaEmXeque(p.retornaCor(), tab)) {
             // pequeno roque //
             if (!p.foiMexida()) {
                 if (tab[posX][7].ocupada) {
