@@ -143,7 +143,16 @@ public class Tabuleiro {
             throw new Exception("Posição inválida");
     }
     
-   
+   public void posicionarPeca(int dim_Y, int dim_X, Peca p){
+       this.tabuleiro[dim_Y][dim_X].ocupada=true;
+            this.tabuleiro[dim_Y][dim_X].peca=p;
+            this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
+            this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
+            this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
+            this.ultimaPeça=p;
+            this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
+   }
+    
     public void ocupar2(int dim_Y,int dim_X,Peca peca) throws Exception{
         
         if(dim_X==-1 || dim_Y==-1){

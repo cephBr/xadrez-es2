@@ -11,6 +11,8 @@ import Parametros.Buffer;
 import Parametros.Contexto;
 import Parametros.Parametros;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -28,7 +30,31 @@ public class Motor {
     Buffer buffer = new Buffer();
     Contexto contexto = new Contexto(buffer);
     Boolean isJogoCarregado = false;
+    String promovidoPara;
+    Boolean pausado=false;
+    
+    public void pausar() {
+        int i=0;
+        pausado=true;
+        while(pausado){
+           i++;
+        }
+    }
+    
+    public void despausar () {
+		this.pausado = false;
+                
+    }
+    public String getPromovidoPara() {
+        return promovidoPara;
+    }
 
+    public void setPromovidoPara(String promovidoPara){
+        this.promovidoPara = promovidoPara;
+    }
+    
+    
+    
     public boolean isPromocaoAtiva() {
         return promocaoAtiva;
     }
