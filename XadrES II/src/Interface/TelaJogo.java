@@ -46,13 +46,13 @@ public class TelaJogo implements InterfaceTela{
         Boolean clicouNovoJogo;
         Boolean clicouCarregar;
         Boolean clicouSalvar;
-        
+        int[] ids;
         MiniMax ia;
     
    
 
-    private void monitorPeca(Peca p) throws Exception{
-     
+    private void monitorPeca(Peca p,int i) throws Exception{
+                Movimentacao mov = new Movimentacao();
                 
                 if(p.estaSelecionada()){
                     if (!mouse.isOverObject(p.sprite)) {
@@ -64,7 +64,28 @@ public class TelaJogo implements InterfaceTela{
                     
                 }     
                
-                
+                if((p.posX==0||p.posX==7) && mov.retornaTipoPeca(p.id)==0){
+                      if(!Motor.getInstancia().isPromocaoAtiva()){
+                                  
+                                  Peca peca=p;
+                                  p.id=1;
+                                  Motor.getInstancia().setPromocaoAtiva(Boolean.TRUE);
+                                  new Thread(new TelaPromocao()).start();
+                                  Motor.getInstancia().pausar();
+                                  String promocao = Motor.getInstancia().getPromovidoPara();
+                                  int linha=p.posX;
+                                  int coluna=p.posY;
+                                  tabuleiro.desocupar(coluna,linha);
+                                  p.deselecionar();
+                                  peca = promoverPeao(peca, promocao);
+                                  pecas.add(i, peca);
+                                  tabuleiro.setPeça(linha, coluna, peca);
+                                  tabuleiro.posicionarPeca(linha, coluna, peca);
+                                  temPecaSelecionada=false;
+                                  throw new Exception("");
+                                  
+                              }   
+                            }
                
                 
                if(mouse.isOverObject(p.sprite)){
@@ -131,7 +152,7 @@ public class TelaJogo implements InterfaceTela{
     public void carregar() {
         
         ia = new MiniMax();
-        
+         ids = new int[4];
          temPecaSelecionada = false;
          janela = Motor.getInstancia().getJanela();
          fonte = new Font("ARIAL", Font.TRUETYPE_FONT, 30);
@@ -254,6 +275,10 @@ public class TelaJogo implements InterfaceTela{
             this.tabuleiro.montarCasas();
             this.tabuleiro.reposicionarTabuleiro(); 
          }
+         ids[0]=19; //torre
+         ids[1]=21; //cavalo
+         ids[2]=10; //dama
+         ids[3]=20; //bispo
          executando = true;
     }
 
@@ -321,38 +346,58 @@ public class TelaJogo implements InterfaceTela{
                 if(mouse.isOverObject(botaoEstatisticas)){
                     clicouEstatistica=true;
                 }    
-                for (Iterator<Peca> it = pecas.iterator(); it.hasNext();) {
-                    Peca peca = it.next();
-                    monitorPeca(peca);
+                for (int i=0; i<=pecas.size();i++) {
+                    Peca peca = pecas.get(i);
+                    monitorPeca(peca,i);
                 }
     
             }
-            if (mouse.isRightButtonPressed()==true){
-                        Movimentacao mov = new Movimentacao();
-                        for (Iterator<Peca> it = pecas.iterator(); it.hasNext();) {
-                            Peca peca = it.next();
-                            if(peca.estaSelecionada() && mov.retornaTipoPeca(peca.id)==0){
-                              if(!Motor.getInstancia().isPromocaoAtiva()){
-                                  Motor.getInstancia().setPromocaoAtiva(Boolean.TRUE);
-                                  new Thread(new TelaPromocao()).start();
-                                  temPecaSelecionada=false;
-                                  peca.deselecionar();
-                                  throw new Exception("");
-                                  
-                              }   
-                            }
-                         }
-            }             
-            
             
         }catch (Exception e){
-            if(!e.getMessage().equals(""))
-                new Sound(Constantes.ERRO_SOM).play();
             System.out.println(e.getMessage());
         }
           
     }
-
+    
+    
+    
+    private Peca promoverPeao(Peca peao,String promocao){
+        Peca peaoPromovido=null;
+        String cor = peao.retornaCor();
+        int linha = peao.getPosX();
+        int coluna = peao.getPosY();
+        int posX = tabuleiro.tabuleiro[coluna][linha].posX-peao.comp_X;
+        int posY = tabuleiro.tabuleiro[coluna][linha].posY-peao.comp_Y;
+        if(promocao.equals("Dama")){
+            if(cor.equals(Constantes.BRANCO)){
+                  peaoPromovido = new Dama(linha, coluna, 0, 0, ids[2]+6, cor, Constantes.DAMA_BRANCO);
+            }else
+                  peaoPromovido = new Dama(linha, coluna, 0, 0, ids[2]+6, cor, Constantes.DAMA_PRETO);
+            ids[2]+=6;
+        }
+        if(promocao.equals("Cavalo")){
+            if(cor.equals(Constantes.BRANCO)){
+                  peaoPromovido = new Cavalo(linha, coluna, 0, 0, ids[1]+6, cor, Constantes.CAVALO_BRANCO);
+            }else
+                  peaoPromovido = new Cavalo(linha, coluna, 0, 0, ids[1]+6, cor, Constantes.CAVALO_PRETO);
+            ids[1]+=6;
+        }
+        if(promocao.equals("Bispo")){
+            if(cor.equals(Constantes.BRANCO)){
+                  peaoPromovido = new Bispo(linha, coluna, 0, 0, ids[3]+6, cor, Constantes.BISPO_BRANCO);
+            }else
+                  peaoPromovido = new Bispo(linha, coluna, 0, 0, ids[3]+6, cor, Constantes.BISPO_PRETO);
+            ids[3]+=6;
+        }
+        if(promocao.equals("Torre")){
+            if(cor.equals(Constantes.BRANCO)){
+                  peaoPromovido = new Torre(linha, coluna, 0, 0, ids[0]+6, cor, Constantes.TORRE_BRANCO);
+            }else
+                  peaoPromovido = new Torre(linha, coluna, 0, 0, ids[0]+6, cor, Constantes.TORRE_PRETO);
+            ids[0]+=6;
+        }
+        return peaoPromovido;
+    }
     public void proxTela() {
       
         if (clicouNovoJogo) {

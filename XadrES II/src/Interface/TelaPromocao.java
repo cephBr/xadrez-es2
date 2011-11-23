@@ -132,13 +132,14 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             opcao="Cavalo";
         }else
             if(opcaoRainha.isSelected()){
-                opcao="Rainha";
+                opcao="Dama";
             }else
                 if(opcaoTorre.isSelected()){
                     opcao="Torre";
                 }
-    System.out.println(opcao);
+    Motor.getInstancia().setPromovidoPara(opcao);
     Motor.getInstancia().setPromocaoAtiva(Boolean.FALSE);
+    Motor.getInstancia().despausar();
     this.dispose();
 }//GEN-LAST:event_jButton1ActionPerformed
 
