@@ -57,29 +57,7 @@ public class Tabuleiro {
         return tabuleiro[dim_Y][dim_X].ocupada;
     }
     
-    // remove a possibilidade de realizar o roque
-    public List<Posicao> removePosicaoRoque(Peca peca, List<Posicao> resposta) {
-        
-        int posY;
-        int posPecaY1 = peca.getPosY()+2;
-        int posPecaY2 = peca.getPosY()-2;
-        int tamLista = resposta.size();
-                
-        tamLista--;
-        posY = resposta.get(tamLista).getPosY();
-        if ((posY == posPecaY1) || (posY == posPecaY2)) {
-            resposta.remove(tamLista);
-        }
-        
-        tamLista = resposta.size();
-        tamLista--;
-        posY = resposta.get(tamLista).getPosY();
-        if ((posY == posPecaY1) || (posY == posPecaY2)) {
-            resposta.remove(tamLista);
-        }
-        
-        return resposta;
-    }
+    
     
     public void moveTorre (int dim_X, int dim_Y, Peca peca, int posInicial_Y){
         // pequeno roque //
@@ -110,86 +88,25 @@ public class Tabuleiro {
 
     public void ocupar(int dim_X,int dim_Y,Peca peca) throws Exception{
         
-        if(dim_X==-1 || dim_Y==-1){
-            peca.deselecionar();
-            peca.sprite.reset();
-            throw new Exception("Tentativa de mover a peça para fora do tabuleiro");
-        }
-        
-        List<Posicao> resposta;
-        //int posInicial_X = peca.getPosX();
         int posInicial_Y = peca.getPosY();
-        boolean xequeMate = false;
         
-        resposta = mov.posicoesValidas(tabuleiro, peca);
-        // nova posicao que foi escolhida
-        Posicao pos = new Posicao(dim_Y,dim_X);
-        // posicao atual da peca
-        Posicao posPeca = new Posicao(peca.getPosX(),peca.getPosY());
-        // Apos jogada verifica se rei continua em xeque
-        inicilizarTabVirtual(tabuleiro);
-        //this.tabVirtual[7][7].peca = null;
-        //this.tabVirtual[0][0].peca = null;
-        boolean reiContinuaEmXeque = false;
-        boolean reiEmXeque = arbitro.estaEmXeque(peca.retornaCor(), this.tabVirtual);
-        if ((peca.id%6) == 5) {
-            // se rei estiver em xeque remove a possibilidade de realizar o roque
-            if (reiEmXeque)
-                resposta = removePosicaoRoque(peca,resposta);
-        }
-        
-        // se rei em xeque, verifica se posicao escolhida retira o rei de xeque
-        
-        Peca pecaVelha = this.tabVirtual[pos.getPosX()][pos.getPosY()].peca;
-        this.tabVirtual = arbitro.montaTabVirtual(posPeca, pos, this.tabVirtual, peca);
-        reiContinuaEmXeque = arbitro.estaEmXeque(peca.retornaCor(), this.tabVirtual);
-        this.tabVirtual = arbitro.retornaTabOriginal(posPeca, pos, this.tabVirtual, peca, pecaVelha);
-        
-        boolean contemNaLista = mov.contemNaLista(pos, resposta);
-        if (!reiContinuaEmXeque) {
-            if(contemNaLista){
-                this.comerPeca(dim_Y, dim_X, peca);
-                this.desocupar(peca.getPosX(), peca.getPosY());
-                this.tabuleiro[dim_Y][dim_X].ocupada=true;
-                this.tabuleiro[dim_Y][dim_X].peca=peca;
-                this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
-                this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
-                this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
-                this.ultimaPeça=peca;
-                this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
+        this.comerPeca(dim_Y, dim_X, peca);
+        this.desocupar(peca.getPosX(), peca.getPosY());
+        this.tabuleiro[dim_Y][dim_X].ocupada=true;
+        this.tabuleiro[dim_Y][dim_X].peca=peca;
+        this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
+        this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
+        this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
+        this.ultimaPeça=peca;
+        this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
 
-                // MOVER A TORRE PARA REALIZAR O ROQUE //
-                if ((peca.id%6) == 5) { // se eh rei
-                    moveTorre (dim_X,dim_Y,peca,posInicial_Y);
-                }
-                
-                if (arbitro.xequeMate("branco", tabuleiro)) {
-                    JOptionPane.showMessageDialog(null, "Rei braco em Xeque Mate!", "Xeque Mate", 2);
-                    xequeMate = true;
-                }
-                if (arbitro.xequeMate("preto", tabuleiro)) {
-                    JOptionPane.showMessageDialog(null, "Rei preto em Xeque Mate!", "Xeque Mate", 2);
-                    xequeMate = true;
-                }
-
-                if (arbitro.estaEmXeque("branco", tabuleiro) && !xequeMate)
-                    JOptionPane.showMessageDialog(null, "Rei branco em Xeque!", "Xeque", 2);
-                
-                if (arbitro.estaEmXeque("preto", tabuleiro) && !xequeMate)
-                    JOptionPane.showMessageDialog(null, "Rei preto em Xeque!", "Xeque", 2);
-
-
-                Motor.getInstancia().parametros.passaVez();
-
-            }else
-                throw new Exception("Posição inválida");
-        }else {
-            if(contemNaLista)
-                JOptionPane.showMessageDialog(null, "Rei entrará em Xeque!", "Xeque", 2);
+        // MOVER A TORRE PARA REALIZAR O ROQUE //
+        if ((peca.id%6) == 5) { // se eh rei
+            moveTorre (dim_X,dim_Y,peca,posInicial_Y);
         }
     }
     
-   public void posicionarPeca(int dim_Y, int dim_X, Peca p){
+    public void posicionarPeca(int dim_Y, int dim_X, Peca p){
        this.tabuleiro[dim_Y][dim_X].ocupada=true;
             this.tabuleiro[dim_Y][dim_X].peca=p;
             this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
@@ -197,7 +114,7 @@ public class Tabuleiro {
             this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
             this.ultimaPeça=p;
             this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
-   }
+    }
     
     public void ocupar2(int dim_Y,int dim_X,Peca peca) throws Exception{
         
@@ -323,7 +240,7 @@ public class Tabuleiro {
         }
     }
     
-    private void inicilizarTabVirtual(Casa[][] tab) {
+    public void inicilizarTabVirtual(Casa[][] tab) {
         //Casa[][] tabRetorno = tab;
         this.tabVirtual = new Casa[8][8];
         for (int j = 0; j <= 7; j++) {

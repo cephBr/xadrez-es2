@@ -30,6 +30,10 @@ public class Parametros {
         this.turno = turno;
     }
     
+    public void travaJogo (){
+        turno = "rosa";
+    }
+    
     public void passaVez(){
         if (turno.equals(Constantes.BRANCO)) 
             turno = Constantes.PRETO;

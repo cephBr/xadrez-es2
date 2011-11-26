@@ -390,6 +390,30 @@ public class Movimentacao {
         return resposta;
     }
     
+    // remove a possibilidade de realizar o roque
+    public List<Posicao> removePosicaoRoque(Peca peca, List<Posicao> resposta) {
+        
+        int posY;
+        int posPecaY1 = peca.getPosY()+2;
+        int posPecaY2 = peca.getPosY()-2;
+        int tamLista = resposta.size();
+                
+        tamLista--;
+        posY = resposta.get(tamLista).getPosY();
+        if ((posY == posPecaY1) || (posY == posPecaY2)) {
+            resposta.remove(tamLista);
+        }
+        
+        tamLista = resposta.size();
+        tamLista--;
+        posY = resposta.get(tamLista).getPosY();
+        if ((posY == posPecaY1) || (posY == posPecaY2)) {
+            resposta.remove(tamLista);
+        }
+        
+        return resposta;
+    }
+    
     public List posicoesValidasRei(Casa[][] tab, Peca p){
         List<Posicao> resposta = new ArrayList<Posicao>();
         
