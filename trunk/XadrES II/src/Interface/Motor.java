@@ -193,10 +193,11 @@ public class Motor {
     /**
      * Inicia a execução do jogo em si.
      */    
-    public void rodar()
+    public void rodar() throws Exception
     {
         Keyboard teclado;
         Mouse mouse;
+        TelaJogo telaJogo = new TelaJogo();
         if(telaCorrente == null)
             return;       
            
@@ -212,7 +213,8 @@ public class Motor {
             telaCorrente.logica();            
             telaCorrente.desenhar();
             janela.display();   
-           if(proxTela != null)
+            
+            if(proxTela != null)
             {
                 
                 telaCorrente.descarregar();
@@ -221,6 +223,7 @@ public class Motor {
                 telaCorrente = proxTela;
                 proxTela = null;
             }
+            //boolean xequeMate = telaJogo.avisaSobreXeque();
             
             if (teclado.keyDown(Keyboard.ESCAPE_KEY)){
                 this.sair();

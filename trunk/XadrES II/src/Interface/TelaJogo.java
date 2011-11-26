@@ -20,13 +20,15 @@ import javax.swing.JOptionPane;
 import IA.MiniMax;
 import IA.Movimento;
 import MaquinaRegras.Movimentacao;
+import MaquinaRegras.Posicao;
+import MaquinaRegras.Arbitro;
 import javax.swing.JFileChooser;
 
 /**
  *
  * @author Ceph
  */
-public class TelaJogo implements InterfaceTela{
+public class TelaJogo implements InterfaceTela {
         Tabuleiro tabuleiro;
         List<Peca> pecas;
         Font fonte;    
@@ -48,21 +50,103 @@ public class TelaJogo implements InterfaceTela{
         Boolean clicouSalvar;
         int[] ids;
         MiniMax ia;
+        
+        Movimentacao mov = new Movimentacao();
+        Arbitro arbitro = new Arbitro();
+        
+        boolean avisou; // para saber se avisou que estah em xeque ou xeque-mate
     
+   private boolean validaJogada (int dim_X,int dim_Y,Peca peca) throws Exception {
+       boolean jogadaValida = false;
+       
+       if(dim_X==-1 || dim_Y==-1){
+            peca.deselecionar();
+            peca.sprite.reset();
+            throw new Exception("Tentativa de mover a peça para fora do tabuleiro");
+       }
+       
+       List<Posicao> resposta;
+        //int posInicial_X = peca.getPosX();
+        //int posInicial_Y = peca.getPosY();
+        //boolean xequeMate = false;
+        
+        resposta = mov.posicoesValidas(tabuleiro.tabuleiro, peca);
+        // nova posicao que foi escolhida
+        Posicao pos = new Posicao(dim_Y,dim_X);
+        // posicao atual da peca
+        Posicao posPeca = new Posicao(peca.getPosX(),peca.getPosY());
+        // Apos jogada verifica se rei continua em xeque
+        tabuleiro.inicilizarTabVirtual(tabuleiro.tabuleiro);
+        
+        boolean reiContinuaEmXeque = false;
+        boolean reiEmXeque = arbitro.estaEmXeque(peca.retornaCor(), tabuleiro.tabVirtual);
+        if ((peca.id%6) == 5) {
+            // se rei estiver em xeque remove a possibilidade de realizar o roque
+            if (reiEmXeque)
+                resposta = mov.removePosicaoRoque(peca,resposta);
+        }
+        
+        // se rei em xeque, verifica se posicao escolhida retira o rei de xeque
+        
+        Peca pecaVelha = tabuleiro.tabVirtual[pos.getPosX()][pos.getPosY()].peca;
+        tabuleiro.tabVirtual = arbitro.montaTabVirtual(posPeca, pos, tabuleiro.tabVirtual, peca);
+        reiContinuaEmXeque = arbitro.estaEmXeque(peca.retornaCor(), tabuleiro.tabVirtual);
+        tabuleiro.tabVirtual = arbitro.retornaTabOriginal(posPeca, pos, tabuleiro.tabVirtual, peca, pecaVelha);
+        
+        boolean contemNaLista = mov.contemNaLista(pos, resposta);
+        if (!reiContinuaEmXeque) {
+            if(contemNaLista){
+                jogadaValida = true;
+            }
+        }
+        return jogadaValida;
+   }
    
+   public boolean avisaSobreXeque () throws Exception {
+        boolean  xequeMate = false;
+       
+        if (arbitro.xequeMate("branco", tabuleiro.tabuleiro)) {
+            JOptionPane.showMessageDialog(null, "Rei branco em Xeque Mate!", "Xeque Mate", 2);
+            xequeMate = true;
+        }
+        if (arbitro.xequeMate("preto", tabuleiro.tabuleiro)) {
+            JOptionPane.showMessageDialog(null, "Rei preto em Xeque Mate!", "Xeque Mate", 2);
+            xequeMate = true;
+        }
+
+        if (arbitro.estaEmXeque("branco", tabuleiro.tabuleiro) && !xequeMate)
+            JOptionPane.showMessageDialog(null, "Rei branco em Xeque!", "Xeque", 2);
+
+        if (arbitro.estaEmXeque("preto", tabuleiro.tabuleiro) && !xequeMate)
+            JOptionPane.showMessageDialog(null, "Rei preto em Xeque!", "Xeque", 2);
+        
+        return xequeMate;
+   }
 
     private void monitorPeca(Peca p,int i) throws Exception{
-                Movimentacao mov = new Movimentacao();
+        //Movimentacao mov = new Movimentacao();
                 
                 if(p.estaSelecionada()){
                     if (!mouse.isOverObject(p.sprite)) {
-                        tabuleiro.ocupar(tabuleiro.coordenadaX(mouse.getPosition().x, mouse.getPosition().y),tabuleiro.coordenadaY(mouse.getPosition().x, mouse.getPosition().y), p);
-                        temPecaSelecionada=false;
-                        p.deselecionar();
+                        int posX = tabuleiro.coordenadaX(mouse.getPosition().x, mouse.getPosition().y);
+                        int posY = tabuleiro.coordenadaY(mouse.getPosition().x, mouse.getPosition().y);
+                        if (validaJogada (posX, posY, p)) {
+                            tabuleiro.ocupar(posX, posY, p);
+                            temPecaSelecionada=false;
+                            p.deselecionar();
+                            boolean xequeMate = avisaSobreXeque ();
+                            if (!xequeMate) {
+                                Motor.getInstancia().parametros.passaVez();
+                            }else {
+                                Motor.getInstancia().parametros.travaJogo();
+                            }
+                            
+                        }
                         throw new Exception("");
                     }
                     
-                }     
+                }
+                
                
                 if((p.posX==0||p.posX==7) && mov.retornaTipoPeca(p.id)==0){
                       if(!Motor.getInstancia().isPromocaoAtiva()){
@@ -350,7 +434,7 @@ public class TelaJogo implements InterfaceTela{
                     Peca peca = pecas.get(i);
                     monitorPeca(peca,i);
                 }
-    
+                
             }
             
         }catch (Exception e){
