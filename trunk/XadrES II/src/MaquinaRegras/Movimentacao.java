@@ -14,7 +14,12 @@ import java.util.List;
  * @author Thiago
  */
 public class Movimentacao {
-   // Arbitro arbitro = new Arbitro();
+    
+    public Movimentacao () {
+        
+    }
+    
+    public Arbitro arbitro;
     
     public int retornaTipoPeca(int id){
         return id%6;
@@ -407,9 +412,9 @@ public class Movimentacao {
                 }
             }
         }
-        
+        //arbitro = new Arbitro();
         // MOVIMENTO ESPECIAL DO REI //
-        //if (!arbitro.estaEmXeque(p.retornaCor(), tab)) {
+        //if (arbitro.estaEmXeque(p.cor, tab)) {
             // pequeno roque //
             if (!p.foiMexida()) {
                 if (tab[posX][7].ocupada) {

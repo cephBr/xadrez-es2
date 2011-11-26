@@ -15,7 +15,11 @@ import java.util.List;
  */
 public class Arbitro {
     
-    Movimentacao mov = new Movimentacao();
+    public Arbitro (){
+        
+    }
+
+    public Movimentacao mov = new Movimentacao();
         
     public List<Peca> getPecas(String corJogador, Casa[][] Tab){
         
@@ -84,6 +88,16 @@ public class Arbitro {
             Tab[possivelPosRei.posX][possivelPosRei.posY].peca=null;
             Tab[possivelPosRei.posX][possivelPosRei.posY].ocupada=false;
         }
+       /* this.comerPeca(dim_Y, dim_X, peca);
+                this.desocupar(peca.getPosX(), peca.getPosY());
+                this.tabuleiro[dim_Y][dim_X].ocupada=true;
+                this.tabuleiro[dim_Y][dim_X].peca=peca;
+                this.
+                this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
+                this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
+                this.ultimaPeça=peca;
+                this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
+        */
 
         Tab[posicaoRei.posX][posicaoRei.posY].peca=null;
         Tab[posicaoRei.posX][posicaoRei.posY].ocupada=false;
@@ -126,7 +140,7 @@ public class Arbitro {
         Posicao posicaoRei  = getPosicaoRei(corJogador,Tab);
         
         
-        //iterador com as posições destino possíveis do rei
+        // Lista com as posições destino possíveis do rei
         List<Posicao> posicoesPossiveisRei = mov.posicoesValidasRei(Tab, Tab[posicaoRei.posX][posicaoRei.posY].peca);
         
         
@@ -194,21 +208,52 @@ public class Arbitro {
         List<Posicao> listaPosicoes = new ArrayList<Posicao>();
         int reiId = rei.getId();
         
-        
-        List<Posicao> posicoesPeca = mov.posicoesValidas(Tab, peca);
-        rei.id = peca.getId();
-        List<Posicao> posicoesRei = mov.posicoesValidas(Tab, rei);
-        
-        for (int i = 0; i < posicoesRei.size(); i++) {
-            Posicao posRei = new Posicao(posicoesRei.get(i).getPosX(),posicoesRei.get(i).getPosY());
-            for (int j = 0; j < posicoesPeca.size(); j++) {
-                Posicao posPeca = new Posicao(posicoesPeca.get(j).getPosX(),posicoesPeca.get(j).getPosY());
-                if (posPeca.getPosX() == posRei.getPosX() && posPeca.getPosY() == posRei.getPosY()) {
-                    boolean add = listaPosicoes.add(new Posicao (posRei.getPosX(),posRei.getPosY()));
+        // se for dama
+        if ((peca.id%6) == 4) {
+            List<Posicao> posicoesPeca = mov.posicoesValidas(Tab, peca);
+            rei.id = 1; // torre
+            List<Posicao> posicoesRei = mov.posicoesValidas(Tab, rei);
+
+            for (int i = 0; i < posicoesRei.size(); i++) {
+                Posicao posRei = new Posicao(posicoesRei.get(i).getPosX(),posicoesRei.get(i).getPosY());
+                for (int j = 0; j < posicoesPeca.size(); j++) {
+                    Posicao posPeca = new Posicao(posicoesPeca.get(j).getPosX(),posicoesPeca.get(j).getPosY());
+                    if (posPeca.getPosX() == posRei.getPosX() && posPeca.getPosY() == posRei.getPosY()) {
+                        boolean add = listaPosicoes.add(new Posicao (posRei.getPosX(),posRei.getPosY()));
+                    }
+                }
+            }
+            
+            if (listaPosicoes.isEmpty()) {
+                rei.id = 2; // bispo
+                posicoesRei = mov.posicoesValidas(Tab, rei);
+
+                for (int i = 0; i < posicoesRei.size(); i++) {
+                    Posicao posRei = new Posicao(posicoesRei.get(i).getPosX(),posicoesRei.get(i).getPosY());
+                    for (int j = 0; j < posicoesPeca.size(); j++) {
+                        Posicao posPeca = new Posicao(posicoesPeca.get(j).getPosX(),posicoesPeca.get(j).getPosY());
+                        if (posPeca.getPosX() == posRei.getPosX() && posPeca.getPosY() == posRei.getPosY()) {
+                            boolean add = listaPosicoes.add(new Posicao (posRei.getPosX(),posRei.getPosY()));
+                        }
+                    }
+                }
+            }
+            
+        } else { // qq outra peca
+            List<Posicao> posicoesPeca = mov.posicoesValidas(Tab, peca);
+            rei.id = peca.getId();
+            List<Posicao> posicoesRei = mov.posicoesValidas(Tab, rei);
+
+            for (int i = 0; i < posicoesRei.size(); i++) {
+                Posicao posRei = new Posicao(posicoesRei.get(i).getPosX(),posicoesRei.get(i).getPosY());
+                for (int j = 0; j < posicoesPeca.size(); j++) {
+                    Posicao posPeca = new Posicao(posicoesPeca.get(j).getPosX(),posicoesPeca.get(j).getPosY());
+                    if (posPeca.getPosX() == posRei.getPosX() && posPeca.getPosY() == posRei.getPosY()) {
+                        boolean add = listaPosicoes.add(new Posicao (posRei.getPosX(),posRei.getPosY()));
+                    }
                 }
             }
         }
-        
         rei.id = reiId;
         
         return listaPosicoes;
@@ -285,7 +330,6 @@ public class Arbitro {
                     mosqueteiro = pecaAtualJogador;
                     posBloqueio = pos;
                     ameacasRei.remove(i);
-                    i--;
                 } else { //Ou seja, uma ameaça já foi bloqueada
                     if (mosqueteiro != pecaAtualJogador || posBloqueio != pos) {
                         return true;//Iria ser necessário mais de um movimento para salvar o rei
