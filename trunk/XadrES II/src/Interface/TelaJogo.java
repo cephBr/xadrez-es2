@@ -107,19 +107,21 @@ public class TelaJogo implements InterfaceTela {
        
         if (arbitro.xequeMate("branco", tabuleiro.tabuleiro)) {
             JOptionPane.showMessageDialog(null, "Rei branco em Xeque Mate!", "Xeque Mate", 2);
+            Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
             xequeMate = true;
         }
         if (arbitro.xequeMate("preto", tabuleiro.tabuleiro)) {
             JOptionPane.showMessageDialog(null, "Rei preto em Xeque Mate!", "Xeque Mate", 2);
+            Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
             xequeMate = true;
         }
 
-        if (arbitro.estaEmXeque("branco", tabuleiro.tabuleiro) && !xequeMate)
-            JOptionPane.showMessageDialog(null, "Rei branco em Xeque!", "Xeque", 2);
-
-        if (arbitro.estaEmXeque("preto", tabuleiro.tabuleiro) && !xequeMate)
-            JOptionPane.showMessageDialog(null, "Rei preto em Xeque!", "Xeque", 2);
-        
+//        if (arbitro.estaEmXeque("branco", tabuleiro.tabuleiro) && !xequeMate)
+//            JOptionPane.showMessageDialog(null, "Rei branco em Xeque!", "Xeque", 2);
+//
+//        if (arbitro.estaEmXeque("preto", tabuleiro.tabuleiro) && !xequeMate)
+//            JOptionPane.showMessageDialog(null, "Rei preto em Xeque!", "Xeque", 2);
+//        
         return xequeMate;
    }
 
@@ -134,12 +136,12 @@ public class TelaJogo implements InterfaceTela {
                             tabuleiro.ocupar(posX, posY, p);
                             temPecaSelecionada=false;
                             p.deselecionar();
-                            boolean xequeMate = avisaSobreXeque ();
-                            if (!xequeMate) {
+//                            boolean xequeMate = avisaSobreXeque ();
+//                            if (!xequeMate) {
                                 Motor.getInstancia().parametros.passaVez();
-                            }else {
-                                Motor.getInstancia().parametros.travaJogo();
-                        }
+//                            }else {
+//                                Motor.getInstancia().parametros.travaJogo();
+//                        }
                             
                         }
                         return;
@@ -194,16 +196,14 @@ public class TelaJogo implements InterfaceTela {
                }
                
                // Arbitro analisa jogo
-//               boolean xequeMate = avisaSobreXeque();
-//               if (!xequeMate) {
-//                   Motor.getInstancia().parametros.passaVez();
-//               } else {
-//                   Motor.getInstancia().parametros.travaJogo();
-//               }
+               if (avisaSobreXeque()) {
+                   Motor.getInstancia().parametros.travaJogo();
+               }
                
                arbitro.verificaCriteriosEmpate(tabuleiro);
                if (arbitro.getStatusAtual().equals(Arbitro.EMPATE)) {
                    avisaSobreEmpate();
+                   Motor.getInstancia().parametros.travaJogo();
                }
     }
 
