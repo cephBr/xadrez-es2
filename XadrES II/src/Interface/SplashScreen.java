@@ -11,6 +11,8 @@
 package Interface;
 
 import Parametros.Constantes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -25,7 +27,7 @@ public class SplashScreen extends javax.swing.JFrame implements Runnable {
         initComponents();
     }
     
-    private void iniciarMotor(){
+    private void iniciarMotor() throws Exception{
              Motor motor = new Motor();
              motor.criarJanela(Constantes.DIM_TABULEIRO_HORIZONTAL, Constantes.DIM_TABULEIRO_VERTICAL);
              motor.addTela(Constantes.TELA_INICIAL, new TelaMenuPrincipal());
@@ -84,7 +86,11 @@ public class SplashScreen extends javax.swing.JFrame implements Runnable {
            Thread.sleep(Constantes.TEMPO);
            if (!fechou){
                this.dispose();
-               iniciarMotor();
+                try {
+                    iniciarMotor();
+                } catch (Exception ex) {
+                    Logger.getLogger(SplashScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
            }
          } catch (InterruptedException ex) {
             System.out.println("ERRO");
