@@ -102,18 +102,18 @@ public class TelaJogo implements InterfaceTela {
         return jogadaValida;
    }
    
-   public boolean avisaSobreXeque () {
-        boolean  xequeMate = false;
+   public void verificaXequeMate () {
+//        boolean  xequeMate = false;
        
         if (arbitro.xequeMate("branco", tabuleiro.tabuleiro)) {
             JOptionPane.showMessageDialog(null, "Rei branco em Xeque Mate!", "Xeque Mate", 2);
             Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
-            xequeMate = true;
+//            xequeMate = true;
         }
         if (arbitro.xequeMate("preto", tabuleiro.tabuleiro)) {
             JOptionPane.showMessageDialog(null, "Rei preto em Xeque Mate!", "Xeque Mate", 2);
             Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
-            xequeMate = true;
+//            xequeMate = true;
         }
 
 //        if (arbitro.estaEmXeque("branco", tabuleiro.tabuleiro) && !xequeMate)
@@ -122,7 +122,7 @@ public class TelaJogo implements InterfaceTela {
 //        if (arbitro.estaEmXeque("preto", tabuleiro.tabuleiro) && !xequeMate)
 //            JOptionPane.showMessageDialog(null, "Rei preto em Xeque!", "Xeque", 2);
 //        
-        return xequeMate;
+//        return xequeMate;
    }
 
     private void monitorPeca(Peca p,int i) {
@@ -196,19 +196,17 @@ public class TelaJogo implements InterfaceTela {
                }
                
                // Arbitro analisa jogo
-               if (avisaSobreXeque()) {
-                   Motor.getInstancia().parametros.travaJogo();
-               }
+               verificaXequeMate();
                
                arbitro.verificaCriteriosEmpate(tabuleiro);
                if (arbitro.getStatusAtual().equals(Arbitro.EMPATE)) {
                    avisaSobreEmpate();
-                   Motor.getInstancia().parametros.travaJogo();
                }
     }
 
     public void avisaSobreEmpate() {
         JOptionPane.showMessageDialog(null, "Empate entre os jogadores!");
+        Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);        
     }
 
     public void desenhar(){
