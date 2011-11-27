@@ -4,8 +4,14 @@
  */
 package MaquinaRegras;
 
+import Interface.Bispo;
 import Interface.Casa;
+import Interface.Cavalo;
+import Interface.Dama;
+import Interface.Peao;
 import Interface.Peca;
+import Interface.Rei;
+import Interface.Torre;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -473,32 +479,19 @@ public class Movimentacao {
         
         List<Posicao> resposta = new ArrayList<Posicao>();
         
-        int tipoPeca;
-        
-        tipoPeca = retornaTipoPeca(p.getId());
-        
-        switch (tipoPeca) {
-            case 0:
-                resposta = posicoesValidasPeao(tab, p);
-                break;
-            case 1:
-                resposta = posicoesValidasTorre(tab, p);
-                break;
-            case 2:
-                resposta = posicoesValidasBispo(tab, p);
-                break;
-            case 3:
-                resposta = posicoesValidasCavalo(tab, p);
-                break;
-            case 4:
-                resposta = posicoesValidasDama(tab, p);
-                break;
-            case 5:
-                resposta = posicoesValidasRei(tab, p);
-                break;
-             default:
-                 System.out.println("Esta não é uma peça válida!");
-         }
+        if (p instanceof Peao) {
+            resposta = posicoesValidasPeao(tab, p);
+        } else if (p instanceof Torre) {
+            resposta = posicoesValidasTorre(tab, p);
+        } else if (p instanceof Bispo) {
+            resposta = posicoesValidasBispo(tab, p);
+        } else if (p instanceof Cavalo) {
+            resposta = posicoesValidasCavalo(tab, p);
+        } else if (p instanceof Dama) {
+            resposta = posicoesValidasDama(tab, p);
+        } else if (p instanceof Rei) {
+            resposta = posicoesValidasRei(tab, p);
+        }
         
         return resposta;
     }
