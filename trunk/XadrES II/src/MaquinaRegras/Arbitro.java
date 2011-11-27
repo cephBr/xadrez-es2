@@ -4,113 +4,129 @@
  */
 package MaquinaRegras;
 
+import Interface.Bispo;
 import Interface.Casa;
+import Interface.Cavalo;
+import Interface.Dama;
+import Interface.Peao;
 import Interface.Peca;
 import Interface.Rei;
+import Interface.Tabuleiro;
+import Interface.Torre;
+import Parametros.Constantes;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author Thiago
  */
 public class Arbitro {
-    
-    public Arbitro (){
-        
+
+    public static final String VITORIA_JOGADOR_BRANCO = "Vitória do Branco";
+    public static final String VITORIA_JOGADOR_PRETO = "Vitória do Preto";
+    public static final String EMPATE = "Empate";
+    public static final String INDEFINIDO = "Resultado Indefinido";
+    private String statusAtual;
+    private String corJogadorVencedor;
+    public Movimentacao mov = new Movimentacao();
+
+    public Arbitro() {
+        setStatusAtual(INDEFINIDO);
+        setCorJogadorVencedor(null);
     }
 
-    public Movimentacao mov = new Movimentacao();
-        
-    public List<Peca> getPecas(String corJogador, Casa[][] Tab){
-        
+    public List<Peca> getPecas(String corJogador, Casa[][] Tab) {
+
         List<Peca> pecas = new ArrayList<Peca>();
-        
+
         for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <=7; j++) {
+            for (int j = 0; j <= 7; j++) {
                 if (Tab[i][j].ocupada) {
                     if (Tab[i][j].peca.cor.equalsIgnoreCase(corJogador)) {
-                          boolean add = pecas.add(Tab[i][j].peca);
+                        boolean add = pecas.add(Tab[i][j].peca);
                     }
                 }
             }
         }
-        
-        return pecas;        
+
+        return pecas;
     }
-    
-    public Posicao getPosicaoRei (String corJogador, Casa[][] Tab){
-        Posicao posRei = new Posicao(-1,-1);
-        
+
+    public Posicao getPosicaoRei(String corJogador, Casa[][] Tab) {
+        Posicao posRei = new Posicao(-1, -1);
+
         for (int i = 0; i <= 7; i++) {
-            for (int j = 0; j <=7; j++) {
+            for (int j = 0; j <= 7; j++) {
                 if (Tab[i][j].ocupada) {
                     if (Tab[i][j].peca instanceof Rei) {
                         if (Tab[i][j].peca.cor.equalsIgnoreCase(corJogador)) {
-                            posRei  = new Posicao(i,j);
+                            posRei = new Posicao(i, j);
                         }
                     }
                 }
             }
         }
-        
+
         return posRei;
-    
+
     }
-    
+
     public boolean estaEmXeque(String corJogador, Casa[][] Tab) {
-        
-            Posicao posicaoRei;
-            String corAdversario;
-            
-            if (corJogador.equalsIgnoreCase("branco"))
-                corAdversario = "preto";
-            else
-                corAdversario = "branco";
-            
-            posicaoRei  = getPosicaoRei(corJogador,Tab);
-            
-            List<Peca> pecasAdver = getPecas(corAdversario,Tab);
-            for (int i=0; i < pecasAdver.size(); i++) {
-                List<Posicao> posicoesValidas = mov.posicoesValidas(Tab, pecasAdver.get(i));
-                if (mov.contemNaLista(posicaoRei, posicoesValidas)) {
-                    return true;
-                }
-            }
-            return false;
-        
-    }
-    
-    public Casa[][] montaTabVirtual (Posicao posicaoRei, Posicao possivelPosRei, Casa[][] Tab, Peca rei){
-        
-        
-        if(Tab[possivelPosRei.posX][possivelPosRei.posY].peca!=null &&
-         !Tab[possivelPosRei.posX][possivelPosRei.posY].peca.retornaCor().equals(Tab[posicaoRei.posX][posicaoRei.posY].peca.retornaCor())){
-            Tab[possivelPosRei.posX][possivelPosRei.posY].peca=null;
-            Tab[possivelPosRei.posX][possivelPosRei.posY].ocupada=false;
+
+        Posicao posicaoRei;
+        String corAdversario;
+
+        if (corJogador.equalsIgnoreCase(Constantes.BRANCO)) {
+            corAdversario = Constantes.PRETO;
+        } else {
+            corAdversario = Constantes.BRANCO;
         }
-       /* this.comerPeca(dim_Y, dim_X, peca);
-                this.desocupar(peca.getPosX(), peca.getPosY());
-                this.tabuleiro[dim_Y][dim_X].ocupada=true;
-                this.tabuleiro[dim_Y][dim_X].peca=peca;
-                this.
-                this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
-                this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
-                this.ultimaPeça=peca;
-                this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
-        */
 
-        Tab[posicaoRei.posX][posicaoRei.posY].peca=null;
-        Tab[posicaoRei.posX][posicaoRei.posY].ocupada=false;
+        posicaoRei = getPosicaoRei(corJogador, Tab);
 
-        Tab[possivelPosRei.posX][possivelPosRei.posY].ocupada=true;
+        List<Peca> pecasAdver = getPecas(corAdversario, Tab);
+        for (int i = 0; i < pecasAdver.size(); i++) {
+            List<Posicao> posicoesValidas = mov.posicoesValidas(Tab, pecasAdver.get(i));
+            if (mov.contemNaLista(posicaoRei, posicoesValidas)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    public Casa[][] montaTabVirtual(Posicao posicaoRei, Posicao possivelPosRei, Casa[][] Tab, Peca rei) {
+
+
+        if (Tab[possivelPosRei.posX][possivelPosRei.posY].peca != null
+                && !Tab[possivelPosRei.posX][possivelPosRei.posY].peca.retornaCor().equals(Tab[posicaoRei.posX][posicaoRei.posY].peca.retornaCor())) {
+            Tab[possivelPosRei.posX][possivelPosRei.posY].peca = null;
+            Tab[possivelPosRei.posX][possivelPosRei.posY].ocupada = false;
+        }
+        /* this.comerPeca(dim_Y, dim_X, peca);
+        this.desocupar(peca.getPosX(), peca.getPosY());
+        this.tabuleiro[dim_Y][dim_X].ocupada=true;
+        this.tabuleiro[dim_Y][dim_X].peca=peca;
+        this.
+        this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
+        this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
+        this.ultimaPeça=peca;
+        this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
+         */
+
+        Tab[posicaoRei.posX][posicaoRei.posY].peca = null;
+        Tab[posicaoRei.posX][posicaoRei.posY].ocupada = false;
+
+        Tab[possivelPosRei.posX][possivelPosRei.posY].ocupada = true;
         Tab[possivelPosRei.posX][possivelPosRei.posY].peca = rei;
         Tab[possivelPosRei.posX][possivelPosRei.posY].peca.setPosX(possivelPosRei.posX);
         Tab[possivelPosRei.posX][possivelPosRei.posY].peca.setPosY(possivelPosRei.posY);
         return Tab;
     }
-    
-    public Casa[][] retornaTabOriginal (Posicao posicaoRei, Posicao possivelPosRei, Casa[][] Tab, Peca rei, Peca pecaVelha){
-        
+
+    public Casa[][] retornaTabOriginal(Posicao posicaoRei, Posicao possivelPosRei, Casa[][] Tab, Peca rei, Peca pecaVelha) {
+
         Tab[posicaoRei.posX][posicaoRei.posY].ocupada = true;
         Tab[posicaoRei.posX][posicaoRei.posY].peca = rei;
         Tab[posicaoRei.posX][posicaoRei.posY].peca.setPosX(posicaoRei.posX);
@@ -126,24 +142,62 @@ public class Arbitro {
         }
         return Tab;
     }
-    
-    public boolean reiPodeFugir(String corJogador, Casa[][] Tab) throws Exception{
-        
+
+    public void verificaCriteriosEmpate(Tabuleiro tabuleiro) {
+        verificaCriterioPecasInsuficientes(tabuleiro);
+
+    }
+
+    private void verificaCriterioPecasInsuficientes(Tabuleiro tabuleiro) {
+        if (restamDoisReis(tabuleiro)
+                || restamReiBispo(tabuleiro)
+                || retamReiCavalo(tabuleiro)
+                || restamDoisCavalosContraRei(tabuleiro)) {
+            statusAtual = EMPATE;
+        }
+    }
+
+    public void desistenciaJogador(String corJogador) {
+        if (corJogador.equals(Constantes.BRANCO)) {
+            setCorJogadorVencedor(Constantes.PRETO);
+        } else {
+            setCorJogadorVencedor(Constantes.BRANCO);
+        }
+    }
+
+    public String getCorJogadorVencedor() {
+        return corJogadorVencedor;
+    }
+
+    public void setCorJogadorVencedor(String corJogadorVencedor) {
+        this.corJogadorVencedor = corJogadorVencedor;
+    }
+
+    public String getStatusAtual() {
+        return statusAtual;
+    }
+
+    public void setStatusAtual(String statusAtual) {
+        this.statusAtual = statusAtual;
+    }
+
+    public boolean reiPodeFugir(String corJogador, Casa[][] Tab) throws Exception {
+
         String corAdversario;
-            
-        if (corJogador.equalsIgnoreCase("branco"))
-            corAdversario = "preto";
+
+        if (corJogador.equalsIgnoreCase(Constantes.BRANCO))
+            corAdversario = Constantes.PRETO;
         else
-            corAdversario = "branco";
-        
+            corAdversario = Constantes.BRANCO;
+
         //Armazena a posição do rei em xeque
         Posicao posicaoRei  = getPosicaoRei(corJogador,Tab);
-        
-        
+
+
         // Lista com as posições destino possíveis do rei
         List<Posicao> posicoesPossiveisRei = mov.posicoesValidasRei(Tab, Tab[posicaoRei.posX][posicaoRei.posY].peca);
-        
-        
+
+
         //Rei pode fugir?
         int i = 0;
         boolean reiEmPerigo = true;
@@ -153,12 +207,12 @@ public class Arbitro {
             Peca pecaVelha = Tab[possivelPosRei.posX][possivelPosRei.posY].peca;
             Peca rei = Tab[posicaoRei.posX][posicaoRei.posY].peca;
 
-            
+
             // Monta um tabuleiro "virtual" para avaliacao de novas posicoes
             Casa[][] tabVirtual = montaTabVirtual (posicaoRei, possivelPosRei, Tab, rei);
 
             List<Peca> pecasAdver = getPecas(corAdversario,tabVirtual);
-            
+
             int j = 0;
             boolean posicaoEmAtaque = false;
             while ((j < pecasAdver.size()) && !posicaoEmAtaque) {
@@ -166,13 +220,13 @@ public class Arbitro {
                 if (mov.contemNaLista(possivelPosRei, posicoesValidas)) {
                     posicaoEmAtaque = true;
                 }
-                    
+
                 j++;
             }
-            
+
             // Retornando o tabuleiro para a situacao original
             Tab = retornaTabOriginal (posicaoRei, possivelPosRei, Tab, rei, pecaVelha);
-            
+
             if (!posicaoEmAtaque) {
                 reiEmPerigo = false;
             }
@@ -180,21 +234,21 @@ public class Arbitro {
         }
         return !reiEmPerigo;
     }
-    
+
     public List<Peca> getAmeacasRei(String corJogador, Casa[][] Tab) {
-        
+
         List<Peca> ameacas = new ArrayList<Peca>();
         String corAdversario;
-            
-        if (corJogador.equalsIgnoreCase("branco"))
-            corAdversario = "preto";
+
+        if (corJogador.equalsIgnoreCase(Constantes.BRANCO))
+            corAdversario = Constantes.PRETO;
         else
-            corAdversario = "branco";
-        
+            corAdversario = Constantes.BRANCO;
+
         Posicao posicaoRei  = getPosicaoRei(corJogador,Tab);
-        
-         List<Peca> pecasAdver = getPecas(corAdversario, Tab);
-        
+
+        List<Peca> pecasAdver = getPecas(corAdversario, Tab);
+
         for (int i = 0; i < pecasAdver.size(); i++) {
             List<Posicao> posicoesValidas = mov.posicoesValidas(Tab, pecasAdver.get(i));
             if (mov.contemNaLista(posicaoRei, posicoesValidas)) {
@@ -203,11 +257,11 @@ public class Arbitro {
         }
         return ameacas;
     }
-    
+
     public List<Posicao> caminhoPara (Peca peca, Peca rei, Casa[][] Tab){
         List<Posicao> listaPosicoes = new ArrayList<Posicao>();
         int reiId = rei.getId();
-        
+
         // se for dama
         if ((peca.id%6) == 4) {
             List<Posicao> posicoesPeca = mov.posicoesValidas(Tab, peca);
@@ -223,7 +277,7 @@ public class Arbitro {
                     }
                 }
             }
-            
+
             if (listaPosicoes.isEmpty()) {
                 rei.id = 2; // bispo
                 posicoesRei = mov.posicoesValidas(Tab, rei);
@@ -238,7 +292,7 @@ public class Arbitro {
                     }
                 }
             }
-            
+
         } else { // qq outra peca
             List<Posicao> posicoesPeca = mov.posicoesValidas(Tab, peca);
             rei.id = peca.getId();
@@ -255,10 +309,10 @@ public class Arbitro {
             }
         }
         rei.id = reiId;
-        
+
         return listaPosicoes;
     }
-    
+
     public boolean xequeMate(String corJogador, Casa[][] Tab) throws Exception {
 
         //Se o jogador não estiver em xeque, então não está em xeque-mate
@@ -270,21 +324,21 @@ public class Arbitro {
         if (reiPodeFugir(corJogador, Tab)) {
             return false;
         }
-        
+
         //Alguma peça pode salvar o rei
         Posicao posicaoRei  = getPosicaoRei(corJogador,Tab);
         Peca rei = Tab[posicaoRei.posX][posicaoRei.posY].peca;
-        
+
         //Variável que verificará se precisa de apenas um movimento para salvar o rei
         //Se for necessário mais de um movimento, é xeque-mate
-        int numMovimentos = 0; 
-        
+        int numMovimentos = 0;
+
         //Nesta variável será armazenada a peça salvadora, ou seja, a que bloqueia o ataque
-        Peca mosqueteiro = null; 
-        
+        Peca mosqueteiro = null;
+
         //Aqui ficará a posição de bloqueio da peça que bloqueia
-        Posicao posBloqueio = null; 
-        
+        Posicao posBloqueio = null;
+
         //List para pegar as peças que ameaçam o rei
         List<Peca> ameacasRei = getAmeacasRei(corJogador,Tab);
 
@@ -312,7 +366,7 @@ public class Arbitro {
                 if (pecaAtualJogador != rei) {
                     //Lista com as posiçoes possíveis do jogador ameaçado
                     List<Posicao> posicoesPecasJogador = mov.posicoesValidas(Tab, pecaAtualJogador);
-                    
+
                     //varre lista a procura de uma posição que esteja no caminho do rei
                     int k = 0;
                     while ((k < posicoesPecasJogador.size()) && caminhoLivre) {
@@ -341,5 +395,113 @@ public class Arbitro {
             i++;
         }
         return false;
+    }
+
+    private boolean restamDoisReis(Tabuleiro tabuleiro) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Peca peca = tabuleiro.retornaPeca(i, j);
+                if (peca != null
+                        && (peca instanceof Torre
+                        || peca instanceof Cavalo
+                        || peca instanceof Bispo
+                        || peca instanceof Dama
+                        || peca instanceof Peao)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean restamReiBispo(Tabuleiro tabuleiro) {
+        Integer quantidadePecas = 0;
+        Boolean hasBispoPreto = false;
+        Boolean hasBispoBranco = false;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Peca peca = tabuleiro.retornaPeca(i, j);
+                if (peca != null) {
+                    quantidadePecas++;
+                    if (peca instanceof Bispo
+                            && peca.cor.equals(Constantes.BRANCO)) {
+                        hasBispoBranco = true;
+                    } else if (peca instanceof Bispo
+                            && peca.cor.equals(Constantes.PRETO)) {
+                        hasBispoPreto = true;
+                    }
+                }
+            }
+        }
+
+        if (quantidadePecas == 4 && hasBispoBranco && hasBispoPreto) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean retamReiCavalo(Tabuleiro tabuleiro) {
+        Integer quantidadePecas = 0;
+        Boolean hasCavaloPreto = false;
+        Boolean hasCavaloBranco = false;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Peca peca = tabuleiro.retornaPeca(i, j);
+                if (peca != null) {
+                    quantidadePecas++;
+                    if (peca instanceof Cavalo
+                            && peca.cor.equals(Constantes.BRANCO)) {
+                        hasCavaloBranco = true;
+                    } else if (peca instanceof Cavalo
+                            && peca.cor.equals(Constantes.PRETO)) {
+                        hasCavaloPreto = true;
+                    }
+                }
+            }
+        }
+
+        if (quantidadePecas == 4 && hasCavaloBranco && hasCavaloPreto) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean restamDoisCavalosContraRei(Tabuleiro tabuleiro) {
+        Integer quantidadePecas = 0;
+        Integer quantidadeCavalosPretos = 0;
+        Integer quantidadeCavalosBrancos = 0;
+        Boolean hasCavaloPreto = false;
+        Boolean hasCavaloBranco = false;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Peca peca = tabuleiro.retornaPeca(i, j);
+                if (peca != null) {
+                    quantidadePecas++;
+                    if (peca instanceof Cavalo
+                            && peca.cor.equals(Constantes.BRANCO)) {
+                        quantidadeCavalosBrancos++;
+                        hasCavaloBranco = true;
+                    } else if (peca instanceof Cavalo
+                            && peca.cor.equals(Constantes.PRETO)) {
+                        quantidadeCavalosPretos++;
+                        hasCavaloPreto = true;
+                    }
+                }
+            }
+        }
+
+        if (quantidadePecas == 4 && (
+                (hasCavaloBranco && quantidadeCavalosBrancos == 2) ||
+                (hasCavaloPreto && quantidadeCavalosPretos == 2)
+                )) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
