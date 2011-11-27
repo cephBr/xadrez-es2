@@ -181,7 +181,7 @@ public class Arbitro {
         this.statusAtual = statusAtual;
     }
 
-    public boolean reiPodeFugir(String corJogador, Casa[][] Tab) throws Exception {
+    public boolean reiPodeFugir(String corJogador, Casa[][] Tab) {
 
         String corAdversario;
 
@@ -313,7 +313,7 @@ public class Arbitro {
         return listaPosicoes;
     }
 
-    public boolean xequeMate(String corJogador, Casa[][] Tab) throws Exception {
+    public boolean xequeMate(String corJogador, Casa[][] Tab) {
 
         //Se o jogador não estiver em xeque, então não está em xeque-mate
         if (!estaEmXeque(corJogador,Tab)) {
@@ -386,10 +386,20 @@ public class Arbitro {
                     ameacasRei.remove(i);
                 } else { //Ou seja, uma ameaça já foi bloqueada
                     if (mosqueteiro != pecaAtualJogador || posBloqueio != pos) {
+                        if (corJogador.equals(Constantes.BRANCO)) {
+                            statusAtual = VITORIA_JOGADOR_PRETO;
+                        } else {
+                            statusAtual = VITORIA_JOGADOR_BRANCO;
+                        }
                         return true;//Iria ser necessário mais de um movimento para salvar o rei
                     }
                 }
             } else {
+                if (corJogador.equals(Constantes.BRANCO)) {
+                    statusAtual = VITORIA_JOGADOR_PRETO;
+                } else {
+                    statusAtual = VITORIA_JOGADOR_BRANCO;
+                }
                 return true;
             }
             i++;

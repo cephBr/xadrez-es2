@@ -86,7 +86,7 @@ public class Tabuleiro {
         }
     }
 
-    public void ocupar(int dim_X,int dim_Y,Peca peca) throws Exception{
+    public void ocupar(int dim_X,int dim_Y,Peca peca) {
         
         int posInicial_Y = peca.getPosY();
         
@@ -116,12 +116,12 @@ public class Tabuleiro {
             this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
     }
     
-    public void ocupar2(int dim_Y,int dim_X,Peca peca) throws Exception{
+    public void ocupar2(int dim_Y,int dim_X,Peca peca){
         
         if(dim_X==-1 || dim_Y==-1){
             peca.deselecionar();
             peca.sprite.reset();
-            throw new Exception("Tentativa de mover a peça para fora do tabuleiro");
+            return;
         }
         
         

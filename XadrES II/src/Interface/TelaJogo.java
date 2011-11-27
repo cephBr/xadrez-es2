@@ -56,13 +56,13 @@ public class TelaJogo implements InterfaceTela {
         
         boolean avisou; // para saber se avisou que estah em xeque ou xeque-mate
     
-   private boolean validaJogada (int dim_X,int dim_Y,Peca peca) throws Exception {
+   private Boolean validaJogada (int dim_X,int dim_Y,Peca peca) {
        boolean jogadaValida = false;
        
        if(dim_X==-1 || dim_Y==-1){
             peca.deselecionar();
             peca.sprite.reset();
-            throw new Exception("Tentativa de mover a peça para fora do tabuleiro");
+            return false;
        }
        
        List<Posicao> resposta;
@@ -102,7 +102,7 @@ public class TelaJogo implements InterfaceTela {
         return jogadaValida;
    }
    
-   public boolean avisaSobreXeque () throws Exception {
+   public boolean avisaSobreXeque () {
         boolean  xequeMate = false;
        
         if (arbitro.xequeMate("branco", tabuleiro.tabuleiro)) {
@@ -123,7 +123,7 @@ public class TelaJogo implements InterfaceTela {
         return xequeMate;
    }
 
-    private void monitorPeca(Peca p,int i) throws Exception{
+    private void monitorPeca(Peca p,int i) {
         //Movimentacao mov = new Movimentacao();
                 
                 if(p.estaSelecionada()){
@@ -139,10 +139,10 @@ public class TelaJogo implements InterfaceTela {
                                 Motor.getInstancia().parametros.passaVez();
                             }else {
                                 Motor.getInstancia().parametros.travaJogo();
-                            }
+                        }
                             
                         }
-                        throw new Exception("");
+                        return;
                     }
                     
                 }
@@ -166,7 +166,7 @@ public class TelaJogo implements InterfaceTela {
                                   tabuleiro.setPeça(linha, coluna, peca);
                                   tabuleiro.posicionarPeca(linha, coluna, peca);
                                   temPecaSelecionada=false;
-                                  throw new Exception("");
+                                  return;
                                   
                               }   
                             }
@@ -179,12 +179,12 @@ public class TelaJogo implements InterfaceTela {
                                 if (!p.retornaCor().equals(Constantes.PRETO)){
                                     p.selecionar();
                                     temPecaSelecionada=true;
-                                    throw new Exception("");
+                                    return;
                                 }
                             }else{
                                     p.selecionar();
                                     temPecaSelecionada=true;
-                                    throw new Exception("");
+                                    return;
                                  }
                       }     
                     }else{
@@ -192,12 +192,25 @@ public class TelaJogo implements InterfaceTela {
                            p.deselecionar();
                          }
                }
+               
+               // Arbitro analisa jogo
+//               boolean xequeMate = avisaSobreXeque();
+//               if (!xequeMate) {
+//                   Motor.getInstancia().parametros.passaVez();
+//               } else {
+//                   Motor.getInstancia().parametros.travaJogo();
+//               }
+               
+               arbitro.verificaCriteriosEmpate(tabuleiro);
+               if (arbitro.getStatusAtual().equals(Arbitro.EMPATE)) {
+                   avisaSobreEmpate();
+               }
     }
-     
-       
 
-    
-    
+    public void avisaSobreEmpate() {
+        JOptionPane.showMessageDialog(null, "Empate entre os jogadores!");
+    }
+
     public void desenhar(){
         tabuleiro.fundo.draw();
         barraPreta.draw();
@@ -402,7 +415,7 @@ public class TelaJogo implements InterfaceTela {
                 }else
                     botaoEstatisticas.setCurrFrame(0);
                 
-        try {
+//        try {
             
             
             if (Motor.getInstancia().parametros.temCpu()) { 
@@ -431,16 +444,16 @@ public class TelaJogo implements InterfaceTela {
                 if(mouse.isOverObject(botaoEstatisticas)){
                     clicouEstatistica=true;
                 }    
-                for (int i=0; i<=pecas.size();i++) {
+                for (int i=0; i < pecas.size() ; i++) {
                     Peca peca = pecas.get(i);
                     monitorPeca(peca,i);
                 }
                 
             }
             
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
           
     }
     
