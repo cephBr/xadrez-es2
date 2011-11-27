@@ -363,6 +363,7 @@ public class TelaJogo implements InterfaceTela {
          ids[1]=21; //cavalo
          ids[2]=10; //dama
          ids[3]=20; //bispo
+         arbitro.verificaCriteriosEmpate(tabuleiro);
          executando = true;
     }
 
