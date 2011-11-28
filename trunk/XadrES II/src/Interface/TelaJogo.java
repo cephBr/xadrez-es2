@@ -63,9 +63,9 @@ public class TelaJogo implements InterfaceTela {
             peca.deselecionar();
             peca.sprite.reset();
             return false;
-       }
+        }
        
-       List<Posicao> resposta;
+        List<Posicao> resposta;
         //int posInicial_X = peca.getPosX();
         //int posInicial_Y = peca.getPosY();
         //boolean xequeMate = false;
@@ -138,6 +138,7 @@ public class TelaJogo implements InterfaceTela {
                             temPecaSelecionada=false;
                             p.deselecionar();
 //                            boolean xequeMate = avisaSobreXeque ();
+                            //verificaXequeMate();
 //                            if (!xequeMate) {
                                 Motor.getInstancia().parametros.passaVez();
 //                            }else {
@@ -197,7 +198,7 @@ public class TelaJogo implements InterfaceTela {
                }
                
                // Arbitro analisa jogo
-               verificaXequeMate();
+               //verificaXequeMate();
                
                arbitro.verificaCriteriosEmpate(tabuleiro);
                if (arbitro.getStatusAtual().equals(Arbitro.EMPATE)) {
@@ -439,7 +440,8 @@ public class TelaJogo implements InterfaceTela {
                 
             }
             
-
+            verificaXequeMate();
+           
           
     }
     

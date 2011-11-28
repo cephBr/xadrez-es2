@@ -48,6 +48,13 @@ public class Constantes {
     public static final String PEAO = "peao";
     public static final String BISPO = "bispo";
     
+    public static final int tipoPEAO    = 0;
+    public static final int tipoTORRE   = 1;
+    public static final int tipoBISPO   = 2;
+    public static final int tipoCAVALO  = 3;
+    public static final int tipoDAMA    = 4;
+    public static final int tipoREI     = 5;
+    
     
     //Backgrounds
     public static final String TABULEIRO = "imagens/tabuleiro2.jpg";

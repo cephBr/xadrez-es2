@@ -11,7 +11,6 @@ import Interface.Dama;
 import Interface.Peao;
 import Interface.Peca;
 import Interface.Rei;
-//import Interface.Tabuleiro;
 import Interface.Tabuleiro;
 import Interface.Torre;
 import Parametros.Constantes;
@@ -532,18 +531,31 @@ public class Movimentacao {
         
         List<Posicao> resposta = new ArrayList<Posicao>();
         
-        if (p instanceof Peao) {
-            resposta = posicoesValidasPeao(tab, p);
-        } else if (p instanceof Torre) {
-            resposta = posicoesValidasTorre(tab, p);
-        } else if (p instanceof Bispo) {
-            resposta = posicoesValidasBispo(tab, p);
-        } else if (p instanceof Cavalo) {
-            resposta = posicoesValidasCavalo(tab, p);
-        } else if (p instanceof Dama) {
-            resposta = posicoesValidasDama(tab, p);
-        } else if (p instanceof Rei) {
-            resposta = posicoesValidasRei(tab, p);
+        int tipoPeca;
+        
+        tipoPeca = retornaTipoPeca(p.getId());
+        
+        switch (tipoPeca) {
+            case Constantes.tipoPEAO:
+                resposta = posicoesValidasPeao(tab, p);
+                break;
+            case Constantes.tipoTORRE:
+                resposta = posicoesValidasTorre(tab, p);
+                break;
+            case Constantes.tipoBISPO:
+                resposta = posicoesValidasBispo(tab, p);
+                break;
+            case Constantes.tipoCAVALO:
+                resposta = posicoesValidasCavalo(tab, p);
+                break;
+            case Constantes.tipoDAMA:
+                resposta = posicoesValidasDama(tab, p);
+                break;
+            case Constantes.tipoREI:
+                resposta = posicoesValidasRei(tab, p);
+                break;
+             default:
+                 System.out.println("Este não é uma peça válida!");
         }
         
         return resposta;
