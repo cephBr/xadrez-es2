@@ -265,7 +265,7 @@ public class Arbitro {
         // se for dama
         if ((peca.id%6) == 4) {
             List<Posicao> posicoesPeca = mov.posicoesValidas(Tab, peca);
-            rei.id = 1; // torre
+            rei.id = Constantes.tipoTORRE;
             List<Posicao> posicoesRei = mov.posicoesValidas(Tab, rei);
 
             for (int i = 0; i < posicoesRei.size(); i++) {
@@ -279,7 +279,7 @@ public class Arbitro {
             }
 
             if (listaPosicoes.isEmpty()) {
-                rei.id = 2; // bispo
+                rei.id = Constantes.tipoBISPO;
                 posicoesRei = mov.posicoesValidas(Tab, rei);
 
                 for (int i = 0; i < posicoesRei.size(); i++) {
