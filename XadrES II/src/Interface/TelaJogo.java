@@ -413,6 +413,8 @@ public class TelaJogo implements InterfaceTela {
                 if (Motor.getInstancia().parametros.vezDeQuem().equals(Constantes.PRETO)) {
                     Movimento movimento = ia.RandomIA(tabuleiro);             
                     tabuleiro.ocupar2(movimento.getPosFin().getPosX(), movimento.getPosFin().getPosY(), movimento.getPeca());
+                    //Motor.getInstancia().parametros.passaVez();
+                    verificaXequeMate();
                 }
             }
             
@@ -440,8 +442,9 @@ public class TelaJogo implements InterfaceTela {
                 
             }
             
-            verificaXequeMate();
-           
+            if (!Motor.getInstancia().parametros.temCpu()) {
+                verificaXequeMate();
+            }
           
     }
     
