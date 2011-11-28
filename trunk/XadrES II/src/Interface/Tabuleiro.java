@@ -7,7 +7,6 @@ package Interface;
 
 import JPlay.GameImage;
 
-import MaquinaRegras.Arbitro;
 import MaquinaRegras.Movimentacao;
 import MaquinaRegras.Posicao;
 import Parametros.Constantes;
@@ -30,15 +29,25 @@ public class Tabuleiro {
     public Casa[][] tabVirtual;
     public GameImage fundo;
     public Peca ultimaPeça;
+    // armazena a posicao que a ultima peca estava antes a movimentacao
+    public Posicao posUltimaPeca;
     
     public Movimentacao mov = new Movimentacao();
-    public Arbitro arbitro = new Arbitro();
+    //public Arbitro arbitro = new Arbitro();
+
+    public Tabuleiro() {
+        //throw new UnsupportedOperationException("Not yet implemented");
+    }
     
     public Peca retornaUltimaPeça(){
         return ultimaPeça;
     }
+    
+    public Posicao retornaPosUlimaPeca() {
+        return posUltimaPeca;
+    }
 
-       public Tabuleiro(int dim_X,int dim_Y,String caminhoFundo) {
+    public Tabuleiro(int dim_X,int dim_Y,String caminhoFundo) {
         this.tabuleiro = new Casa[dim_X][dim_Y];
         this.fundo = new GameImage(caminhoFundo);
         this.inicializarTabuleiro();
@@ -89,6 +98,7 @@ public class Tabuleiro {
     public void ocupar(int dim_X,int dim_Y,Peca peca) {
         
         int posInicial_Y = peca.getPosY();
+        posUltimaPeca = new Posicao(peca.getPosX(),peca.getPosY());
         
         this.comerPeca(dim_Y, dim_X, peca);
         this.desocupar(peca.getPosX(), peca.getPosY());

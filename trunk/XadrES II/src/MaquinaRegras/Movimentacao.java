@@ -11,7 +11,10 @@ import Interface.Dama;
 import Interface.Peao;
 import Interface.Peca;
 import Interface.Rei;
+//import Interface.Tabuleiro;
+import Interface.Tabuleiro;
 import Interface.Torre;
+import Parametros.Constantes;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +28,18 @@ public class Movimentacao {
         
     }
     
-    public Arbitro arbitro;
+    public Peca ultimaPeça;
+    // armazena a posicao que a ultima peca estava antes a movimentacao
+    public Posicao posUltimaPeca;
+    
+    //Tabuleiro tabuleiro = new Tabuleiro();
+    public void setUltimaPeca(Peca p) {
+        ultimaPeça = p;
+    }
+    
+    public void setPosUltimaPeca (Posicao pos) {
+        posUltimaPeca = pos;
+    }
     
     public int retornaTipoPeca(int id){
         return id%6;
@@ -46,6 +60,8 @@ public class Movimentacao {
     
     public List posicoesValidasPeao(Casa[][] tab, Peca p){
         List<Posicao> resposta = new ArrayList<Posicao>();
+        //Tabuleiro tabuleiro = null;// = new Tabuleiro();
+        //Peca ultimaPeca = tabuleiro.ultimaPeça;
         
         // MOVIMENTACAO NORMAL DO PEAO //
         if (p.foiMexida.equals(false)) {
@@ -113,8 +129,46 @@ public class Movimentacao {
             }
         }
         
-        // FAZER MOVIMENTACAO ESPECIAL DO PEAO... //
+        // MOVIMENTACAO ESPECIAL DO PEAO //
         
+        String corJogador = p.retornaCor();
+
+        if (corJogador.equalsIgnoreCase(Constantes.BRANCO) && (p.getPosX() == 3)) {
+            if (ultimaPeça instanceof Peao) {
+                if ((posUltimaPeca.getPosX() == 1) && (ultimaPeça.getPosX() == 3)) {
+                    if (p.getPosY() < 7) {
+                        if (ultimaPeça.getPosY() == (p.getPosY()+1)) {
+                            resposta.add(new Posicao(p.getPosX()-1,p.getPosY()+1));
+                        }
+                    }
+                    if (p.getPosY() > 0) {
+                        if (ultimaPeça.getPosY() == (p.getPosY()-1)) {
+                            resposta.add(new Posicao(p.getPosX()-1,p.getPosY()-1));
+                        }
+                    }
+                }
+            }
+        } else {
+            if (corJogador.equalsIgnoreCase(Constantes.PRETO) && (p.getPosX() == 4)) {
+                if (ultimaPeça instanceof Peao) {
+                    if ((posUltimaPeca.getPosX() == 6) && (ultimaPeça.getPosX() == 4)) {
+                        if (p.getPosY() < 7) {
+                            if (ultimaPeça.getPosY() == (p.getPosY()+1)) {
+                                resposta.add(new Posicao(p.getPosX()+1,p.getPosY()+1));
+                            }
+                        }
+                        if (p.getPosY() > 0) {
+                            if (ultimaPeça.getPosY() == (p.getPosY()-1)) {
+                                resposta.add(new Posicao(p.getPosX()+1,p.getPosY()-1));
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+     
         return resposta;
     }
     
@@ -442,35 +496,34 @@ public class Movimentacao {
                 }
             }
         }
-        //arbitro = new Arbitro();
+        
         // MOVIMENTO ESPECIAL DO REI //
-        //if (arbitro.estaEmXeque(p.cor, tab)) {
-            // pequeno roque //
-            if (!p.foiMexida()) {
-                if (tab[posX][7].ocupada) {
-                    if (!tab[posX][7].peca.foiMexida()) {
-                        if (!tab[posX][posY+1].ocupada && !tab[posX][posY+2].ocupada) {
-                            int j;
-                            j = posY+2;
-                            resposta.add(new Posicao(posX,j));
-                        }                                                
-                    }                    
-                }            
-            }
-            
-            // grande roque //
-            if (!p.foiMexida()) {
-                if (tab[posX][0].ocupada) {
-                    if (!tab[posX][0].peca.foiMexida()) {
-                        if (!tab[posX][posY-1].ocupada && !tab[posX][posY-2].ocupada && !tab[posX][posY-3].ocupada) {
-                            int j;
-                            j = posY-2;
-                            resposta.add(new Posicao(posX,j));
-                        }                                                
-                    }                    
-                }            
-            }
-        //}
+        
+        // pequeno roque //
+        if (!p.foiMexida()) {
+            if (tab[posX][7].ocupada) {
+                if (!tab[posX][7].peca.foiMexida()) {
+                    if (!tab[posX][posY+1].ocupada && !tab[posX][posY+2].ocupada) {
+                        int j;
+                        j = posY+2;
+                        resposta.add(new Posicao(posX,j));
+                    }                                                
+                }                    
+            }            
+        }
+
+        // grande roque //
+        if (!p.foiMexida()) {
+            if (tab[posX][0].ocupada) {
+                if (!tab[posX][0].peca.foiMexida()) {
+                    if (!tab[posX][posY-1].ocupada && !tab[posX][posY-2].ocupada && !tab[posX][posY-3].ocupada) {
+                        int j;
+                        j = posY-2;
+                        resposta.add(new Posicao(posX,j));
+                    }                                                
+                }                    
+            }            
+        }
         
         return resposta;
     }
