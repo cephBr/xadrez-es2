@@ -94,10 +94,44 @@ public class Tabuleiro {
             this.tabuleiro[dim_Y][3].peca.foiMexida=true;
         }
     }
+    
+    public void completaMovimentoEnPassant (Peca p, int dim_X, int dim_Y) {
+        String corJogador = p.retornaCor();
+        
+        if (corJogador.equalsIgnoreCase(Constantes.BRANCO) && (p.getPosX() == 3)) {
+            if (ultimaPeça instanceof Peao) {
+                if ((posUltimaPeca.getPosX() == 1) && (ultimaPeça.getPosX() == 3)) {
+                    if ((p.getPosX()-1) == dim_X && (p.getPosY()+1) == dim_Y) {
+                        this.desocupar(ultimaPeça.getPosX(), ultimaPeça.getPosY());
+                   }
+                    if ((p.getPosX()-1) == dim_X && (p.getPosY()-1) == dim_Y) {
+                        this.desocupar(ultimaPeça.getPosX(), ultimaPeça.getPosY());
+                    }
+                }
+            }
+        } else {
+            if (corJogador.equalsIgnoreCase(Constantes.PRETO) && (p.getPosX() == 4)) {
+                if (ultimaPeça instanceof Peao) {
+                    if ((posUltimaPeca.getPosX() == 6) && (ultimaPeça.getPosX() == 4)) {
+                        if ((p.getPosX()+1) == dim_X && (p.getPosY()+1) == dim_Y) {
+                            this.desocupar(ultimaPeça.getPosX(), ultimaPeça.getPosY());
+                        }
+                        if ((p.getPosX()+1) == dim_X && (p.getPosY()-1) == dim_Y) {
+                            this.desocupar(ultimaPeça.getPosX(), ultimaPeça.getPosY());
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void ocupar(int dim_X,int dim_Y,Peca peca) {
         
-        int posInicial_Y = peca.getPosY();
+        if (peca instanceof Peao) {
+            // se for en passant, remove o peao adversario
+            completaMovimentoEnPassant(peca,dim_Y,dim_X);
+        }
+        
         posUltimaPeca = new Posicao(peca.getPosX(),peca.getPosY());
         
         this.comerPeca(dim_Y, dim_X, peca);
@@ -111,19 +145,19 @@ public class Tabuleiro {
         this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
 
         // MOVER A TORRE PARA REALIZAR O ROQUE //
-        if ((peca.id%6) == 5) { // se eh rei
-            moveTorre (dim_X,dim_Y,peca,posInicial_Y);
-        }
+        if (peca instanceof Rei) {
+            moveTorre (dim_X,dim_Y,peca,posUltimaPeca.getPosY());
+        } 
     }
     
     public void posicionarPeca(int dim_Y, int dim_X, Peca p){
-       this.tabuleiro[dim_Y][dim_X].ocupada=true;
-            this.tabuleiro[dim_Y][dim_X].peca=p;
-            this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
-            this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
-            this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
-            this.ultimaPeça=p;
-            this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
+        this.tabuleiro[dim_Y][dim_X].ocupada=true;
+        this.tabuleiro[dim_Y][dim_X].peca=p;
+        this.tabuleiro[dim_Y][dim_X].peca.sprite.setPosition(tabuleiro[dim_Y][dim_X].posX-tabuleiro[dim_Y][dim_X].peca.comp_X, tabuleiro[dim_Y][dim_X].posY-tabuleiro[dim_Y][dim_X].peca.comp_Y);
+        this.tabuleiro[dim_Y][dim_X].peca.setPosX(dim_Y);
+        this.tabuleiro[dim_Y][dim_X].peca.setPosY(dim_X);
+        this.ultimaPeça=p;
+        this.tabuleiro[dim_Y][dim_X].peca.foiMexida=true;
     }
     
     public void ocupar2(int dim_Y,int dim_X,Peca peca){
@@ -203,8 +237,8 @@ public class Tabuleiro {
     }
     
     public void comerPeca(int x, int y, Peca p){
-        if(this.tabuleiro[y][x].peca!=null &&
-             !this.tabuleiro[y][x].peca.retornaCor().equals(p.retornaCor())){
+        if(this.tabuleiro[x][y].peca!=null &&
+             !this.tabuleiro[x][y].peca.retornaCor().equals(p.retornaCor())){
                  this.desocupar(x,y);                 
         }
     }
