@@ -41,10 +41,10 @@ public class TelaJogo implements InterfaceTela {
         Sprite botaoCarregarJogo;
         Sprite botaoAjuda;
         Sprite botaoSalvarJogo;
-        Sprite botaoEstatisticas;
+        
         Sprite barraPreta;
         Boolean clicouAjuda;
-        Boolean clicouEstatistica;
+        
         Boolean clicouNovoJogo;
         Boolean clicouCarregar;
         Boolean clicouSalvar;
@@ -215,7 +215,7 @@ public class TelaJogo implements InterfaceTela {
         botaoNovoJogo.draw();
         botaoSalvarJogo.draw();
         botaoCarregarJogo.draw();
-        botaoEstatisticas.draw();
+        
         botaoAjuda.draw();
       
         Peca peca;
@@ -261,37 +261,31 @@ public class TelaJogo implements InterfaceTela {
          botaoNovoJogo = new Sprite(Constantes.BOTAO_NOVO_JOGO_MINI, 2);
          botaoCarregarJogo = new Sprite(Constantes.BOTAO_CARREGAR_JOGO_MINI, 2);
          botaoSalvarJogo = new Sprite(Constantes.BOTAO_SALVAR_JOGO_MINI,2);
-         botaoEstatisticas = new Sprite(Constantes.BOTAO_ESTTISTICAS_MINI,2);
+         
          
          
          botaoNovoJogo.setInitialFrame(0);
          botaoNovoJogo.setFinalFrame(1);
-         botaoNovoJogo.setPosition(1, 0);
+         botaoNovoJogo.setPosition(2, 0);
          
          botaoSalvarJogo.setInitialFrame(0);
          botaoSalvarJogo.setFinalFrame(1);
-         botaoSalvarJogo.setPosition(90, 0);
+         botaoSalvarJogo.setPosition(120, 0);
          
          
          botaoCarregarJogo.setInitialFrame(0);
          botaoCarregarJogo.setFinalFrame(1);
-         botaoCarregarJogo.setPosition(195, 0);
-         
-         
-         botaoEstatisticas.setInitialFrame(0);
-         botaoEstatisticas.setFinalFrame(1);
-         botaoEstatisticas.setPosition(310, 0);
-         
+         botaoCarregarJogo.setPosition(245, 0);
          
          botaoAjuda.setInitialFrame(0);
          botaoAjuda.setFinalFrame(1);
-         botaoAjuda.setPosition(395, 0);
+         botaoAjuda.setPosition(380, 0);
          
          
          
          
          clicouAjuda=false;
-         clicouEstatistica=false;
+         
          clicouNovoJogo =false;
          clicouCarregar=false;
          clicouSalvar=false;
@@ -384,7 +378,7 @@ public class TelaJogo implements InterfaceTela {
           this.barraPreta=null;
           this.botaoAjuda=null;
           this.botaoCarregarJogo=null;
-          this.botaoEstatisticas=null;
+          
           this.botaoNovoJogo=null;
           this.botaoSalvarJogo=null;
           
@@ -408,10 +402,7 @@ public class TelaJogo implements InterfaceTela {
                     botaoSalvarJogo.setCurrFrame(1);
                 }else
                     botaoSalvarJogo.setCurrFrame(0);
-                if (mouse.isOverObject(botaoEstatisticas)) {
-                    botaoEstatisticas.setCurrFrame(1);
-                }else
-                    botaoEstatisticas.setCurrFrame(0);
+                
                 
 //        try {
             
@@ -439,9 +430,7 @@ public class TelaJogo implements InterfaceTela {
                 if(mouse.isOverObject(botaoNovoJogo)){
                     clicouNovoJogo=true;
                 }
-                if(mouse.isOverObject(botaoEstatisticas)){
-                    clicouEstatistica=true;
-                }    
+                    
                 for (int i=0; i < pecas.size() ; i++) {
                     Peca peca = pecas.get(i);
                     monitorPeca(peca,i);
@@ -449,9 +438,7 @@ public class TelaJogo implements InterfaceTela {
                 
             }
             
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
+
           
     }
     
@@ -516,13 +503,10 @@ public class TelaJogo implements InterfaceTela {
           }
           
         }
-        if(clicouEstatistica){
-           clicouEstatistica=false; 
-           Motor.getInstancia().setProxTela(Constantes.TELA_HISTORICO);
-        }
+        
         if(clicouAjuda){
               clicouAjuda=false;
-              Motor.getInstancia().setProxTela(Constantes.TELA_AJUDA);
+              new Thread(new TelaRegras()).start();
         }                
                             
       }   
