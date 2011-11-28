@@ -66,8 +66,10 @@ public class TelaAjuda implements InterfaceTela {
             if(mouse.isOverObject(botaoVoltar))
                Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
             else 
-               if(mouse.isOverObject(botaoRegras)) 
-                    Motor.getInstancia().setProxTela(Constantes.TELA_REGRAS);
+               if(mouse.isOverObject(botaoRegras)){
+                    new Thread(new TelaRegras()).start();
+                    Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
+               }     
     }
     
 }

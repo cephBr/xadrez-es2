@@ -34,11 +34,8 @@ public class SplashScreen extends javax.swing.JFrame implements Runnable {
              motor.setTelaInicial(Constantes.TELA_INICIAL);
              motor.addTela(Constantes.TELA_JOGO, new TelaJogo());
              motor.addTela(Constantes.TELA_AJUDA, new TelaAjuda());
-             motor.addTela(Constantes.TELA_REGRAS, new TelaRegras());
              motor.addTela(Constantes.TELA_JOGAR, new TelaJogar());
              motor.addTela(Constantes.TELA_NOVO_JOGO, new TelaNovoJogo());
-             motor.addTela(Constantes.TELA_OPCOES, new TelaOpcoes());
-             motor.addTela(Constantes.TELA_HISTORICO, new TelaHistorico());
         try {
             motor.rodar();
         } catch (Exception ex) {

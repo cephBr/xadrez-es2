@@ -21,7 +21,7 @@ public class TelaJogar implements InterfaceTela {
     Keyboard teclado;
     Sprite botaoNovoJogo;
     Sprite botaoCarregarJogo;
-    Sprite botaoOpcoes;
+    
     Sprite botaoVoltar;
     
     public void carregar() {
@@ -30,19 +30,16 @@ public class TelaJogar implements InterfaceTela {
         teclado = Motor.getInstancia().getJanela().getKeyboard();
         botaoNovoJogo = new Sprite(Constantes.BOTAO_NOVO_JOGO,2);
         botaoCarregarJogo=new Sprite(Constantes.BOTAO_CARREGAR_JOGO,2);
-        botaoOpcoes=new Sprite(Constantes.BOTAO_OPCOES, 2);
+       
         botaoVoltar=new Sprite(Constantes.BOTAO_VOLTAR, 2);
-        botaoNovoJogo.setPosition(250,350);
-        botaoCarregarJogo.setPosition(250, 400);
-        botaoOpcoes.setPosition(250,450);
+        botaoNovoJogo.setPosition(250,400);
+        botaoCarregarJogo.setPosition(250, 450);
         botaoVoltar.setPosition(250,500);
         botaoNovoJogo.setInitialFrame(0);
         botaoCarregarJogo.setInitialFrame(0);
-        botaoOpcoes.setInitialFrame(0);
         botaoVoltar.setInitialFrame(0);
         botaoNovoJogo.setFinalFrame(1);
         botaoCarregarJogo.setFinalFrame(1);
-        botaoOpcoes.setFinalFrame(1);
         botaoVoltar.setFinalFrame(1);
     }
 
@@ -50,7 +47,6 @@ public class TelaJogar implements InterfaceTela {
         fundo=null;
         botaoNovoJogo=null;
         botaoCarregarJogo=null;
-        botaoOpcoes=null;
         botaoVoltar=null;
     }
 
@@ -72,17 +68,13 @@ public class TelaJogar implements InterfaceTela {
         }else
             botaoNovoJogo.setCurrFrame(0);
     
-        if (mouse.isOverObject(botaoOpcoes)) {
-            botaoOpcoes.setCurrFrame(1);
-        }else
-            botaoOpcoes.setCurrFrame(0);
+        
     }
 
     public void desenhar() {
         fundo.draw();
         botaoNovoJogo.draw();
         botaoCarregarJogo.draw();
-        botaoOpcoes.draw();
         botaoVoltar.draw();
     }
 
@@ -94,10 +86,7 @@ public class TelaJogar implements InterfaceTela {
                 if(mouse.isOverObject(botaoVoltar)){
                     Motor.getInstancia().setProxTela(Constantes.TELA_INICIAL);
                 }else
-                    if(mouse.isOverObject(botaoOpcoes))
-                        Motor.getInstancia().setProxTela(Constantes.TELA_OPCOES);
-                    else 
-                        if(mouse.isOverObject(botaoCarregarJogo)){
+                    if(mouse.isOverObject(botaoCarregarJogo)){
                             Motor.getInstancia().contexto.carregarJogo();
                             if(Motor.getInstancia().contexto.getResposta()==JFileChooser.APPROVE_OPTION){
                                 Motor.getInstancia().setProxTela(Constantes.TELA_JOGO);
