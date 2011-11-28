@@ -69,7 +69,8 @@ public class TelaJogo implements InterfaceTela {
         //int posInicial_X = peca.getPosX();
         //int posInicial_Y = peca.getPosY();
         //boolean xequeMate = false;
-        
+        mov.setPosUltimaPeca(tabuleiro.retornaPosUlimaPeca());
+        mov.setUltimaPeca(tabuleiro.retornaUltimaPeça());
         resposta = mov.posicoesValidas(tabuleiro.tabuleiro, peca);
         // nova posicao que foi escolhida
         Posicao pos = new Posicao(dim_Y,dim_X);
