@@ -66,9 +66,6 @@ public class TelaJogo implements InterfaceTela {
         }
        
         List<Posicao> resposta;
-        //int posInicial_X = peca.getPosX();
-        //int posInicial_Y = peca.getPosY();
-        //boolean xequeMate = false;
         mov.setPosUltimaPeca(tabuleiro.retornaPosUlimaPeca());
         mov.setUltimaPeca(tabuleiro.retornaUltimaPeça());
         resposta = mov.posicoesValidas(tabuleiro.tabuleiro, peca);
@@ -134,6 +131,7 @@ public class TelaJogo implements InterfaceTela {
                         int posX = tabuleiro.coordenadaX(mouse.getPosition().x, mouse.getPosition().y);
                         int posY = tabuleiro.coordenadaY(mouse.getPosition().x, mouse.getPosition().y);
                         if (validaJogada (posX, posY, p)) {
+                            verificarCasoCaptura(tabuleiro, posX, posY); // importante para um critério de empate
                             tabuleiro.ocupar(posX, posY, p);
                             temPecaSelecionada=false;
                             p.deselecionar();
@@ -515,7 +513,14 @@ public class TelaJogo implements InterfaceTela {
               new Thread(new TelaRegras()).start();
         }                
                             
-      }   
-     
+      }
+
+    private void verificarCasoCaptura(Tabuleiro tabuleiro, int posX, int posY) {
+        if (tabuleiro.estaOcupado(posX, posY)) {
+            arbitro.jogadaComCaptura();
+        } else {
+            arbitro.jogadaSemCaptura();
+        }
+    }
 }
    
