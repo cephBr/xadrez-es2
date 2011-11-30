@@ -408,36 +408,45 @@ public class Arbitro {
     }
 
     private boolean restamDoisReis(Tabuleiro tabuleiro) {
+        boolean hasRei = false;
+        Movimentacao movimentacao = new Movimentacao();
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Peca peca = tabuleiro.retornaPeca(i, j);
-                if (peca != null
-                        && (peca instanceof Torre
-                        || peca instanceof Cavalo
-                        || peca instanceof Bispo
-                        || peca instanceof Dama
-                        || peca instanceof Peao)) {
-                    return false;
+                if (peca != null) {
+                    int tipoPeca = movimentacao.retornaTipoPeca(peca.getId());
+                    if (tipoPeca == Constantes.tipoTORRE
+                            || tipoPeca == Constantes.tipoCAVALO
+                            || tipoPeca == Constantes.tipoBISPO
+                            || tipoPeca == Constantes.tipoDAMA
+                            || tipoPeca == Constantes.tipoPEAO) {
+                        return false;
+                    } else if (tipoPeca == Constantes.tipoREI) {
+                        hasRei = true;
+                    }
                 }
             }
         }
-        return true;
+        return hasRei;
     }
 
     private boolean restamReiBispo(Tabuleiro tabuleiro) {
         Integer quantidadePecas = 0;
         Boolean hasBispoPreto = false;
         Boolean hasBispoBranco = false;
+        Movimentacao movimentacao = new Movimentacao();
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Peca peca = tabuleiro.retornaPeca(i, j);
                 if (peca != null) {
+                    int tipoPeca = movimentacao.retornaTipoPeca(peca.getId());
                     quantidadePecas++;
-                    if (peca instanceof Bispo
+                    if (tipoPeca == Constantes.tipoBISPO
                             && peca.cor.equals(Constantes.BRANCO)) {
                         hasBispoBranco = true;
-                    } else if (peca instanceof Bispo
+                    } else if (tipoPeca == Constantes.tipoBISPO
                             && peca.cor.equals(Constantes.PRETO)) {
                         hasBispoPreto = true;
                     }
@@ -456,16 +465,18 @@ public class Arbitro {
         Integer quantidadePecas = 0;
         Boolean hasCavaloPreto = false;
         Boolean hasCavaloBranco = false;
+        Movimentacao movimentacao = new Movimentacao();
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Peca peca = tabuleiro.retornaPeca(i, j);
                 if (peca != null) {
+                    int tipoPeca = movimentacao.retornaTipoPeca(peca.getId());
                     quantidadePecas++;
-                    if (peca instanceof Cavalo
+                    if (tipoPeca == Constantes.tipoCAVALO
                             && peca.cor.equals(Constantes.BRANCO)) {
                         hasCavaloBranco = true;
-                    } else if (peca instanceof Cavalo
+                    } else if (tipoPeca == Constantes.tipoCAVALO
                             && peca.cor.equals(Constantes.PRETO)) {
                         hasCavaloPreto = true;
                     }
@@ -486,17 +497,19 @@ public class Arbitro {
         Integer quantidadeCavalosBrancos = 0;
         Boolean hasCavaloPreto = false;
         Boolean hasCavaloBranco = false;
+        Movimentacao movimentacao = new Movimentacao();
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Peca peca = tabuleiro.retornaPeca(i, j);
                 if (peca != null) {
                     quantidadePecas++;
-                    if (peca instanceof Cavalo
+                    int tipoPeca = movimentacao.retornaTipoPeca(peca.getId());
+                    if (tipoPeca == Constantes.tipoCAVALO
                             && peca.cor.equals(Constantes.BRANCO)) {
                         quantidadeCavalosBrancos++;
                         hasCavaloBranco = true;
-                    } else if (peca instanceof Cavalo
+                    } else if (tipoPeca == Constantes.tipoCAVALO
                             && peca.cor.equals(Constantes.PRETO)) {
                         quantidadeCavalosPretos++;
                         hasCavaloPreto = true;
