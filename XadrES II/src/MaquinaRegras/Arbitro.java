@@ -29,11 +29,13 @@ public class Arbitro {
     public static final String INDEFINIDO = "Resultado Indefinido";
     private String statusAtual;
     private String corJogadorVencedor;
+    private Integer quantidadeJogadasSemCaptura;
     public Movimentacao mov = new Movimentacao();
 
     public Arbitro() {
         setStatusAtual(INDEFINIDO);
         setCorJogadorVencedor(null);
+        quantidadeJogadasSemCaptura = 0;
     }
 
     public List<Peca> getPecas(String corJogador, Casa[][] Tab) {
@@ -145,7 +147,7 @@ public class Arbitro {
 
     public void verificaCriteriosEmpate(Tabuleiro tabuleiro) {
         verificaCriterioPecasInsuficientes(tabuleiro);
-
+        verificaCriterioCinquentaJogadasSemCaptura();
     }
 
     private void verificaCriterioPecasInsuficientes(Tabuleiro tabuleiro) {
@@ -525,6 +527,20 @@ public class Arbitro {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    public void jogadaComCaptura() {
+        quantidadeJogadasSemCaptura = 0;
+    }
+
+    public void jogadaSemCaptura() {
+        quantidadeJogadasSemCaptura++;
+    }
+
+    private void verificaCriterioCinquentaJogadasSemCaptura() {
+        if (quantidadeJogadasSemCaptura >= 50) {
+            statusAtual = EMPATE;
         }
     }
 }
